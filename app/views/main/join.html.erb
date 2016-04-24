@@ -1,0 +1,22 @@
+<% if not @code_errors %>
+<h1>Join the club</h1>
+<div class="centered-form-container">
+	<% if @user and @user.errors.any? %>
+		<ul>
+			<% @user.errors.full_messages.each do |msg| %>
+			<li>
+				<%= msg.to_s %>
+			</li>
+			<% end %>
+		</ul>
+	<% end %>
+	<%= form_for :signup, url: signup_url do |f| %>
+		<%= f.hidden_field :code, :value => @code %>
+		<%= f.text_field :name, :placeholder => 'name', :class => 'name-field' %>
+		<%= f.password_field :password, :placeholder => 'password', :class => 'password-field' %>
+		<%= f.submit :signup, :class => 'submit-button' %>
+	<% end %>
+</div>
+<% else %>
+	<h1><%= @code_errors.to_s %></h1>
+<% end %>

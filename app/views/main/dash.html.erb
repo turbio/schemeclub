@@ -1,0 +1,22 @@
+<input value="<%= @code.code if !@code.nil? %>" readonly>
+<%= form_for :new_code, url: new_code_url do |f| %>
+	<%= f.submit 'new recruit code', :class => 'submit-button' %>
+<% end %>
+
+<div class="tree">
+	<ul>
+		<li>
+			<a><%= @superior.name %></a>
+			<ul>
+				<li>
+					<a><%= @user.name %></a>
+					<ul>
+						<% @sub.each do |sub| %>
+							<li><a><%= sub.name %></a></li>
+						<% end %>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
