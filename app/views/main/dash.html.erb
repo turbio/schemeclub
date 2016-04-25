@@ -10,12 +10,7 @@
 	<ul>
 		<li>
 			<a><%= if @user.parent then @user.parent.name else 'self' end %></a>
-			<ul>
-				<li>
-					<a><%= @user.name %></a>
-					<%= draw_tree @user%>
-				</li>
-			</ul>
+			<%= draw_tree @user.subtree.arrange(:order => :created_at) %>
 		</li>
 	</ul>
 </div>
