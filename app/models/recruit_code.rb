@@ -1,4 +1,6 @@
 class RecruitCode < ActiveRecord::Base
+	EXPIRE_AFTER = 24 * 60 * 60 - 1
+
 	belongs_to :owner
 
 	validates :code, presence: true,
@@ -6,13 +8,24 @@ class RecruitCode < ActiveRecord::Base
 	validates :owner_id, presence: true
 	validates :claimed, :inclusion => {:in => [true, false]}
 
+	def remaining_time
+		@age = Time.zone.now - created_at
+		@remaining = EXPIRE_AFTER - @age
+
+		if @remaining > 0
+			Time.at(@remaining).utc
+		else
+			false
+		end
+	end
+
 	def self.code_exists?(code)
 		!RecruitCode.find_by_code(code).nil?
 	end
 
 	def self.code_available?(code)
 		@code = RecruitCode.find_by_code(code)
-		!@code.claimed unless @code.nil?
+		!@code.claimed unless @code.nil? && @code.remaining_time
 	end
 
 	def self.generate_new_code(user, length=4)

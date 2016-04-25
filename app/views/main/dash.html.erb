@@ -1,4 +1,5 @@
 <input value="<%= @code.code if !@code.nil? %>" readonly>
+<%= @code.remaining_time.strftime "%H:%M:%S" %>
 <%= form_for :new_code, url: new_code_url do |f| %>
 	<%= f.submit 'new recruit code', :class => 'submit-button' %>
 <% end %>
