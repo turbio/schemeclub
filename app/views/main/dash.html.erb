@@ -7,5 +7,15 @@
 <% end %>
 
 <div class="tree">
-	<%= draw_tree @user%>
+	<ul>
+		<li>
+			<a><%= if @user.parent then @user.parent.name else 'self' end %></a>
+			<ul>
+				<li>
+					<a><%= @user.name %></a>
+					<%= draw_tree @user%>
+				</li>
+			</ul>
+		</li>
+	</ul>
 </div>
