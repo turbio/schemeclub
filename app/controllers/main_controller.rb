@@ -4,7 +4,7 @@ class MainController < ApplicationController
 		@superior = User.find(@user.superior_id)
 		@sub = User.where(superior_id: @user.id)
 
-		@code = RecruitCode.where(owner: @user.id).first
+		@code = RecruitCode.where(owner: @user.id).last
 	end
 
 	def logout
@@ -46,7 +46,7 @@ class MainController < ApplicationController
 
 	def new_code
 		#TODO: this
-		#@new_code = RecruitCode.new_code(User.find(
+		@code = RecruitCode.generate_new_code(User.find(session[:user_id]))
 		redirect_to root_path
 	end
 end
