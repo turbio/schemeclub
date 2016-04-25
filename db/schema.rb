@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421081637) do
+ActiveRecord::Schema.define(version: 20160425153526) do
 
   create_table "recruit_codes", force: :cascade do |t|
     t.integer  "owner_id",   null: false
@@ -24,13 +24,13 @@ ActiveRecord::Schema.define(version: 20160421081637) do
   add_index "recruit_codes", ["owner_id"], name: "index_recruit_codes_on_owner_id"
 
   create_table "users", force: :cascade do |t|
-    t.integer  "superior_id", null: false
-    t.string   "name",        null: false
-    t.string   "password",    null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "name",       null: false
+    t.string   "password",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "ancestry"
   end
 
-  add_index "users", ["superior_id"], name: "index_users_on_superior_id"
+  add_index "users", ["ancestry"], name: "index_users_on_ancestry"
 
 end

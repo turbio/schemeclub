@@ -8,6 +8,8 @@ class String
 end
 
 class User < ActiveRecord::Base
+	has_ancestry
+
 	validates :name, presence: true,
 		length: { minimum: 3 },
 		uniqueness: { case_sensitive: false },

@@ -19,13 +19,8 @@ class RecruitCode < ActiveRecord::Base
 		end
 	end
 
-	def self.code_exists?(code)
-		!RecruitCode.find_by_code(code).nil?
-	end
-
-	def self.code_available?(code)
-		@code = RecruitCode.find_by_code(code)
-		!@code.claimed unless @code.nil? && @code.remaining_time
+	def available?
+		(not claimed) and remaining_time
 	end
 
 	def self.generate_new_code(user, length=4)

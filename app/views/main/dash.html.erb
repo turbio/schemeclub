@@ -1,23 +1,11 @@
-<input value="<%= @code.code if !@code.nil? %>" readonly>
-<%= @code.remaining_time.strftime "%H:%M:%S" %>
+<div class="<%= 'code-unavaiable' if (@code.nil? || !@code.available?) %>">
+	<%= root_url + @code.code if @code %>
+</div>
+<%= @code.remaining_time.strftime "%H:%M:%S" if !@code.nil?%>
 <%= form_for :new_code, url: new_code_url do |f| %>
 	<%= f.submit 'new recruit code', :class => 'submit-button' %>
 <% end %>
 
 <div class="tree">
-	<ul>
-		<li>
-			<a><%= @superior.name %></a>
-			<ul>
-				<li>
-					<a><%= @user.name %></a>
-					<ul>
-						<% @sub.each do |sub| %>
-							<li><a><%= sub.name %></a></li>
-						<% end %>
-					</ul>
-				</li>
-			</ul>
-		</li>
-	</ul>
+	<%= draw_tree @user%>
 </div>

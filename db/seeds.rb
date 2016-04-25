@@ -15,7 +15,10 @@ STDOUT.flush
 root_password = STDIN.gets.strip
 root_password = root_password.presence || 'root'
 
-root_user = User.create(name: root_name, password: root_password, id: 1, superior_id: 1)
+root_user = User.create(
+	name: root_name,
+	password: root_password,
+	parent_id: nil)
 
 STDOUT.puts 'root user created'
 STDOUT.puts root_user.inspect

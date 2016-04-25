@@ -1,8 +1,7 @@
 class MainController < ApplicationController
 	def dash
 		@user = User.find(session[:user_id])
-		@superior = User.find(@user.superior_id)
-		@sub = User.where(superior_id: @user.id)
+		@chid = @user.children
 
 		@code = RecruitCode.where(owner: @user.id).last
 	end
@@ -24,24 +23,34 @@ class MainController < ApplicationController
 	end
 
 	def signup
-		@code = params[:signup][:code]
-		@user = User.new(params.require(:signup).permit(:name, :password))
+		@code = RecruitCode.find_by_code(params[:signup][:code])
+		@user = User.new(name: params[:signup][:name], password: params[:signup][:password], parent_id: @code.owner_id)
 
 		if @user.save
+			@code.claimed = true
+			@code.save
+			session[:user_id] = @user.id
 			redirect_to root_path
 		else
-			render 'recruit'
+			render 'join'
 		end
 	end
 
 	def join
-		@code = params[:id] || params[:signup][:code]
-		@code_errors = @code << ' ' <<
-			if !RecruitCode.code_exists? @code
-				'is not a valid code'
-			elsif !RecruitCode.code_available? @code
-				'is already taken'
+		if session[:user_id].present?
+			@error = 'you are already part of the club'
+			return
+		end
+
+		@code = RecruitCode.find_by_code(params[:id] || params[:signup][:code])
+		@error =
+			if @code.nil?
+				@code.code + ' is not a valid code'
+			elsif not @code.available?
+				@code.code + ' is already taken'
 			end
+
+		return if @error
 	end
 
 	def new_code
