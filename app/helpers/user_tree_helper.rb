@@ -4,6 +4,6 @@ module UserTreeHelper
 			@this_node = content_tag(:a, node.name) + draw_tree(children)
 			content_tag(:li, @this_node.html_safe)
 		end.join.html_safe
-		content_tag(:ul, @tree_content) unless @tree_content.empty?
+		content_tag(:ol, @tree_content) unless @tree_content.empty?
 	end
 end

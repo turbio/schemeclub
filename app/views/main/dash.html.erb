@@ -2,6 +2,8 @@
 	<p>Welcome, <%= @user.name %></p>
 </div>
 
+<a href="<%= logout_url.to_s %>">logout</a>
+
 <div class="<%= 'code-unavaiable' if (@code.nil? || !@code) %>">
 	<%= root_url + @code.code if @code %>
 </div>
@@ -11,19 +13,29 @@
 <% else %>
 	<%= @code.time_until_expire.strftime "%H:%M:%S" if !@code.nil?%>
 <% end %>
+
 <%= form_for :new_code, url: new_code_url do |f| %>
 	<%= f.submit 'new recruit code', :class => 'submit-button' %>
 <% end %>
 
+<p>earned: <%= @user.earned || 0 %></p>
+
 <div class="tree">
-	<ul>
+	<ol>
 		<li>
 			<a><%= if @user.parent then @user.parent.name else 'self' end %></a>
 			<%= draw_tree @user.subtree.arrange(:order => :created_at) %>
 		</li>
-	</ul>
+	</ol>
 </div>
 
+<p>earnings</p>
+<ol>
+	<% @user.transactions.each do |transaction| %>
+		<li><%= transaction.name %></li>
+	<% end %>
+</ol>
+
 <% if @user.children.length == 0 %>
-	you haven't recruited any subordinates yet
+	<p>you haven't recruited any subordinates yet</p>
 <% end %>

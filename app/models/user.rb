@@ -18,6 +18,15 @@ class User < ActiveRecord::Base
 
 	before_save :hash_password_hook
 
+	def earned
+		#TODO implement this
+		12
+	end
+
+	def transactions
+		subtree
+	end
+
 	def self.authenticate(name, password)
 		@hashed_password = password.to_password_hash
 		User.where(
