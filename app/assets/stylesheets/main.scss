@@ -1,47 +1,52 @@
 // Place all the styles related to the main controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+/*body{*/
+	/*font-family: Helvetica, sans-serif;*/
+	/*margin: 0;*/
+	/*padding: 0;*/
+
+	/*background: #eee;*/
+	/*color: #444;*/
+/*}*/
+
+/*h1{*/
+	/*text-align: center;*/
+	/*font-size: 8vw;*/
+/*}*/
+
+/*.centered-form-container{*/
+	/*margin-left: auto;*/
+	/*margin-right: auto;*/
+	/*text-align: center;*/
+/*}*/
+
+/*form{*/
+	/*width: auto;*/
+	/*display: inline-block;*/
+/*}*/
+
+/*input{*/
+	/*width: 24vw;*/
+	/*font-size: 3vw;*/
+	/*display: block;*/
+	/*text-align: center;*/
+
+	/*border-style: solid;*/
+	/*border-width: 1px;*/
+	/*border-color: #888;*/
+
+	/*margin: 0.5em;*/
+/*}*/
+
+.tree{
+	white-space: nowrap;
+	overflow: hidden;
+}
+
 .tree ul, .tree li{
 	margin: 0;
 	padding: 0;
-}
-
-body{
-	font-family: Helvetica, sans-serif;
-	margin: 0;
-	padding: 0;
-
-	background: #eee;
-	color: #444;
-}
-
-h1{
-	text-align: center;
-	font-size: 8vw;
-}
-
-.centered-form-container{
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-}
-
-form{
-	width: auto;
-	display: inline-block;
-}
-
-input{
-	width: 24vw;
-	font-size: 3vw;
-	display: block;
-	text-align: center;
-
-	border-style: solid;
-	border-width: 1px;
-	border-color: #888;
-
-	margin: 0.5em;
 }
 
 .tree ul{

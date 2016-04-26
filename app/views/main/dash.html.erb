@@ -1,6 +1,7 @@
 <div class="<%= 'code-unavaiable' if (@code.nil? || !@code.available?) %>">
 	<%= root_url + @code.code if @code %>
 </div>
+<%= 'code not available' if @code.nil? || !@code.available? %>
 <%= @code.remaining_time.strftime "%H:%M:%S" if !@code.nil?%>
 <%= form_for :new_code, url: new_code_url do |f| %>
 	<%= f.submit 'new recruit code', :class => 'submit-button' %>
