@@ -1,8 +1,16 @@
-<div class="<%= 'code-unavaiable' if (@code.nil? || !@code.available?) %>">
+<div id="dash-title-bar">
+	<p>Welcome, <%= @user.name %></p>
+</div>
+
+<div class="<%= 'code-unavaiable' if (@code.nil? || !@code) %>">
 	<%= root_url + @code.code if @code %>
 </div>
-<%= 'code not available' if @code.nil? || !@code.available? %>
-<%= @code.remaining_time.strftime "%H:%M:%S" if !@code.nil?%>
+
+<% if !@code.available? %>
+	<p><%= @code.availability %></p>
+<% else %>
+	<%= @code.time_until_expire.strftime "%H:%M:%S" if !@code.nil?%>
+<% end %>
 <%= form_for :new_code, url: new_code_url do |f| %>
 	<%= f.submit 'new recruit code', :class => 'submit-button' %>
 <% end %>
@@ -15,3 +23,7 @@
 		</li>
 	</ul>
 </div>
+
+<% if @user.children.length == 0 %>
+	you haven't recruited any subordinates yet
+<% end %>
