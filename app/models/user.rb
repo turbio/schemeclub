@@ -19,12 +19,12 @@ class User < ActiveRecord::Base
 	before_save :hash_password_hook
 
 	def earned
-		#TODO implement this
-		12
+		Transaction.sum(:amount, conditions: {:to_id => id}) -
+			Transaction.sum(:amount, conditions: {:from_id => id})
 	end
 
 	def transactions
-		subtree
+		Transaction.where(to_id: id) + Transaction.where(from_id: id)
 	end
 
 	def self.authenticate(name, password)
