@@ -1,8 +1,6 @@
 class MainController < ApplicationController
 	def dash
 		@user = User.find(session[:user_id])
-		@chid = @user.children
-
 		@code = RecruitCode.where(owner: @user.id).last
 	end
 
