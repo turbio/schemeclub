@@ -21,7 +21,7 @@ class MainController < ApplicationController
 	end
 
 	def signup
-		@code = RecruitCode.find_by_code(params[:signup][:code])
+		@code = RecruitCode.find_by(code: params[:signup][:code]) || RecruitCode.new()
 		@user = User.new(name: params[:signup][:name], password: params[:signup][:password], parent_id: @code.owner_id)
 
 		if @user.save
@@ -36,14 +36,15 @@ class MainController < ApplicationController
 
 	def join
 		if session[:user_id].present?
-			@error = 'you are already part of the club'
+			@error = 'woops, you are already a member'
 			return
 		end
 
-		@code = RecruitCode.find_by_code(params[:id] || params[:signup][:code])
+		@code_string = params[:id] || params[:signup][:code]
+		@code = RecruitCode.find_by(code: @code_string) || RecruitCode.new()
 		@error =
 			if @code.nil?
-				@code.code + ' is not a valid code'
+				@code_string + ' is not a valid code'
 			elsif not @code.available?
 				@code.code + ' is already taken'
 			end

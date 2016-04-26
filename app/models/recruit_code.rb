@@ -8,19 +8,31 @@ class RecruitCode < ActiveRecord::Base
 	validates :owner_id, presence: true
 	validates :claimed, :inclusion => {:in => [true, false]}
 
-	def remaining_time
+	def remaining_seconds
 		@age = Time.zone.now - created_at
-		@remaining = EXPIRE_AFTER - @age
+		EXPIRE_AFTER - @age
+	end
 
-		if @remaining > 0
-			Time.at(@remaining).utc
-		else
-			false
-		end
+	def expired?
+		remaining_seconds <= 0
+	end
+
+	def time_until_expire
+		Time.at(remaining_seconds).utc
 	end
 
 	def available?
-		(not claimed) and remaining_time
+		!(expired? || claimed || !id)
+	end
+
+	def availability
+		if expired?
+			'crecruit code expired'
+		elsif claimed
+			'recruit code claimed'
+		elsif !id
+			'recruit code doesn\'t exist'
+		end
 	end
 
 	def self.generate_new_code(user, length=4)
