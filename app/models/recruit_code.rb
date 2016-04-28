@@ -22,7 +22,7 @@ class RecruitCode < ActiveRecord::Base
 	end
 
 	def available?
-		!(!id || expired? || claimed)
+		!(!id || claimed || expired?)
 	end
 
 	def availability
