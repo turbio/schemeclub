@@ -27,11 +27,11 @@ class RecruitCode < ActiveRecord::Base
 
 	def availability
 		if !id
-			'crecruit code expired'
+			'no recruit code'
 		elsif claimed
 			'recruit code claimed'
 		elsif expired?
-			'recruit code doesn\'t exist'
+			'crecruit code expired'
 		end
 	end
 
