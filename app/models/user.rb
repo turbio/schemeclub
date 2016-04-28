@@ -10,6 +10,8 @@ end
 class User < ActiveRecord::Base
 	has_ancestry
 
+	has_many :transactions
+
 	validates :name, presence: true,
 		length: { minimum: 3 },
 		uniqueness: { case_sensitive: false },

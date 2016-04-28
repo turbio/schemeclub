@@ -37,7 +37,7 @@ class MainController < ApplicationController
 		session[:user_id] = @user.id
 
 		@initial_transaction = Transaction.create(
-			to: @user.parent.id,
+			to_id: @user.parent.id,
 			from: @user.id,
 			amount: 10,
 			reason: 'user_joined')

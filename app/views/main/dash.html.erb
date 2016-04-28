@@ -16,7 +16,7 @@
 	<%= f.submit 'new recruit code', :class => 'submit-button' %>
 <% end %>
 
-<p>earned: <%= @user.earned || 0 %></p>
+<p>earned: <%= @user.earned %></p>
 
 <div class="tree">
 	<ol>
@@ -30,7 +30,13 @@
 <p>earnings</p>
 <ol>
 	<% @user.transactions.each do |transaction| %>
-		<li><%= transaction.name %></li>
+		<li>
+			<% if transaction.to == @user%>
+				+<%= transaction.amount %> from <%= transaction.from.name %>
+			<% else %>
+				-<%= transaction.amount %> to <%= transaction.to.name %>
+			<% end %>
+		</li>
 	<% end %>
 </ol>
 
