@@ -4,14 +4,12 @@
 
 <a href="<%= logout_url.to_s %>">logout</a>
 
-<div class="<%= 'code-unavaiable' if (@code.nil? || !@code) %>">
-	<%= root_url + @code.code if @code %>
-</div>
 
-<% if !@code.available? %>
-	<p><%= @code.availability %></p>
-<% else %>
+<% if @code.available? %>
+	<div><%= root_url + @code.code if @code %></div>
 	<%= @code.time_until_expire.strftime "%H:%M:%S" if !@code.nil?%>
+<% else %>
+	<p><%= @code.availability %></p>
 <% end %>
 
 <%= form_for :new_code, url: new_code_url do |f| %>
