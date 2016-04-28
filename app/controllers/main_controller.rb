@@ -1,7 +1,7 @@
 class MainController < ApplicationController
 	def dash
 		@user = User.find(session[:user_id])
-		@code = RecruitCode.where(owner: @user.id).last
+		@code = RecruitCode.where(owner: @user.id).last || RecruitCode.new
 	end
 
 	def logout
