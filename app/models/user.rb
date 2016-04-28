@@ -10,7 +10,8 @@ end
 class User < ActiveRecord::Base
 	has_ancestry
 
-	has_many :transactions
+	has_many :transactions_from, foreign_key: 'from_id', class_name: 'Transaction'
+	has_many :transactions_to, foreign_key: 'to_id', class_name: 'Transaction'
 
 	validates :name, presence: true,
 		length: { minimum: 3 },
@@ -21,12 +22,11 @@ class User < ActiveRecord::Base
 	before_save :hash_password_hook
 
 	def earned
-		Transaction.sum(:amount, conditions: {:to_id => id}) -
-			Transaction.sum(:amount, conditions: {:from_id => id})
+		self.transactions_to.sum(:amount) - self.transactions_from.sum(:amount)
 	end
 
 	def transactions
-		Transaction.where(to_id: id) + Transaction.where(from_id: id)
+		self.transactions_to + self.transactions_from
 	end
 
 	def self.authenticate(name, password)
