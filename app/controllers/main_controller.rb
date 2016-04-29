@@ -38,7 +38,7 @@ class MainController < ApplicationController
 
 		@initial_transaction = Transaction.create(
 			to_id: nil,
-			from: @user.id,
+			from_id: @user.id,
 			amount: 10,
 			reason: 'user_joined')
 
