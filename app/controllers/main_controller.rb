@@ -37,10 +37,12 @@ class MainController < ApplicationController
 		session[:user_id] = @user.id
 
 		@initial_transaction = Transaction.create(
-			to_id: @user.parent.id,
+			to_id: nil,
 			from: @user.id,
 			amount: 10,
 			reason: 'user_joined')
+
+		distribute_wealth @initial_transaction
 
 		redirect_to root_path
 	end
