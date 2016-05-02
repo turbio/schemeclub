@@ -55,14 +55,6 @@ class MainController < ApplicationController
 
 		@code_string = params[:id] || params[:signup][:code]
 		@code = RecruitCode.find_by(code: @code_string) || RecruitCode.new()
-		@error =
-			if @code.nil?
-				@code_string + ' is not a valid code'
-			elsif not @code.available?
-				@code.code + ' is already taken'
-			end
-
-		return if @error
 	end
 
 	def new_code

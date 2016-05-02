@@ -1,9 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  user_id: 
-  code: MyString
-
-two:
-  user_id: 
-  code: MyString
+root_code:
+  owner_id: 1
+  claimed: false
+  code: test

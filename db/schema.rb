@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160426200351) do
+ActiveRecord::Schema.define(version: 20160429052834) do
 
   create_table "recruit_codes", force: :cascade do |t|
     t.integer  "owner_id",   null: false
@@ -30,8 +30,10 @@ ActiveRecord::Schema.define(version: 20160426200351) do
     t.integer  "reason"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "ancestry"
   end
 
+  add_index "transactions", ["ancestry"], name: "index_transactions_on_ancestry"
   add_index "transactions", ["from_id"], name: "index_transactions_on_from_id"
   add_index "transactions", ["to_id"], name: "index_transactions_on_to_id"
 

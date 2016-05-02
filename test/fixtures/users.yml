@@ -1,9 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  password: MyString
-
-two:
-  name: MyString
-  password: MyString
+root:
+  id: 1
+  name: root
+  password: root

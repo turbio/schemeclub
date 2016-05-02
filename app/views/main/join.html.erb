@@ -1,4 +1,4 @@
-<% if !@error %>
+<% if @code.available? %>
 <h1>Join the club</h1>
 <div class="centered-form-container">
 	<% if @user and @user.errors.any? %>
@@ -18,6 +18,6 @@
 	<% end %>
 </div>
 <% else %>
-	<h1><%= @error.to_s %></h1>
+	<h1><%= @code.availability %></h1>
 	<a href="<%= root_url %>">back</b>
 <% end %>
