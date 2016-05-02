@@ -31,7 +31,7 @@ class RecruitCode < ActiveRecord::Base
 		elsif claimed
 			'recruit code claimed'
 		elsif expired?
-			'crecruit code expired'
+			'recruit code expired'
 		end
 	end
 

@@ -1,6 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-root_code:
+available:
   owner_id: 1
   claimed: false
-  code: test
+  code: available
+
+claimed:
+  owner_id: 1
+  claimed: true
+  code: claimed
+
+expired:
+  owner_id: 1
+  claimed: false
+  code: expired
+  created_at: 1970-01-01
