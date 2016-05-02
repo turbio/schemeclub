@@ -6,10 +6,11 @@ class MainControllerTest < ActionController::TestCase
 		assert_response :success
 	end
 
-	#test "should get dash" do
-		#get :dash
-		#assert_response :success
-	#end
+	test "should get index from dash if not logged in" do
+		get :dash
+		assert_select 'h1', 'Are you in the club?'
+		assert_response :success
+	end
 
 	test "join should show error message with not existant recruit code" do
 		get :join, id: 'not a code'
