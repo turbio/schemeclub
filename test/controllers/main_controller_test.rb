@@ -1,42 +1,42 @@
 require 'test_helper'
 
 class MainControllerTest < ActionController::TestCase
-	test "should get index" do
+	test 'should get index' do
 		get :index
 		assert_response :success
 	end
 
-	test "should get index from dash if not logged in" do
+	test 'should get index from dash if not logged in' do
 		get :dash
 		assert_select 'h1', 'Are you in the club?'
 		assert_response :success
 	end
 
-	test "join should show error message with not existant recruit code" do
+	test 'join should show error message with not existant recruit code' do
 		get :join, id: 'not a code'
 		assert_response :success
 		assert_select 'h1', 'no recruit code'
 	end
 
-	test "join should show error message with claimed recruit code" do
+	test 'join should show error message with claimed recruit code' do
 		get :join, id: recruit_codes(:claimed).code
 		assert_response :success
 		assert_select 'h1', 'recruit code claimed'
 	end
 
-	test "join should show error message with expired recruit code" do
+	test 'join should show error message with expired recruit code' do
 		get :join, id: recruit_codes(:expired).code
 		assert_response :success
 		assert_select 'h1', 'recruit code expired'
 	end
 
-	test "should get join page with valid code" do
+	test 'should get join page with valid code' do
 		get :join, id: recruit_codes(:available).code
 		assert_response :success
 		assert_select 'h1', 'Join the club'
 	end
 
-	test "login with correct credentials should set user_id in session and redirect" do
+	test 'login with correct credentials should set user_id in session and redirect' do
 
 		post :login, :login => {
 			:name => 'root',
@@ -50,7 +50,7 @@ class MainControllerTest < ActionController::TestCase
 		assert_select 'ul', false
 	end
 
-	test "login with incorrect credentials shows error and has no user_id session information" do
+	test 'login with incorrect credentials shows error and has no user_id session information' do
 
 		post :login, :login => {
 			:name => 'root',
