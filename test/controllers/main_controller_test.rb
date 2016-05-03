@@ -125,6 +125,26 @@ class MainControllerTest < ActionController::TestCase
 		assert_select 'ul', 'Name has already been taken'
 	end
 
+	test 'signup with valid data' do
+		post :signup, :signup => {
+			:name => 'test',
+			:password => 'password',
+			:code => recruit_codes(:available).code
+		}
+
+		assert_response :redirect
+		assert_includes session, :user_id
+
+		#verify that the user was created correctly
+		@user = User.find(session[:user_id])
+		assert @user.name == 'test', 'user name should be same as entered'
+		assert @user.password != 'password', 'hashed password should not equal input password (probably)'
+
+		#check parent/child status
+		assert @user.parent.name == 'root', 'user parent should be root'
+		assert @user.children.length == 0, 'should not have any children yet'
+	end
+
 	test 'login with correct credentials should set user_id in session and redirect' do
 
 		post :login, :login => {

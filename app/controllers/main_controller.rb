@@ -45,7 +45,7 @@ class MainController < ApplicationController
 			amount: 10,
 			reason: 'user_joined')
 
-		distribute_wealth @initial_transaction
+		#distribute_wealth @initial_transaction
 
 		redirect_to root_path
 	end
