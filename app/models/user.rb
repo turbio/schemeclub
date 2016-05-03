@@ -44,6 +44,14 @@ class User < ActiveRecord::Base
 		end
 
 		def generate_transaction_tree
+			#user starts with 10_00
+			Transaction.create(
+				to_id: id,
+				from_id: nil,
+				amount: 10_00,
+				reason: :user_joined)
+
+			#user's 10_00 gets distributed to parents
 			@initial_transaction = Transaction.create(
 				to_id: nil,
 				from_id: id,
@@ -54,12 +62,6 @@ class User < ActiveRecord::Base
 		end
 
 		def distribute_wealth(transaction)
-			puts
-
-			print "distributing #{transaction.amount} " \
-				"#{transaction.from.name} -> " \
-				"#{if transaction.to then transaction.to.name else 'nil' end}"
-
 			if transaction.to.nil?
 				@subtrans_to = transaction.from.parent or return
 				@subtrans_from = transaction.from
@@ -68,10 +70,6 @@ class User < ActiveRecord::Base
 				@subtrans_from = transaction.to
 			end
 
-			puts "\n\tby #{transaction.amount / 2} " \
-				"#{@subtrans_from.name} -> " \
-				"#{@subtrans_to.name}"
-
 			@subtrans = Transaction.create(
 				parent_id: transaction.id,
 				to_id: @subtrans_to.id,
@@ -79,8 +77,8 @@ class User < ActiveRecord::Base
 				amount: transaction.amount / 2,
 				reason: transaction.reason)
 
-			distribute_wealth @subtrans
+			#puts "distributing #{@subtrans}"
 
-			puts
+			distribute_wealth @subtrans
 		end
 end

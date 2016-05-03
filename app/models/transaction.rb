@@ -9,4 +9,10 @@ class Transaction < ActiveRecord::Base
 	validates :amount, numericality: { greater_than: 0 }
 
 	enum reason: [:user_joined]
+
+	def to_s
+		"#{if from.nil? then 'nil' else from.name end}" \
+		" -> #{if to.nil? then 'nil' else to.name end}" \
+		" #{'%.2f' % (amount / 100)}"
+	end
 end
