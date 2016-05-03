@@ -144,10 +144,8 @@ class MainControllerTest < ActionController::TestCase
 		assert @user.parent.name == 'root', 'user parent should be root'
 		assert @user.children.length == 0, 'should not have any children yet'
 
-		#check transaction data
-		#puts @user.transactions
-		#assert @user.earned == 0, 'user should start with neutral balance'
-		#assert @user.transactions.length == 0, 'user should have no transactions yet'
+		assert @user.earned == 0, 'user should start with neutral balance'
+		assert @user.transactions.length == 2, 'user should start with two transactions'
 	end
 
 	test 'login with correct credentials should set user_id in session and redirect' do

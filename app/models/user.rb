@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
 
 			#user's 10_00 gets distributed to parents
 			@initial_transaction = Transaction.create(
-				to_id: nil,
+				to_id: parent.id,
 				from_id: id,
 				amount: 10_00,
 				reason: :user_joined)
@@ -62,22 +62,19 @@ class User < ActiveRecord::Base
 		end
 
 		def distribute_wealth(transaction)
-			if transaction.to.nil?
-				@subtrans_to = transaction.from.parent or return
-				@subtrans_from = transaction.from
-			else
-				@subtrans_to = transaction.to.parent or return
-				@subtrans_from = transaction.to
-			end
+			@to, @from, @amount =
+				if transaction.to.nil?
+					[transaction.from.parent || return, transaction.from, transaction.amount]
+				else
+					[transaction.to.parent || return, transaction.to, transaction.amount / 2]
+				end
 
 			@subtrans = Transaction.create(
 				parent_id: transaction.id,
-				to_id: @subtrans_to.id,
-				from_id: @subtrans_from.id,
-				amount: transaction.amount / 2,
+				to_id: @to.id,
+				from_id: @from.id,
+				amount: @amount,
 				reason: transaction.reason)
-
-			#puts "distributing #{@subtrans}"
 
 			distribute_wealth @subtrans
 		end
