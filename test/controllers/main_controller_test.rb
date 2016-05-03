@@ -36,6 +36,84 @@ class MainControllerTest < ActionController::TestCase
 		assert_select 'h1', 'Join the club'
 	end
 
+	test 'signup should only accept an alphanumeric name' do
+		post :signup, :signup => {
+			:code => recruit_codes(:available).code,
+			:name => 'name with invalid characters^&*($#',
+			:password => 'test'
+		}
+
+		assert_response :success
+		assert_select 'ul' do
+			assert_select 'li', 'Name must be alphanumeric'
+		end
+	end
+
+	test 'signup should require a password' do
+		post :signup, :signup => {
+			:code => recruit_codes(:available).code,
+			:name => 'validname'
+		}
+
+		assert_response :success
+		assert_select 'ul' do
+			assert_select 'li', 'Password can\'t be blank'
+		end
+	end
+
+	test 'signup should require a name' do
+		post :signup, :signup => {
+			:code => recruit_codes(:available).code,
+			:password => 'validpassword'
+		}
+
+		assert_response :success
+		assert_select 'ul' do
+			assert_select 'li', 'Name can\'t be blank'
+		end
+	end
+
+	test 'signup should verify code when signing up' do
+		#handle blank code field
+		post :signup, :signup => {
+			:name => 'test',
+			:password => 'validpassword'
+		}
+
+		assert_response :success
+		assert_select 'h1', 'no recruit code'
+
+		#invalid code in field
+		post :signup, :signup => {
+			:name => 'test',
+			:password => 'validpassword',
+			:code => 'notavalidcode'
+		}
+
+		assert_response :success
+		assert_select 'h1', 'no recruit code'
+
+		#handle claimed code
+		post :signup, :signup => {
+			:name => 'test',
+			:password => 'validpassword',
+			:code => recruit_codes(:claimed).code
+		}
+
+		assert_response :success
+		assert_select 'h1', 'recruit code claimed'
+
+		#handle expired code
+		post :signup, :signup => {
+			:name => 'test',
+			:password => 'validpassword',
+			:code => recruit_codes(:expired).code
+		}
+
+		assert_response :success
+		assert_select 'h1', 'recruit code expired'
+	end
+
 	test 'login with correct credentials should set user_id in session and redirect' do
 
 		post :login, :login => {

@@ -23,6 +23,8 @@ class MainController < ApplicationController
 
 	def signup
 		@code = RecruitCode.find_by(code: params[:signup][:code]) || RecruitCode.new()
+		return render 'join' if !@code.available?
+
 		@user = User.new(
 			name: params[:signup][:name],
 			password: params[:signup][:password],
