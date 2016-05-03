@@ -3,4 +3,4 @@
 root:
   id: 1
   name: root
-  password: root
+  password: rootwew security #hashed password "root"
