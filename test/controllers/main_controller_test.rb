@@ -114,6 +114,17 @@ class MainControllerTest < ActionController::TestCase
 		assert_select 'h1', 'recruit code expired'
 	end
 
+	test 'signup should make sure user with name doesn\'t already exist' do
+		post :signup, :signup => {
+			:name => 'root',
+			:password => 'password',
+			:code => recruit_codes(:available).code
+		}
+
+		assert_response :success
+		assert_select 'ul', 'Name has already been taken'
+	end
+
 	test 'login with correct credentials should set user_id in session and redirect' do
 
 		post :login, :login => {
