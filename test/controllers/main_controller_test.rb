@@ -164,9 +164,11 @@ class MainControllerTest < ActionController::TestCase
 		assert_select 'ul', false
 	end
 
-	test 'should get dash when logged in' do
+	test 'should get dash when logged in as root' do
+		session[:user_id] = users(:root).id
 		get :dash
 
+		assert_select 'p', 'Welcome, root'
 		assert_response :success
 	end
 
