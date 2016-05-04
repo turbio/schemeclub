@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 	validates :password, presence: true
 
 	before_save :hash_password_hook
-	after_save :generate_transaction_tree
+	after_save :initial_funds
 
 	def earned
 		self.transactions_to.sum(:amount) - self.transactions_from.sum(:amount)
@@ -43,39 +43,12 @@ class User < ActiveRecord::Base
 			self.password.to_password_hash!
 		end
 
-		def generate_transaction_tree
+		def initial_funds
 			#user starts with 10_00
 			Transaction.create(
 				to_id: id,
 				from_id: nil,
 				amount: 10_00,
 				reason: :user_joined)
-
-			#user's 10_00 gets distributed to parents
-			@initial_transaction = Transaction.create(
-				to_id: parent.id,
-				from_id: id,
-				amount: 10_00,
-				reason: :user_joined)
-
-			distribute_wealth @initial_transaction
-		end
-
-		def distribute_wealth(transaction)
-			@to, @from, @amount =
-				if transaction.to.nil?
-					[transaction.from.parent || return, transaction.from, transaction.amount]
-				else
-					[transaction.to.parent || return, transaction.to, transaction.amount / 2]
-				end
-
-			@subtrans = Transaction.create(
-				parent_id: transaction.id,
-				to_id: @to.id,
-				from_id: @from.id,
-				amount: @amount,
-				reason: transaction.reason)
-
-			distribute_wealth @subtrans
 		end
 end

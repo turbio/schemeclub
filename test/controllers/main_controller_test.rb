@@ -146,6 +146,8 @@ class MainControllerTest < ActionController::TestCase
 
 		assert @user.earned == 0, 'user should start with neutral balance'
 		assert @user.transactions.length == 2, 'user should start with two transactions'
+
+		assert @user.parent.earned == 10_00, 'parent should recieve all of roots income because root has no parent'
 	end
 
 	test 'login with correct credentials should set user_id in session and redirect' do
