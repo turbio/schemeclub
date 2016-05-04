@@ -20,7 +20,6 @@ class Transaction < ActiveRecord::Base
 
 	protected
 		def distribute_wealth(transaction=self)
-			puts "transaction #{transaction} is being distributed"
 			@to, @from =
 				if transaction.to.nil?
 					[transaction.from.parent || return, transaction.from]

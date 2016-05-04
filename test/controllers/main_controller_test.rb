@@ -164,6 +164,12 @@ class MainControllerTest < ActionController::TestCase
 		assert_select 'ul', false
 	end
 
+	test 'should get dash when logged in' do
+		get :dash
+
+		assert_response :success
+	end
+
 	test 'login with incorrect credentials shows error and has no user_id session information' do
 
 		post :login, :login => {
