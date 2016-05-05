@@ -1,9 +1,7 @@
 <div id="dash-title-bar">
 	<p>Welcome, <%= @user.name %></p>
+	<a href="<%= logout_url.to_s %>">logout</a>
 </div>
-
-<a href="<%= logout_url.to_s %>">logout</a>
-
 
 <% if @code.available? %>
 	<div><%= root_url + @code.code if @code %></div>
