@@ -8,10 +8,17 @@ class String
 end
 
 class User < ActiveRecord::Base
+	INITIAL_AMOUNT = 10
+
 	has_ancestry
 
-	has_many :transactions_from, foreign_key: 'from_id', class_name: 'Transaction'
-	has_many :transactions_to, foreign_key: 'to_id', class_name: 'Transaction'
+	has_many :transactions_from,
+		foreign_key: 'from_id',
+		class_name: 'Transaction'
+
+	has_and_belongs_to_many :transactions_to,
+		class_name: 'Transaction',
+		join_table: 'users_transactions'
 
 	validates :name, presence: true,
 		length: { minimum: 3 },
@@ -23,11 +30,14 @@ class User < ActiveRecord::Base
 	after_save :initial_funds
 
 	def earned
-		self.transactions_to.sum(:amount) - self.transactions_from.sum(:amount)
+		transactions_to.map do |t|
+			t.amount self
+		end.reduce(0, :+) - transactions_from.sum(:amount)
 	end
 
 	def transactions
-		self.transactions_to + self.transactions_from
+		transactions_to.where.not(from_id: nil)
+			.order(created_at: :desc)
 	end
 
 	def self.authenticate(name, password)
@@ -38,6 +48,10 @@ class User < ActiveRecord::Base
 			@hashed_password).first
 	end
 
+	def to_s
+		name
+	end
+
 	protected
 		def hash_password_hook
 			self.password.to_password_hash!
@@ -46,9 +60,16 @@ class User < ActiveRecord::Base
 		def initial_funds
 			#user starts with 10_00
 			Transaction.create(
-				to_id: id,
+				to: [self],
 				from_id: nil,
-				amount: 10_00,
+				amount: INITIAL_AMOUNT,
+				reason: :user_joined)
+
+			#distribute user's wealth to superiors
+			Transaction.create(
+				to: path[0..-2].reverse,
+				from_id: id,
+				amount: INITIAL_AMOUNT,
 				reason: :user_joined)
 		end
 end

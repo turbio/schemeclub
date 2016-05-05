@@ -16,7 +16,7 @@
 	<%= f.submit 'new recruit code', :class => 'submit-button' %>
 <% end %>
 
-<p>earned: <%= @user.earned %></p>
+<p>earned: <%= as_currency @user.earned %></p>
 
 <div class="tree">
 	<ol>
@@ -31,11 +31,8 @@
 	<p>earnings</p>
 	<% @user.transactions.each do |transaction| %>
 		<li>
-			<% if transaction.to == @user%>
-				+<%= transaction.amount %> from <%= transaction.from.name %>
-			<% else %>
-				-<%= transaction.amount %> to <%= transaction.to.name %>
-			<% end %>
+			<div>+ <%= as_currency transaction.amount @user %> when <%= transaction.from %> joined</div>
+			<div><%= transaction.from %> -&gt; <%= transaction.up_to(@user).join(' -> ') %></div>
 		</li>
 	<% end %>
 </ol>
