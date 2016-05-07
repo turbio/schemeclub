@@ -1,6 +1,7 @@
 // Place all the styles related to the main controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'tree';
 
 body{
 	margin: 0;
@@ -30,6 +31,7 @@ h1{
 }
 
 ul, ol{
+	list-style-type: none;
 }
 
 .centered-form-container{
