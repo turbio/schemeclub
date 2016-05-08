@@ -1,11 +1,17 @@
 #dash-title-bar{
 	background: #fff;
-	padding: 1em;
+	padding: .5em;
 	font-size: 1.5em;
+	overflow: hidden;
+}
+
+#dash-title-bar > *:nth-child(1){
+	float: left;
+	padding: 0 .5em;
 }
 
 #dash-title-bar > *{
-	display: table-cell;
+	float: right;
 	padding: 0 .5em;
 }
 
