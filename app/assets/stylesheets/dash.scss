@@ -1,3 +1,39 @@
-// Place all the styles related to the dash controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#dash-title-bar{
+	background: #fff;
+	padding: 1em;
+	font-size: 1.5em;
+}
+
+#dash-title-bar > *{
+	display: table-cell;
+	padding: 0 .5em;
+}
+
+.dash-section{
+	background: #fff;
+	max-width: 600px;
+	overflow: hidden;
+	margin: 1em auto;
+	padding: 2em;
+	position: relative;
+}
+
+.dash-section > h1{
+	font-size: 2em;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: .25em;
+}
+
+.transaction-record{
+	margin: .25em;
+	padding: .25em;
+	background: rgba(84,191,152,0.63);
+	color: #fff;
+}
+
+.tree{
+	display: table;
+	margin: 0 auto;
+}

@@ -1,40 +1,46 @@
 <div id="dash-title-bar">
-	<p>Welcome, <%= @user.name %></p>
+	<div>Welcome, <%= @user.name %></div>
 	<a href="<%= logout_url.to_s %>">logout</a>
 </div>
 
-<% if @code.available? %>
-	<div><%= root_url + @code.code if @code %></div>
-	<%= @code.time_until_expire.strftime "%H:%M:%S" if !@code.nil?%>
-<% else %>
-	<p><%= @code.availability %></p>
-<% end %>
+<div class="dash-section">
+	<% if @code.available? %>
+		<div><%= root_url + @code.code if @code %></div>
+		<%= @code.time_until_expire.strftime "%H:%M:%S" if !@code.nil?%>
+	<% else %>
+		<p><%= @code.availability %></p>
+	<% end %>
 
-<%= form_for :new_code, url: new_code_url do |f| %>
-	<%= f.submit 'new recruit code', :class => 'submit-button' %>
-<% end %>
-
-<p>earned: <%= as_currency @user.earned %></p>
-
-<div class="tree">
-	<ol>
-		<li>
-			<a><%= if @user.parent then @user.parent.name else 'self' end %></a>
-			<%= draw_tree @user.subtree.arrange(:order => :created_at) %>
-		</li>
-	</ol>
+	<%= form_for :new_code, url: new_code_url do |f| %>
+		<%= f.submit 'new recruit code', :class => 'submit-button' %>
+	<% end %>
 </div>
 
-<ol>
-	<p>earnings</p>
-	<% @user.transactions.each do |transaction| %>
-		<li>
-			<div>+ <%= as_currency transaction.amount @user %> when <%= transaction.from %> joined</div>
-			<div><%= transaction.from %> -&gt; <%= transaction.up_to(@user).join(' -> ') %></div>
-		</li>
+<div class="dash-section">
+	<h1>Earings <%= as_currency @user.earned %></h1>
+	<ol>
+		<% @user.transactions.each do |transaction| %>
+			<li class="transaction-record">
+				<div>+ <%= as_currency transaction.amount @user %> when <%= transaction.from %> joined</div>
+				<div><%= transaction.from %> -&gt; <%= transaction.up_to(@user).join(' -> ') %></div>
+			</li>
+		<% end %>
+	</ol>
+	<% if @user.children.length == 0 %>
+		<p>you haven't recruited any subordinates yet</p>
 	<% end %>
-</ol>
+</div>
 
-<% if @user.children.length == 0 %>
-	<p>you haven't recruited any subordinates yet</p>
-<% end %>
+<div class="dash-section">
+	<h1>Your pyramid</h1>
+	<div class="tree">
+		<ol>
+			<li>
+				<% if @user.parent %>
+					<a><%= @user.parent.name %></a>
+				<% end %>
+				<%= draw_tree @user.subtree.arrange(:order => :created_at) %>
+			</li>
+		</ol>
+	</div>
+</div>
