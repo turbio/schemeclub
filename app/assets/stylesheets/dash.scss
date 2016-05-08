@@ -48,3 +48,20 @@
 	display: table;
 	margin: 0 auto;
 }
+
+.transaction-record > *{
+
+}
+
+.transaction-record > .currency{
+	position: absolute;
+	width: 15vw;
+}
+.transaction-record > .reason{
+	display: block;
+	margin-left: 15vw;
+}
+.transaction-record > .chain{
+	display: block;
+	margin-left: 15vw;
+}

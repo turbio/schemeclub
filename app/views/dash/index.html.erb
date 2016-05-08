@@ -17,12 +17,13 @@
 </div>
 
 <div class="dash-section">
-	<h1>Earings <%= as_currency @user.earned %></h1>
+	<h1>Earnings <%= as_currency @user.earned %></h1>
 	<ol>
 		<% @user.transactions.each do |transaction| %>
 			<li class="transaction-record">
-				<div>+ <%= as_currency transaction.amount @user %> when <%= transaction.from %> joined</div>
-				<div><%= transaction.from %> -&gt; <%= transaction.up_to(@user).join(' -> ') %></div>
+				<div class="currency">+ <%= as_currency transaction.amount @user %></div>
+				<div class="reason">from <%= transaction.from %> joining</div>
+				<div class="chain"><%= transaction.from %> -&gt; <%= transaction.up_to(@user).join(' -> ') %></div>
 			</li>
 		<% end %>
 	</ol>
