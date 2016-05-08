@@ -11,7 +11,7 @@
 		</ul>
 	<% end %>
 	<%= form_for :login, url: login_url do |f| %>
-		<%= f.text_field :name, :placeholder => 'name', :class => 'name-field' %>
+		<%= f.text_field :name, :placeholder => 'name', :class => 'name-field', :autofocus => 'true' %>
 		<%= f.password_field :password, :placeholder => 'password', :class => 'password-field' %>
 		<%= f.submit :login, :class => 'submit-button' %>
 	<% end %>
