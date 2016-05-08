@@ -5,6 +5,11 @@
 	overflow: hidden;
 }
 
+#dash-title-bar > a{
+	color: #888;
+	text-decoration: none;
+}
+
 #dash-title-bar > *:nth-child(1){
 	float: left;
 	padding: 0 .5em;
