@@ -66,30 +66,13 @@
 	padding: 5px 10px;
 	text-decoration: none;
 	color: #666;
-	font-family: arial, verdana, tahoma;
-	font-size: 11px;
+	font-size: .7em;
 	display: inline-block;
 
 	background: #fff;
 
 	transition: all 0.5s;
 }
-
-/*.tree > ol > li{*/
-	/*background: #fbb;*/
-	/*padding: 1em;*/
-/*}*/
-
-/*.tree > ol > li > ol > li{*/
-	/*background: #bbf;*/
-	/*padding-left: 1em;*/
-	/*padding-right: 1em;*/
-/*}*/
-
-/*.tree > ol > li > ol > li > ol > li{*/
-	/*background: #bfb;*/
-	/*padding-bottom: 1em;*/
-/*}*/
 
 .tree > ol > li > a::after{
 	content: ' -';
@@ -99,4 +82,46 @@
 .tree li li li > a::after{
 	content: ' +';
 	color: green;
+}
+
+.chain{
+	overflow: hidden;
+}
+
+.chain *{
+	margin: 0;
+	padding: 0;
+}
+
+.chain li{
+	float: left;
+	text-align: center;
+	position: relative;
+}
+
+.chain li:not(:last-child){
+	padding-right: .5em;
+}
+
+.chain li::after{
+	content: '';
+	position: absolute;
+	top: 50%;
+	border-top: 1px solid rgba(0, 0, 0, .5);
+	width: 1em;
+}
+
+.chain li:last-child::after{
+	border: none;
+}
+
+.chain li a{
+	border: 1px solid rgba(0, 0, 0, .5);
+	padding: 5px 10px;
+	text-decoration: none;
+	color: #888;
+	font-size: .7em;
+	display: inline-block;
+
+	background: #fff;
 }

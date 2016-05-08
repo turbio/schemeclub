@@ -38,6 +38,7 @@
 }
 
 .transaction-record{
+	position: relative;
 	margin: .25em;
 	padding: .25em;
 	background: rgba(84,191,152,0.63);
@@ -54,14 +55,27 @@
 }
 
 .transaction-record > .currency{
+	/*float: right;*/
 	position: absolute;
-	width: 15vw;
+	top: 0;
+	right: 0;
+	bottom: 0;
+
+	font-size: 1.5em;
+	background: red;
+	padding: 1%;
+
+	background: rgba(0, 0, 0, .125);
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .transaction-record > .reason{
+	margin: .5em;
 	display: block;
-	margin-left: 15vw;
 }
 .transaction-record > .chain{
+	margin: .5em;
 	display: block;
-	margin-left: 15vw;
 }
