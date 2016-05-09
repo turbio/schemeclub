@@ -30,6 +30,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'ancestry'
 
+gem 'rails-assets-clipboard', source: 'https://rails-assets.org'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

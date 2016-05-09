@@ -1,3 +1,4 @@
+<%= javascript_include_tag "dash" %>
 <div id="dash-title-bar">
 	<div>Welcome, <%= @user.name %></div>
 	<a href="<%= logout_url.to_s %>">logout</a>
@@ -8,9 +9,8 @@
 	<ul class="recruit-codes">
 		<% @codes.each do |code| %>
 			<li>
-				<!--<div class="recruit-code"><%= (root_url + code.code).to_s %></div>-->
-				<input type="text" class="recruit-code" value="<%= (root_url + code.code).to_s %>">
-				<a href="">copy</a>
+				<input id="code-<%= code.code.to_s%>" type="text" class="recruit-code" value="<%= (root_url + code.code).to_s %>" readonly>
+				<input type="button" class="copy-button" data-clipboard-target="#code-<%= code.code.to_s%>" value="copy">
 				<div
 					class="code-expire-time"
 					data-hours="<%= code.time_until_expire.strftime "%H" %>"
