@@ -21,7 +21,6 @@ valid_name = (callback) ->
 	$.post '/api/valid_name',
 		'name': $('.name-field').val(),
 		(data) ->
-			console.log(data)
 			callback data
 
 valid_cred = (callback) ->
@@ -29,5 +28,4 @@ valid_cred = (callback) ->
 		'name': $('.name-field').val()
 		'password': $('.password-field').val(),
 		(data) ->
-			console.log(data)
 			callback data
