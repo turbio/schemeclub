@@ -26,7 +26,7 @@
 	overflow: hidden;
 	margin: 1em auto;
 	padding: 2em;
-	padding-top: 6em;
+	padding-top: 4em;
 	position: relative;
 }
 
@@ -35,7 +35,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	margin: .75em;
+	margin: .5em;
 }
 
 .transaction-record{
@@ -84,4 +84,21 @@
 	background: #f88;
 	color: #fff;
 	padding: 1em;
+}
+.recruit-codes > li{
+	margin-bottom: .5em;
+	padding: .5em;
+	background: #ddd;
+}
+.code-expire-time{
+	float: right;
+}
+.recruit-codes a{
+	color: #888;
+	text-decoration: none;
+}
+.recruit-codes input{
+	border: none;
+	outline: none;
+	padding: .5em;
 }

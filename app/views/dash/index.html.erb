@@ -5,11 +5,17 @@
 
 <div class="dash-section">
 	<h1>Your recruit codes</h1>
-	<ul class="recruit-code-list">
+	<ul class="recruit-codes">
 		<% @codes.each do |code| %>
-			<li class="recruit-code-entry">
-				<div class="recruit-code"><%= (root_url + code.code).to_s %></div>
-				time remaining <a class="recruit-code-time"><%= code.time_until_expire.strftime "%H:%M:%S" %></a>
+			<li>
+				<!--<div class="recruit-code"><%= (root_url + code.code).to_s %></div>-->
+				<input type="text" class="recruit-code" value="<%= (root_url + code.code).to_s %>">
+				<a href="">copy</a>
+				<div
+					class="code-expire-time"
+					data-hours="<%= code.time_until_expire.strftime "%H" %>"
+					data-minutes="<%= code.time_until_expire.strftime "%M" %>" >expires in
+					<%= code.time_until_expire.strftime "%H house %M minutes" %></div>
 			</li>
 		<% end %>
 	</ul>
