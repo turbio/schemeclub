@@ -44,4 +44,10 @@ class RecruitCode < ActiveRecord::Base
 
 		RecruitCode.create(code: @generated_code, owner_id: user.id, claimed: false)
 	end
+
+	def self.owned_by(user)
+		where(owner: user.id).select do |code|
+			code.available?
+		end
+	end
 end

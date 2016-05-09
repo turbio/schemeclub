@@ -4,6 +4,7 @@
 </div>
 
 <div class="dash-section">
+	<h1>Your recruit codes</h1>
 	<ul class="recruit-code-list">
 		<% @codes.each do |code| %>
 			<li class="recruit-code-entry">
@@ -12,8 +13,17 @@
 			</li>
 		<% end %>
 	</ul>
-	<%= form_for :new_code, url: new_code_url do |f| %>
-		<%= f.submit 'new recruit code', :class => 'submit-button' %>
+	<% if @allowd_to_create_codes %>
+		<%= form_for :new_code, url: new_code_url do |f| %>
+			<%= f.submit 'new recruit code', :class => 'submit-button' %>
+		<% end %>
+	<% else %>
+		<div class="error-message">
+			<ol>
+				<li>you've hit your limit for recruit code creation</li>
+				<li>your exist codes most expire or be claimed before you can create more</li>
+			</ol>
+		</div>
 	<% end %>
 </div>
 

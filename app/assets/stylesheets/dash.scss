@@ -26,6 +26,7 @@
 	overflow: hidden;
 	margin: 1em auto;
 	padding: 2em;
+	padding-top: 6em;
 	position: relative;
 }
 
@@ -34,7 +35,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	margin: .25em;
+	margin: .75em;
 }
 
 .transaction-record{
@@ -78,4 +79,9 @@
 .transaction-record > .chain{
 	margin: .5em;
 	display: block;
+}
+.error-message{
+	background: #f88;
+	color: #fff;
+	padding: 1em;
 }
