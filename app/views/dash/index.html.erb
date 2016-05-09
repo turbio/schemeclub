@@ -13,7 +13,7 @@
 			</li>
 		<% end %>
 	</ul>
-	<% if @allowd_to_create_codes %>
+	<% if @allowed_to_create_codes %>
 		<%= form_for :new_code, url: new_code_url do |f| %>
 			<%= f.submit 'new recruit code', :class => 'submit-button' %>
 		<% end %>
@@ -21,7 +21,7 @@
 		<div class="error-message">
 			<ol>
 				<li>you've hit your limit for recruit code creation</li>
-				<li>your exist codes most expire or be claimed before you can create more</li>
+				<li>your existing codes must expire or be claimed before you can create more</li>
 			</ol>
 		</div>
 	<% end %>
