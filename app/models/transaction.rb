@@ -20,8 +20,6 @@ class Transaction < ActiveRecord::Base
 
 		if to.size > 1 && !user.nil?
 			@amount /= 2**(to.order(created_at: :desc).find_index(user) + 1)
-		else
-			@amount /= 2
 		end
 
 		@amount
