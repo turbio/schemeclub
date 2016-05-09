@@ -12,14 +12,16 @@ class Transaction < ActiveRecord::Base
 	enum reason: [:user_joined]
 
 	def up_to(user)
-		to[0..-user.path.size]
+		to.order(created_at: :desc)[0..-user.path.size]
 	end
 
 	def amount(user = nil)
 		@amount = read_attribute(:amount)
 
 		if to.size > 1 && !user.nil?
-			@amount /= 2**(to.find_index(user) + 1)
+			@amount /= 2**(to.order(created_at: :desc).find_index(user) + 1)
+		else
+			@amount /= 2
 		end
 
 		@amount
