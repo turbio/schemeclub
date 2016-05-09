@@ -4,13 +4,14 @@
 </div>
 
 <div class="dash-section">
-	<% if @code.available? %>
-		<div><%= root_url + @code.code if @code %></div>
-		<div>time remaining <%= @code.time_until_expire.strftime "%H:%M:%S" if !@code.nil?%></div>
-	<% else %>
-		<p><%= @code.availability %></p>
-	<% end %>
-
+	<ul class="recruit-code-list">
+		<% @codes.each do |code| %>
+			<li class="recruit-code-entry">
+				<div class="recruit-code"><%= (root_url + code.code).to_s %></div>
+				time remaining <a class="recruit-code-time"><%= code.time_until_expire.strftime "%H:%M:%S" %></a>
+			</li>
+		<% end %>
+	</ul>
 	<%= form_for :new_code, url: new_code_url do |f| %>
 		<%= f.submit 'new recruit code', :class => 'submit-button' %>
 	<% end %>

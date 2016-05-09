@@ -1,7 +1,9 @@
 class DashController < ApplicationController
-  def index
+	def index
 		return render 'index' if session[:user_id].nil?
 		@user = User.find(session[:user_id])
-		@code = RecruitCode.where(owner: @user.id).last || RecruitCode.new
-  end
+		@codes = RecruitCode.where(owner: @user.id).select do |code|
+			code.available?
+		end
+	end
 end
