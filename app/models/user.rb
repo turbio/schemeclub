@@ -46,6 +46,8 @@ class User < ActiveRecord::Base
 		@user = User.where("lower(name) = ?",
 			name.downcase).first
 
+		return if @user.nil?
+
 		@user if BCrypt::Password.new(@user.password) == password
 	end
 
