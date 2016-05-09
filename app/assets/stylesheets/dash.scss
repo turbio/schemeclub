@@ -51,7 +51,6 @@
 }
 
 .transaction-record > *{
-
 }
 
 .transaction-record > .currency{
@@ -70,8 +69,9 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	min-width: 4em;
 }
-.transaction-record > .reason{
+.transaction-record > .description{
 	margin: .5em;
 	display: block;
 }

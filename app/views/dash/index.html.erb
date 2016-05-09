@@ -6,7 +6,7 @@
 <div class="dash-section">
 	<% if @code.available? %>
 		<div><%= root_url + @code.code if @code %></div>
-		<%= @code.time_until_expire.strftime "%H:%M:%S" if !@code.nil?%>
+		<div>time remaining <%= @code.time_until_expire.strftime "%H:%M:%S" if !@code.nil?%></div>
 	<% else %>
 		<p><%= @code.availability %></p>
 	<% end %>
@@ -22,7 +22,11 @@
 		<% @user.transactions.each do |transaction| %>
 			<li class="transaction-record">
 				<div class="currency">+<%= as_currency transaction.amount @user %></div>
-				<div class="description">from <a><%= transaction.from %></a> joining</div>
+				<div class="description">
+					<%= transaction.created_at.strftime '%b %d at %H:%M' %>
+					when <a><%= transaction.from %></a> was recruited by
+					<a><%= (transaction.from.parent == @user) ? 'you' : transaction.from.parent %></a>
+				</div>
 				<div class="chain">
 					<ol>
 						<li><a><%= transaction.from %></a></li>
