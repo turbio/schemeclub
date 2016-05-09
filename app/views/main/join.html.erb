@@ -1,4 +1,7 @@
-<% if @code.available? %>
+<% if @error || !@code.available? %>
+	<h1><%= @error || @code.availability %></h1>
+	<a href="<%= root_url %>">back</b>
+<% else %>
 <h1>Join the club</h1>
 <div class="centered-form-container">
 	<% if @user and @user.errors.any? %>
@@ -17,7 +20,4 @@
 		<%= f.submit :signup, :class => 'submit-button' %>
 	<% end %>
 </div>
-<% else %>
-	<h1><%= @code.availability %></h1>
-	<a href="<%= root_url %>">back</b>
 <% end %>
