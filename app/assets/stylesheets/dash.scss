@@ -1,5 +1,5 @@
 #dash-title-bar{
-	background: #fff;
+	/*background: #fff;*/
 	padding: .5em;
 	font-size: 1.5em;
 	overflow: hidden;
@@ -89,6 +89,7 @@
 	margin-bottom: .5em;
 	padding: .5em;
 	background: #ddd;
+	overflow: hidden;
 }
 .code-expire-time{
 	float: right;

@@ -4,7 +4,7 @@
 </div>
 
 <div class="dash-section">
-	<h1>Your recruit codes</h1>
+	<h1>Recruit codes</h1>
 	<ul class="recruit-codes">
 		<% @codes.each do |code| %>
 			<li>
@@ -15,7 +15,7 @@
 					class="code-expire-time"
 					data-hours="<%= code.time_until_expire.strftime "%H" %>"
 					data-minutes="<%= code.time_until_expire.strftime "%M" %>" >expires in
-					<%= code.time_until_expire.strftime "%H house %M minutes" %></div>
+					<%= code.time_until_expire.strftime "%H hours %M minutes" %></div>
 			</li>
 		<% end %>
 	</ul>
