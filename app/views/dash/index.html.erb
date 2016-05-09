@@ -20,7 +20,7 @@
 		<% end %>
 	</ul>
 	<% if @allowed_to_create_codes %>
-		<%= form_for :new_code, url: new_code_url do |f| %>
+		<%= form_for :new_code, url: new_code_url(:protocol => 'https') do |f| %>
 			<%= f.submit 'new recruit code', :class => 'submit-button' %>
 		<% end %>
 	<% else %>
