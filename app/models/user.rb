@@ -1,6 +1,8 @@
+require 'bcrypt'
+
 class String
 	def to_password_hash
-		self + 'wew security'
+		BCrypt::Password.create(self)
 	end
 	def to_password_hash!
 		replace to_password_hash
@@ -41,11 +43,10 @@ class User < ActiveRecord::Base
 	end
 
 	def self.authenticate(name, password)
-		@hashed_password = password.to_password_hash
-		User.where(
-			"lower(name) = ? AND password = ?",
-			name.downcase,
-			@hashed_password).first
+		@user = User.where("lower(name) = ?",
+			name.downcase).first
+
+		@user if BCrypt::Password.new(@user.password) == password
 	end
 
 	def to_s
