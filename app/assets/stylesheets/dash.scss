@@ -49,10 +49,6 @@
 	display: table;
 	margin: 0 auto;
 }
-
-.transaction-record > *{
-}
-
 .transaction-record > .currency{
 	/*float: right;*/
 	position: absolute;
@@ -61,7 +57,6 @@
 	bottom: 0;
 
 	font-size: 1.5em;
-	background: red;
 	padding: 1%;
 
 	background: rgba(0, 0, 0, .125);
@@ -69,13 +64,16 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
 	min-width: 4em;
 }
 .transaction-record > .description{
+	padding-right: 6em;
 	margin: .5em;
 	display: block;
 }
 .transaction-record > .chain{
+	padding-right: 6em;
 	margin: .5em;
 	display: block;
 }
@@ -89,9 +87,17 @@
 	padding: .5em;
 	background: #ddd;
 	overflow: hidden;
+
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
 }
 .code-expire-time{
+	flex-grow: 1;
+	text-align: right;
 	float: right;
+
+	margin: .25em;
 }
 .recruit-codes a{
 	color: #888;
