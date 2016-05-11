@@ -10,10 +10,18 @@
 .tree ol {
 	padding-top: 20px;
 	position: relative;
+	white-space: nowrap;
+}
+
+.tree > ol{
+	overflow: auto;
 }
 
 .tree li {
-	float: left; text-align: center;
+	display: inline-block;
+	white-space: nowrap;
+	vertical-align: top;
+	text-align: center;
 	list-style-type: none;
 	position: relative;
 	padding: 20px 5px 0 5px;

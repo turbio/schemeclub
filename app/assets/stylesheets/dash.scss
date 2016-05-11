@@ -46,7 +46,8 @@
 }
 
 .tree{
-	display: table;
+	width: 100%;
+	overflow: auto;
 	margin: 0 auto;
 }
 .transaction-record > .currency{
