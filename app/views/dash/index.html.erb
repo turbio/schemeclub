@@ -58,9 +58,16 @@
 	<% end %>
 </div>
 
-<div class="dash-section">
+<div class="dash-section" id="dash-tree">
 	<h1>Your pyramid</h1>
-	<div class="tree-ttb">
+
+	<input id="tree-ttb" type="radio" name="tree-type" checked="checked">
+	<label for="tree-ttb">horizontal</label>
+	<input id="tree-ltr" type="radio" name="tree-type">
+	<label for="tree-ltr">vertical</label>
+	<div class="tree-chooser"></div>
+
+	<div class="tree">
 		<ol>
 			<li>
 				<% if @user.parent %>

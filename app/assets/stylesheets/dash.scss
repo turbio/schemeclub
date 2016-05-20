@@ -116,3 +116,36 @@
 	background: #8D9FA8;
 	color: #fff;
 }
+.tree-chooser{
+	border-bottom: solid black 1px;
+}
+#dash-tree{
+	label{
+		position: relative;
+		bottom: 0;
+
+		display: inline-block;
+
+		padding: .5em;
+		margin-left: .5em;
+
+		cursor: pointer;
+
+		background: #eee;
+
+		border-top: solid 1px;
+		border-bottom: none;
+		border-left: solid 1px;
+		border-right: solid 1px;
+
+		border-color: #eee;
+	}
+	input:checked + label{
+		bottom: -1px;
+		border-color: black;
+		background: #fff;
+	}
+	input{
+		display: none;
+	}
+}

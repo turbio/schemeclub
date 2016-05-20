@@ -7,7 +7,7 @@ $label-background: #fff;
 $label-color: #666;
 $label-font-size: .7em;
 
-.tree-ttb{
+#tree-ttb:checked ~ .tree, .tree-ttb{
 	*{
 		margin: 0;
 		padding: 0;
@@ -117,7 +117,7 @@ $label-font-size: .7em;
 		background: $label-background;
 	}
 }
-.tree-ltr{
+#tree-ltr:checked ~ .tree, .tree-ltr{
 	ol{
 		position:relative;
 		margin-left:.5em; /* (indentation/2) */
