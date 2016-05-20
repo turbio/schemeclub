@@ -149,3 +149,28 @@
 		display: none;
 	}
 }
+.instruction-dialog{
+	display: table;
+	position: relative;
+	vertical-align: middle;
+
+	margin-bottom: 1em;
+	padding: 1em;
+
+	background: #eee;
+
+	&:after {
+		top: 100%;
+		left: 4em;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		border-color: rgba(238, 238, 238, 0);
+		border-top-color: #eee;
+		border-width: 10px;
+		margin-left: -10px;
+	}
+}
