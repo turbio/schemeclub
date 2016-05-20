@@ -1,4 +1,4 @@
-<%= javascript_include_tag "dash" %>
+<%= javascript_include_tag "dash", :async => true%>
 <div id="dash-title-bar">
 	<div>Welcome, <%= @user.name %></div>
 	<a href="<%= logout_url.to_s %>">logout</a>
