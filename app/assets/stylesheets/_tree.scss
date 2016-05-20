@@ -1,135 +1,177 @@
-// Place all the styles related to the main controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
 
-.tree * {
-	margin: 0;
-	padding: 0;
-}
+$border-style: solid 1px #000;
+$ltr-indent: 1em;
+$ltr-vertical-spacing: 2em;
 
-.tree ol {
-	padding-top: 20px;
-	position: relative;
-	white-space: nowrap;
-}
+$label-background: #fff;
+$label-color: #666;
+$label-font-size: .7em;
 
-.tree > ol{
-	overflow: auto;
-}
+#tree-ttb:checked ~ .tree, .tree-ttb{
+	*{
+		margin: 0;
+		padding: 0;
+	}
 
-.tree li {
-	display: inline-block;
-	white-space: nowrap;
-	vertical-align: top;
-	text-align: center;
-	list-style-type: none;
-	position: relative;
-	padding: 20px 5px 0 5px;
-}
+	ol{
+		padding-top: 20px;
+		position: relative;
+		white-space: nowrap;
+		ol:before{
+			content: '';
+			position: absolute; top: 0; left: 50%;
+			border-left: $border-style;
+			width: 0; height: 20px;
+		}
+	}
+	>ol{
+		overflow: auto;
+		margin-top: .5em;
+	}
 
-.tree li::before, .tree li::after{
-	content: '';
-	position: absolute;
-	top: 0;
-	right: 50%;
-	border-top: 1px solid #000;
-	width: 50%;
-	height: 20px;
-}
-.tree li::after{
-	right: auto;
-	left: 50%;
-	border-left: 1px solid #000;
-}
+	li{
+		display: inline-block;
+		white-space: nowrap;
+		vertical-align: top;
+		text-align: center;
+		list-style-type: none;
+		position: relative;
+		padding: 20px 5px 0 5px;
+		&:before, &:after{
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 50%;
+			border-top: $border-style;
+			width: 50%;
+			height: 20px;
+		}
+		&:after{
+			right: auto;
+			left: 50%;
+			border-left: $border-style;
+		}
+		&:only-child::after, &:only-child::before{
+			display: none;
+		}
+		&:only-child{
+			padding-top: 0;
+		}
+		&:first-child::before, &:last-child::after{
+			border: 0 none;
+		}
+		&:last-child::before{
+			border-right: $border-style;
+			border-radius: 0 5px 0 0;
+		}
+		&:first-child::after{
+			border-radius: 5px 0 0 0;
+		}
+	}
 
-.tree li:only-child::after, .tree li:only-child::before {
-	display: none;
-}
-
-.tree li:only-child{
-	padding-top: 0;
-}
-
-.tree li:first-child::before, .tree li:last-child::after{
-	border: 0 none;
-}
-.tree li:last-child::before{
-	border-right: 1px solid #000;
-	border-radius: 0 5px 0 0;
-}
-
-.tree li:first-child::after{
-	border-radius: 5px 0 0 0;
-}
-
-.tree ol ol::before{
-	content: '';
-	position: absolute; top: 0; left: 50%;
-	border-left: 1px solid #000;
-	width: 0; height: 20px;
-}
-
-.tree li a{
-	border: 1px solid #000;
-	padding: 5px 10px;
-	text-decoration: none;
-	color: #666;
-	font-size: .7em;
-	display: inline-block;
-
-	background: #fff;
-
-	transition: all 0.5s;
-}
-
-.tree > ol > li > a::after{
-	content: ' -';
-	color: red;
-}
-
-.tree li li li > a::after{
-	content: ' +';
-	color: green;
+	a{
+		border: $border-style;
+		padding: 5px 10px;
+		text-decoration: none;
+		color: #666;
+		font-size: $label-font-size;
+		display: inline-block;
+		background: $label-background;
+		transition: all 0.5s;
+	}
 }
 
 .chain{
 	overflow: hidden;
+
+	*{
+		margin: 0;
+		padding: 0;
+	}
+
+	li{
+		float: left;
+		text-align: center;
+		position: relative;
+		&:not(:last-child){
+			padding-right: .5em;
+		}
+		&:after{
+			content: '';
+			position: absolute;
+			top: 50%;
+			border-top: 1px solid rgba(0, 0, 0, .5);
+			width: 1em;
+		}
+		&:last-child:after{
+			border: none;
+		}
+	}
+
+	a{
+		border: 1px solid rgba(0, 0, 0, .5);
+		padding: 5px 10px;
+		text-decoration: none;
+		color: #888;
+		font-size: .7em;
+		display: inline-block;
+		background: $label-background;
+	}
 }
+#tree-ltr:checked ~ .tree, .tree-ltr{
+	ol{
+		position:relative;
+		margin-left:.5em; /* (indentation/2) */
+		&:before{
+			content: '';
+			display: block;
+			width: 0;
+			position: absolute;
+			top: -.25em;
+			bottom: 0;
+			left: 0;
+			border-left: $border-style;
+		}
+	}
 
-.chain *{
-	margin: 0;
-	padding: 0;
-}
+	li{
+		&:not(only-child){
+			margin: 0;
+			padding: 0 $ltr-indent;
+			line-height: $ltr-vertical-spacing;
+			position: relative;
+			&:before{
+				content: '';
+				display: block;
+				width: $ltr-indent;
+				height: 0;
+				border-top: $border-style;
+				margin-top: -1px;
+				position: absolute;
+				top: $ltr-vertical-spacing / 2;
+				left: 0;
+			}
+			&:last-child:before{
+				background: $label-background; /* same with body background */
+				height: auto;
+				top: $ltr-vertical-spacing / 2;
+				bottom: 0;
+			}
+		}
+	}
 
-.chain li{
-	float: left;
-	text-align: center;
-	position: relative;
-}
+	//don't put lines on the first list or it's items because the parent is in the list
+	>ol{
+		&:before{ display: none; }
+		margin-top: 1em;
+		>li:before{ display: none; }
+	}
 
-.chain li:not(:last-child){
-	padding-right: .5em;
-}
-
-.chain li::after{
-	content: '';
-	position: absolute;
-	top: 50%;
-	border-top: 1px solid rgba(0, 0, 0, .5);
-	width: 1em;
-}
-
-.chain li:last-child::after{
-	border: none;
-}
-
-.chain li a{
-	border: 1px solid rgba(0, 0, 0, .5);
-	padding: 5px 10px;
-	text-decoration: none;
-	color: #888;
-	font-size: .7em;
-	display: inline-block;
-
-	background: #fff;
+	a{
+		color: $label-color;
+		border: $border-style;
+		font-size: $label-font-size;
+		padding: 5px 10px;
+		margin: 0;
+	}
 }

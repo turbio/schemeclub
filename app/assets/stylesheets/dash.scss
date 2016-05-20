@@ -116,3 +116,61 @@
 	background: #8D9FA8;
 	color: #fff;
 }
+.tree-chooser{
+	border-bottom: solid black 1px;
+}
+#dash-tree{
+	label{
+		position: relative;
+		bottom: 0;
+
+		display: inline-block;
+
+		padding: .5em;
+		margin-left: .5em;
+
+		cursor: pointer;
+
+		background: #eee;
+
+		border-top: solid 1px;
+		border-bottom: none;
+		border-left: solid 1px;
+		border-right: solid 1px;
+
+		border-color: #eee;
+	}
+	input:checked + label{
+		bottom: -1px;
+		border-color: black;
+		background: #fff;
+	}
+	input{
+		display: none;
+	}
+}
+.instruction-dialog{
+	display: table;
+	position: relative;
+	vertical-align: middle;
+
+	margin-bottom: 1em;
+	padding: 1em;
+
+	background: #eee;
+
+	&:after {
+		top: 100%;
+		left: 4em;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		border-color: rgba(238, 238, 238, 0);
+		border-top-color: #eee;
+		border-width: 10px;
+		margin-left: -10px;
+	}
+}
