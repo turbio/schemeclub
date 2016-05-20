@@ -26,6 +26,7 @@ $label-font-size: .7em;
 	}
 	>ol{
 		overflow: auto;
+		margin-top: .5em;
 	}
 
 	li{
@@ -162,6 +163,7 @@ $label-font-size: .7em;
 	//don't put lines on the first list or it's items because the parent is in the list
 	>ol{
 		&:before{ display: none; }
+		margin-top: 1em;
 		>li:before{ display: none; }
 	}
 
