@@ -37,6 +37,16 @@ class User < ActiveRecord::Base
 		end.reduce(0, :+) - transactions_from.sum(:amount)
 	end
 
+	def earned_from(user)
+		Transaction.
+			joins(:to, :from).
+			where('users_transactions.user_id = ? OR transactions.from_id = ?', user.id, user.id).
+			distinct.
+			map do |t|
+				t.amount self
+			end.reduce(0, :+)
+	end
+
 	def transactions
 		transactions_to.where.not(from_id: nil)
 			.order(created_at: :desc)

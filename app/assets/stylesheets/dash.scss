@@ -49,6 +49,14 @@
 	width: 100%;
 	overflow: auto;
 	margin: 0 auto;
+
+	.earned-from{
+		color: #4CAF50;
+		&:before{
+			margin-left: .25em;
+			content: '+'
+		}
+	}
 }
 .transaction-record > .currency{
 	/*float: right;*/
