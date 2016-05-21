@@ -15,3 +15,9 @@
 /log/*
 !/log/.keep
 /tmp
+
+#generated asset files
+/public/assets
+
+#server stuff
+/shared
