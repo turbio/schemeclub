@@ -13,7 +13,7 @@
 			<% end %>
 		</ul>
 	<% end %>
-	<%= form_for :signup, url: signup_url(:protocol => 'https') do |f| %>
+	<%= form_for :signup, url: {action: "signup"} do |f| %>
 		<%= f.hidden_field :code, :value => @code.code %>
 		<%= f.text_field :name, :placeholder => 'name', :class => 'name-field' %>
 		<%= f.password_field :password, :placeholder => 'password', :class => 'password-field' %>

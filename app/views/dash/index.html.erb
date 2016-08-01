@@ -23,7 +23,7 @@
 		<% end %>
 	</ul>
 	<% if @allowed_to_create_codes %>
-		<%= form_for :new_code, url: new_code_url(:protocol => 'https') do |f| %>
+		<%= form_for :new_code, url: {action: "new_code"} do |f| %>
 			<% if @codes.size == 0 && @user.children.length == 0%>
 				<div class="instruction-dialog">create a code to start recruiting people into your pyramid</div>
 			<% end %>

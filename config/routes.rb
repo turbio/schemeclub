@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 	post '/login' => 'main#login'
 	post '/signup' => 'main#signup'
 	get '/logout' => 'main#logout'
-	post '/new_code' => 'main#new_code'
+	post '/new_code' => 'dash#new_code'
 
 	get '/:id' => 'main#join'
 end

@@ -10,7 +10,7 @@
 			<% end %>
 		</ul>
 	<% end %>
-	<%= form_for :login, url: login_url(:protocol => 'https') do |f| %>
+	<%= form_for :login, url: {action: "login"} do |f| %>
 		<%= f.text_field :name, :placeholder => 'name', :class => 'name-field', :autofocus => 'true' %>
 		<%= f.password_field :password, :placeholder => 'password', :class => 'password-field' %>
 		<%= f.submit :login, :class => 'submit-button' %>
