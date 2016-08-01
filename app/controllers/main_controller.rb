@@ -41,7 +41,7 @@ class MainController < ApplicationController
 		@code.save
 		session[:user_id] = @user.id
 
-		redirect_to root_path
+		redirect_to welcome_path
 	end
 
 	def join
@@ -50,5 +50,8 @@ class MainController < ApplicationController
 
 		@code_string = params[:id] || params[:signup][:code]
 		@code = RecruitCode.find_by(code: @code_string) || RecruitCode.new()
+	end
+
+	def welcome
 	end
 end
