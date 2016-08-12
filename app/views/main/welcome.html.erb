@@ -1,10 +1,12 @@
 <%= javascript_include_tag "welcome", :async => true%>
 <div id="welcome-dialog-container">
-	<% @slides.times do |n| %>
-		<div class="slide<%= ' show' if n == @slide.to_i %>">
-			<%= render "slide#{n}" %>
-		</div>
-	<% end %>
+	<div id="slide-container">
+		<% @slides.times do |n| %>
+			<div class="slide<%= ' show' if n == @slide.to_i %>" id="slide_<%= n.to_s %>">
+				<%= render "slide#{n}" %>
+			</div>
+		<% end %>
+	</div>
 
 	<%= link_to 'prev', ({ id: @slide - 1 }), class: 'prev side-btn' if @slide && @slide > 0 %>
 

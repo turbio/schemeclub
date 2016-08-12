@@ -12,18 +12,26 @@ $dialog-width: 600px;
 	height: $dialog-height;
 	margin:auto;
 
-	.slide{
+	#slide-container{
 		position: relative;
-		margin: .5em auto;
 
+		max-width: $dialog-width;
 		height: $dialog-height;
-		width: $dialog-width;
 
-		background: #fff;
-		display: none;
+		overflow: hidden;
 
-		&.show{
-			display: block;
+		.slide{
+			position: absolute;
+
+			height: $dialog-height;
+			width: 100%;
+
+			background: #fff;
+			display: none;
+
+			&.show{
+				display: block;
+			}
 		}
 	}
 
@@ -37,6 +45,7 @@ $dialog-width: 600px;
 
 	#skip-slides{
 		background: #fff;
+		margin: .5em;
 	}
 
 	a.side-btn{
