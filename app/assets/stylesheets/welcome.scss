@@ -1,3 +1,6 @@
+$dialog-height: 500px;
+$dialog-width: 600px;
+
 #welcome-dialog-container{
 	position: fixed;
 	top: 0;
@@ -5,34 +8,38 @@
 	right: 0;
 
 	text-align: center;
-	max-width: 600px;
+	width: $dialog-width;
+	height: $dialog-height;
 	margin:auto;
-	vertical-align: middle;
 
 	.slide{
 		position: relative;
 		margin: .5em auto;
 
-		height: 500px;
-		max-width: 600px;
+		height: $dialog-height;
+		width: $dialog-width;
 
 		background: #fff;
 		display: none;
+
+		&.show{
+			display: block;
+		}
+	}
+
+	a{
+		display: inline-block;
+		color: #000;
+		background-color: #fff;
+		text-decoration: none;
+		padding: .5em;
 	}
 
 	#skip-slides{
 		background: #fff;
 	}
 
-	a{
-		display: inline-block;
-		color: #888;
-		background-color: #fff;
-		text-decoration: none;
-		padding: .5em;
-	}
-
-	a.side{
+	a.side-btn{
 		text-indent: -9999px;
 		width: 1em;
 		height: 1em;
@@ -40,20 +47,20 @@
 
 		background-repeat: no-repeat;
 		background-position: center;
-		//position: absolute;
-		//top: 250px;
+		position: absolute;
+		top: 250px;
 	}
 
 	a.next{
 		background-image: asset-url("arrow_forward.svg");
-		//right: -1em;
+		right: -4em;
 	}
 	a.prev{
 		background-image: asset-url("arrow_back.svg");
-		//left: -1em;
+		left: -4em;
 	}
 	a.done{
 		background-image: asset-url("done.svg");
-		//right: -1em;
+		right: -4em;
 	}
 }
