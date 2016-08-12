@@ -12,3 +12,4 @@ Rails.application.config.assets.version = '1.0'
 
 Rails.application.config.assets.precompile += %w(login.js)
 Rails.application.config.assets.precompile += %w(dash.js)
+Rails.application.config.assets.precompile += %w(welcome.js)

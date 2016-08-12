@@ -1,2 +1,24 @@
-welcome page
-<%= link_to 'skip', authenticated_root_path %>
+<%= javascript_include_tag "welcome", :async => true%>
+<div id="welcome-dialog-container">
+	<%= link_to 'prev', ({ id: @slide - 1 }), class: 'prev side' if @slide && @slide > 0 %>
+
+	<% if @slide %>
+		<div class="slide" style="display: block">
+			<%= render "slide#{@slide}" %>
+		</div>
+	<% else %>
+		<% @slides.times do |n| %>
+			<div class="slide" <% if n == @slide.to_i %>style="display: block"<% end %>>
+				<%= render "slide#{n}" %>
+			</div>
+		<% end %>
+	<% end %>
+
+	<%= link_to 'skip', authenticated_root_path, id: 'skip-slides' %>
+
+	<% if !@slide || @slide < @slides - 1 %>
+		<%= link_to 'next', { id: @slide.to_i + 1 }, class: 'next side'%>
+	<% else %>
+		<%= link_to 'done', { controller: :dash }, class: 'done side' %>
+	<% end %>
+</div>

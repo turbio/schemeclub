@@ -53,5 +53,9 @@ class MainController < ApplicationController
 	end
 
 	def welcome
+		return render 'index' if session[:user_id].nil?
+		@user = User.find(session[:user_id])
+		@slide = params[:id] ? params[:id].to_i : nil
+		@slides = 3;
 	end
 end
