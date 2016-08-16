@@ -1,4 +1,5 @@
 default: &default
+  key:
 
 production:
   <<: *default
