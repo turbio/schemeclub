@@ -1,0 +1,10 @@
+default: &default
+
+production:
+  <<: *default
+
+development:
+  <<: *default
+
+test:
+  <<: *default
