@@ -8,7 +8,11 @@
 		<% end %>
 	</div>
 
-	<%= link_to 'prev', ({ id: @slide - 1 }), class: 'prev side-btn' if @slide && @slide > 0 %>
+	<% if @slide && @slide > 0 %>
+		<%= link_to 'prev', ({ id: @slide - 1 }), class: 'prev side-btn'  %>
+	<% else %>
+		<%= link_to 'prev', {}, class: 'prev side-btn hide'  %>
+	<% end %>
 
 	<%= link_to 'skip', authenticated_root_path, id: 'skip-slides' %>
 

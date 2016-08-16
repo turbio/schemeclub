@@ -5,6 +5,11 @@ $ ->
 	prev = $('.side-btn.prev')
 
 	next.on 'click', ->
+		if slide == 0
+			prev.animate({
+				opacity: '1'
+			}, 420)
+
 		$('#slide_' + (slide + 1))
 			.css('left', '100%')
 			.addClass('show')
