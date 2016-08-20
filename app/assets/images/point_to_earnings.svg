@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="310"
+   height="100"
+   viewBox="0 0 310 99.999997"
+   id="svg8369"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="point_to_earnings.svg">
+  <defs
+     id="defs8371">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient12919">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop12921" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop12923" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient12919"
+       id="radialGradient12927"
+       cx="119.44185"
+       cy="1011.4472"
+       fx="119.44185"
+       fy="1011.4472"
+       r="106.02417"
+       gradientTransform="matrix(1,0,0,0.26147027,0,746.98383)"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="162.42279"
+     inkscape:cy="34.285714"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1366"
+     inkscape:window-height="720"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata8374">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-952.36223)">
+    <path
+       style="fill:#1a1a1a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 232.33509,1008.3234 c 4.32735,-42.27239 -27.11122,-28.18708 -64.14469,-28.18708 -24.03814,0 -51.34574,-4.67116 -75.256366,-3.98984 -22.489931,0.64084 -28.548192,1.93364 -49.353896,1.93364 -16.373934,0 -28.015566,5.97372 -27.663133,28.23228 0.234254,14.7948 1.276476,20.3127 7.312149,28.7293 5.308251,7.4023 147.085776,28.0352 204.218846,9.4962 15.91396,-5.1638 7.15574,-23.724 4.88709,-36.2145 z"
+       id="path12935"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssssssc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:12.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       x="48.352688"
+       y="1007.6287"
+       id="text8087"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="48.352688"
+         y="1007.6287"
+         style="font-size:22.5px;fill:#1a1a1a;"
+         id="tspan8348" /></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#1a1a1a;stroke-width:2.45600009;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 228.96598,992.86576 c 33.00625,-6.29959 46.44303,22.90444 68.00181,-9.43371 5.54822,-8.3223 1.78571,-24.07719 1.78571,-28.57159"
+       id="path8151"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#1a1a1a;stroke-width:2.53999996;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 287.76873,969.22801 c 2.14886,-2.1489 7.204,-10.01735 11.34191,-13.86755 2.37862,4.1812 7.15415,11.17225 8.80602,13.53205"
+       id="path10599"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       x="227.61446"
+       y="1002.7192"
+       id="text12897"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="227.61446"
+         y="1002.7192"
+         style="font-size:25px;text-align:end;text-anchor:end;fill:#ffffff;fill-opacity:1;"
+         id="tspan12901">Here's how much</tspan><tspan
+         sodipodi:role="line"
+         x="227.61446"
+         y="1033.9692"
+         style="font-size:25px;text-align:end;text-anchor:end;fill:#ffffff;fill-opacity:1;"
+         id="tspan12903">you've earned</tspan></text>
+  </g>
+</svg>

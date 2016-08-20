@@ -1,9 +1,11 @@
 <div class="tree tree-ttb">
 	<ol>
 		<li>
-			<a><%= @user.to_s %></a>
+			<a><%= @user.parent %></a>
 			<ol>
-				<li><a>aaa</a></li>
+				<li>
+					<a><%= @user.to_s %></a>
+				</li>
 			</ol>
 		</li>
 	</ol>

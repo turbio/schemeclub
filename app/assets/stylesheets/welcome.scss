@@ -79,9 +79,60 @@ $dialog-width: 600px;
 	}
 }
 
-#slide_0{
-	div{
-		padding: 1em;
-		font-size: 1.5em;
+.slide{
+	.tree{
+		width: 45%;
+		margin-right: 0;
+		display: inline-block;
+
+		ol > li {
+			width: 50%;
+		}
 	}
+
+	.net-profit{
+		width: 45%;
+		display: inline-block;
+		font-size: 2.5em;
+	}
+
+	.fig{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 50%;
+		vertical-align: middle;
+		padding: 3em;
+
+		img{
+			position: absolute;
+		}
+	}
+}
+
+#slide_0{
+	font-size: 1.125em;
+
+	h1{
+		padding-top: 1em;
+		font-size: 1.5em;
+		font-weight: normal;
+	}
+
+	#point-to-user{
+		top: 1em;
+		left: 30%;
+		z-index: 1;
+		display: block;
+	}
+
+	#point-to-earnings{
+		top: 7em;
+		right: 25%;
+		display: block;
+	}
+}
+
+#slide_1{
 }

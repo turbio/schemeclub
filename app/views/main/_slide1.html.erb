@@ -1,1 +1,21 @@
-<span>second</span>
+<div class="fig">
+	<div class="tree tree-ttb">
+		<ol>
+			<li>
+				<a><%= @user.to_s %></a>
+				<ol>
+					<li>
+						<a>sub</a>
+					</li>
+				</ol>
+			</li>
+		</ol>
+	</div>
+	<div class="net-profit currency negative">
+		<%= as_currency (0), true %>
+	</div>
+</div>
+<script>
+$(function(){
+});
+</script>
