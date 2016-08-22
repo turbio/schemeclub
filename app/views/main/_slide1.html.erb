@@ -3,11 +3,6 @@
 		<ol>
 			<li>
 				<a><%= @user.to_s %></a>
-				<ol>
-					<li>
-						<a>sub</a>
-					</li>
-				</ol>
 			</li>
 		</ol>
 	</div>
@@ -17,5 +12,9 @@
 </div>
 <script>
 $(function(){
+	setTimeout(function(){
+		//$('.child.c0').removeClass('hide');
+		//$('.child.c1').removeClass('hide');
+	}, 1000);
 });
 </script>

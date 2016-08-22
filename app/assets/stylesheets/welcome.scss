@@ -81,19 +81,17 @@ $dialog-width: 600px;
 
 .slide{
 	.tree{
-		width: 45%;
+		width: 49%;
 		margin-right: 0;
 		display: inline-block;
-
-		ol > li {
-			width: 50%;
-		}
 	}
 
 	.net-profit{
-		width: 45%;
+		width: 49%;
 		display: inline-block;
 		font-size: 2.5em;
+		vertical-align: top;
+		line-height: 2em;
 	}
 
 	.fig{
@@ -103,7 +101,7 @@ $dialog-width: 600px;
 		right: 0;
 		height: 50%;
 		vertical-align: middle;
-		padding: 3em;
+		padding: 2em;
 
 		img{
 			position: absolute;
@@ -121,8 +119,8 @@ $dialog-width: 600px;
 	}
 
 	#point-to-user{
-		top: 1em;
-		left: 30%;
+		top: 0em;
+		left: 28%;
 		z-index: 1;
 		display: block;
 	}
@@ -135,4 +133,7 @@ $dialog-width: 600px;
 }
 
 #slide_1{
+	.hide{
+		display: none;
+	}
 }
