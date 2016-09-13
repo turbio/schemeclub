@@ -1,20 +1,12 @@
 <div class="fig">
 	<div class="tree tree-ttb">
 		<ol>
-			<li>
+			<li class="tree-parent">
 				<a><%= @user.to_s %></a>
 			</li>
 		</ol>
 	</div>
 	<div class="net-profit currency negative">
-		<%= as_currency (0), true %>
+		<%= as_currency 0, true %>
 	</div>
 </div>
-<script>
-$(function(){
-	setTimeout(function(){
-		//$('.child.c0').removeClass('hide');
-		//$('.child.c1').removeClass('hide');
-	}, 1000);
-});
-</script>
