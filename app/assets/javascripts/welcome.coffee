@@ -1,7 +1,7 @@
 net_profit = 0
 
-next = $('.side-btn.next')
-prev = $('.side-btn.prev')
+next = $ '.side-btn.next'
+prev = $ '.side-btn.prev'
 
 profit_change_to = (amount) ->
 	cur_profit = net_profit
@@ -10,7 +10,7 @@ profit_change_to = (amount) ->
 	interval = setInterval ->
 		if cur_profit >= net_profit
 			end_increment()
-		cur_profit += ((net_profit - cur_profit) / 10)
+		cur_profit += ((net_profit - cur_profit) / 10) + 0.0001
 		set_currency cur_profit
 	, 16
 
@@ -19,33 +19,121 @@ profit_change_to = (amount) ->
 		set_currency net_profit
 
 set_currency = (val) ->
-	$('.net-profit').text '▲' + val.toFixed(2)
+	$ '.net-profit'
+	.text '▲' + val.toFixed(2)
+
+run_set = (set) ->
+	if set.length > 0
+		setTimeout run_set.bind(this, set), set.shift()() || 0
+
+cash_flow_elem = '<span style="
+color: #4CAF50;
+font-size: 1em;
+position: fixed;
+text-shadow: #fff 0px 0px 4px,   #fff 0px 0px 4px,   #fff 0px 0px 4px,
+             #fff 0px 0px 4px,   #fff 0px 0px 4px,   #fff 0px 0px 4px,
+             #fff 0px 0px 4px,   #fff 0px 0px 4px,   #fff 0px 0px 4px,
+             #fff 0px 0px 4px,   #fff 0px 0px 4px,   #fff 0px 0px 4px;
+"></span>'
+
+get_center = (elem) ->
+	elem = $(elem)
+	pos = elem.offset()
+
+	{
+		top: (pos.top + (elem.height() / 2)) + 'px',
+		left: (pos.left + (elem.width() / 2)) + 'px'
+	}
 
 slides = [
 	->
-		console.log 'a'
 	->
-		console.log 'b'
 		elems = [
-			'<li><a>alice<span class="earned-from">5.00</span></a></li>',
-			'<li><a>bob<span class="earned-from">5.00</span></a></li>',
-			'<li><a>carol<span class="earned-from">5.00</span></a></li>'
-		];
+			'<li style="display: inline-block">
+				<a>alice<span class="earned-from">5.00</span></a>
+			</li>',
+			'<li style="display: inline-block">
+				<a>bob<span class="earned-from">5.00</span></a>
+			</li>',
+			'<li style="display: inline-block">
+				<a>carol<span class="earned-from">5.00</span></a>
+			</li>'
+		]
 
-		setTimeout( ->
-			$('.tree-parent').append(
-				$('<ol></ol>')
-				.addClass('child-container')
-				.fadeIn()
-				.append(
-					$(elems[0])
-					.fadeIn()));
-			profit_change_to 5
+		user_node = $($('#slide_1 .tree-parent').children()[0])
+		profit_elem = $('#slide_1 .net-profit')
 
-		, 500)
+		$('#slide_1 .tree-parent')
+		.append(
+			$ '<ol></ol>'
+			.addClass 'child-container'
+			.fadeIn())
+
+		queue = [
+			->
+				500
+			->
+			->
+				child = $(elems[0]).fadeIn()
+				$('#slide_1 .child-container').append(child)
+				child.ready ->
+					$('body').append(
+						$(cash_flow_elem)
+						.text('+5')
+						.css(get_center(child))
+						.animate(get_center(user_node), 1000)
+						.animate(get_center(profit_elem), 1000)
+						.animate({
+							opacity: 0,
+							top: profit_elem.offset().top
+						}))
+				1500
+			->
+				profit_change_to 5
+				2000
+			->
+				child = $(elems[1]).fadeIn()
+				$('#slide_1 .child-container').append(child)
+				child.ready ->
+					$('body').append(
+						$(cash_flow_elem)
+						.text('+5')
+						.css(get_center(child))
+						.animate(get_center(user_node), 1000)
+						.animate(get_center(profit_elem), 1000)
+						.animate({
+							opacity: 0,
+							top: profit_elem.offset().top
+						}))
+				1500
+			->
+				profit_change_to 10
+				2000
+			->
+				child = $(elems[2]).fadeIn()
+				$('#slide_1 .child-container').append(child)
+				child.ready ->
+					$('body').append(
+						$(cash_flow_elem)
+						.text('+5')
+						.css(get_center(child))
+						.animate(get_center(user_node), 1000)
+						.animate(get_center(profit_elem), 1000)
+						.animate({
+							opacity: 0,
+							top: profit_elem.offset().top
+						}))
+				1500
+			->
+				profit_change_to 15
+
+		]
+
+		run_set queue
+
 	->
 		console.log 'c'
-];
+]
 
 check_slide = (slide) ->
 	if slides[slide]

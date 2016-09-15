@@ -1,10 +1,23 @@
-<div class="tree tree-ttb">
-	<ol>
-		<li>
-			<a><%= @user.to_s %></a>
-			<ol>
-				<li><a>aaa</a></li>
-			</ol>
-		</li>
-	</ol>
+<p>you will recieve 50% of their entry fee</p>
+<p>the other 50% goes to the user who recruited you</p>
+<div class="fig">
+	<div class="tree tree-ttb">
+		<ol>
+			<li class="tree-parent">
+				<a><%= @user.to_s %></a>
+				<ol>
+					<li>
+						<a>alice<span class="earned-from">5.00</span></a>
+					</li><li>
+						<a>bob<span class="earned-from">5.00</span></a>
+					</li><li>
+						<a>carol<span class="earned-from">5.00</span></a>
+					</li>
+				</ol>
+			</li>
+		</ol>
+	</div>
+	<div class="net-profit currency negative">
+		<%= as_currency 15, true %>
+	</div>
 </div>
