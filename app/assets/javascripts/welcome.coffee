@@ -79,9 +79,19 @@ slides = [
 				child.ready ->
 					$('body').append(
 						$(cash_flow_elem)
-						.text('+5')
+						.text('+10')
 						.css(get_center(child))
-						.animate(get_center(user_node), 1000)
+						.animate(get_center(user_node), 1000, ->
+							$(this).text('+5')
+							$('body').append(
+								$(cash_flow_elem)
+								.text('+5')
+								.css(get_center(user_node))
+								.animate({
+									top: user_node.offset().top - 40 + 'px',
+									opacity: 0
+								}, 1000))
+							)
 						.animate(get_center(profit_elem), 1000)
 						.animate({
 							opacity: 0,
