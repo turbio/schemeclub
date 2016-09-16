@@ -12,30 +12,6 @@ $dialog-width: 600px;
 	height: $dialog-height;
 	margin:auto;
 
-	#slide-container{
-		position: relative;
-
-		max-width: $dialog-width;
-		height: $dialog-height;
-		margin: 1em;
-
-		overflow: hidden;
-
-		.slide{
-			position: absolute;
-
-			height: $dialog-height;
-			width: 100%;
-
-			background: #fff;
-			display: none;
-
-			&.show{
-				display: block;
-			}
-		}
-	}
-
 	a{
 		display: inline-block;
 		color: #000;
@@ -46,11 +22,6 @@ $dialog-width: 600px;
 
 	a.hide{
 		opacity: 0;
-	}
-
-	#skip-slides{
-		background: #fff;
-		margin: .5em;
 	}
 
 	a.side-btn{
@@ -79,11 +50,51 @@ $dialog-width: 600px;
 	}
 }
 
+#slide-container{
+	position: relative;
+
+	max-width: $dialog-width;
+	height: $dialog-height;
+	margin: 1em;
+
+	overflow: hidden;
+
+	.slide{
+		position: absolute;
+
+		height: $dialog-height;
+		width: 100%;
+
+		background: #fff;
+		display: none;
+
+		&.show{
+			display: block;
+		}
+	}
+}
+
+#skip-slides{
+	background: #fff;
+	margin: .5em;
+}
+
 .slide{
+	h1{
+		padding-top: 1em;
+		font-size: 1.5em;
+		font-weight: normal;
+	}
+
 	.tree{
 		width: 49%;
 		margin-right: 0;
 		display: inline-block;
+
+		overflow: visible;
+		>ol{
+			overflow: visible;
+		}
 	}
 
 	.net-profit{
@@ -112,12 +123,6 @@ $dialog-width: 600px;
 #slide_0{
 	font-size: 1.125em;
 
-	h1{
-		padding-top: 1em;
-		font-size: 1.5em;
-		font-weight: normal;
-	}
-
 	#point-to-user{
 		top: 0em;
 		left: 28%;
@@ -132,11 +137,4 @@ $dialog-width: 600px;
 	}
 }
 
-#slide_1{
-	h1{
-		padding-top: 1em;
-		font-size: 1.5em;
-		font-weight: normal;
-	}
-
-}
+#slide_1{ }
