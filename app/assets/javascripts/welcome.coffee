@@ -132,8 +132,7 @@ slides = [
 			'<ol class="add-to-next">
 				<li style="display: inline-block">
 					<a>dan<span class="earned-from">2.50</span></a>
-				</li>
-			</ol>',
+				</li></ol>',
 			'<li style="display: inline-block">
 				<a>ella<span class="earned-from">2.50</span></a>
 			</li>'
