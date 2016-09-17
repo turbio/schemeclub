@@ -1,12 +1,30 @@
-<div class="tree tree-ttb">
-	<ol>
-		<li>
-			<a><%= @user.parent %></a>
-			<ol>
-				<li>
-					<a><%= @user.to_s %></a>
-				</li>
-			</ol>
-		</li>
-	</ol>
+<h1>You can cash out</h1>
+<p>...</p>
+<div class="fig">
+	<div class="tree tree-ttb">
+		<ol>
+			<li class="tree-parent">
+				<a class="self"><%= @user.to_s %></a>
+				<ol>
+					<li class="add-to-third">
+						<a>alice<span class="earned-from">5.00</span></a>
+					</li><li>
+						<a>bob<span class="earned-from">5.00</span></a>
+					</li><li class="add-to-first">
+						<a>carol<span class="earned-from">10.00</span></a>
+						<ol>
+							<li class="add-to-third">
+								<a>dan<span class="earned-from">2.50</span></a>
+							</li><li>
+								<a>erin<span class="earned-from">2.50</span></a>
+							</li>
+						</ol>
+					</li>
+				</ol>
+			</li>
+		</ol>
+	</div>
+	<div class="net-profit currency negative">
+		<%= as_currency 20, true %>
+	</div>
 </div>

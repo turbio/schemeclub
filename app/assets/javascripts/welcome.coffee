@@ -134,17 +134,7 @@ slides = [
 
 			'<li style="display: inline-block">
 				<a>erin<span class="earned-from">2.50</span></a>
-			</li>',
-
-			'<ol>
-				<li style="display: inline-block" class="add-to-fourth">
-					<a>frank<span class="earned-from">2.50</span></a>
-				</li></ol>',
-
-			'<ol>
-				<li style="display: inline-block">
-					<a>grace<span class="earned-from">1.25</span></a>
-				</li></ol>',
+			</li>'
 		]
 
 		to_add_to = $ '#slide_' + current_slide + ' .add-to-first'
@@ -167,26 +157,8 @@ slides = [
 				3000
 			->
 				profit_change_to 20
-				1000
-			->
-				to_add_to = $ '#slide_' + current_slide + ' .add-to-third'
-				to_add_to.find('span').first().text '7.50'
-				add_sub(elem[2], to_add_to)
-				3000
-			->
-				profit_change_to 22.50
-				1000
-			->
-				to_add_to.find('span').first().text '8.75'
-
-				to_add_to = $ '#slide_' + current_slide + ' .add-to-fourth'
-				to_add_to.find('span').first().text '3.75'
-				add_sub(elem[3], to_add_to)
-				4000
-			->
-				profit_change_to 23.75
 		]
-
+		->
 ]
 
 check_slide = (slide) ->
