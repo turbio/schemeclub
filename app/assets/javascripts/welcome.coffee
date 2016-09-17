@@ -55,8 +55,6 @@ distribute_wealth = (from, value=10) ->
 			.closest 'ol'
 			.prev('a')[0]
 
-	#console.log from, ' -> ', to
-
 	fadeUp = (elem) ->
 		$(elem).animate({
 			top: ($(elem).offset().top - 40) + 'px',
@@ -129,33 +127,64 @@ slides = [
 	->
 		net_profit = 15
 		elem = [
-			'<ol class="add-to-next">
+			'<ol class="add-to-second">
 				<li style="display: inline-block">
 					<a>dan<span class="earned-from">2.50</span></a>
 				</li></ol>',
+
 			'<li style="display: inline-block">
-				<a>ella<span class="earned-from">2.50</span></a>
-			</li>'
+				<a>erin<span class="earned-from">2.50</span></a>
+			</li>',
+
+			'<ol>
+				<li style="display: inline-block" class="add-to-fourth">
+					<a>frank<span class="earned-from">2.50</span></a>
+				</li></ol>',
+
+			'<ol>
+				<li style="display: inline-block">
+					<a>grace<span class="earned-from">1.25</span></a>
+				</li></ol>',
 		]
 
-		to_add_to = $ '#slide_' + current_slide + ' .add-to'
+		to_add_to = $ '#slide_' + current_slide + ' .add-to-first'
 
 		run_set [
 			->
 				500
 			->
-				console.log(to_add_to)
 				add_sub(elem[0], to_add_to)
+				to_add_to.find('span').first().text '7.50'
 				3000
 			->
 				profit_change_to 17.5
 				1000
 			->
-				to_add_to = $ '#slide_' + current_slide + ' .add-to-next'
+				to_add_to.find('span').first().text '10.00'
+
+				to_add_to = $ '#slide_' + current_slide + ' .add-to-second'
 				add_sub(elem[1], to_add_to)
 				3000
 			->
 				profit_change_to 20
+				1000
+			->
+				to_add_to = $ '#slide_' + current_slide + ' .add-to-third'
+				to_add_to.find('span').first().text '7.50'
+				add_sub(elem[2], to_add_to)
+				3000
+			->
+				profit_change_to 22.50
+				1000
+			->
+				to_add_to.find('span').first().text '8.75'
+
+				to_add_to = $ '#slide_' + current_slide + ' .add-to-fourth'
+				to_add_to.find('span').first().text '3.75'
+				add_sub(elem[3], to_add_to)
+				4000
+			->
+				profit_change_to 23.75
 		]
 
 ]
