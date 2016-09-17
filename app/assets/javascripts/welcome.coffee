@@ -1,4 +1,5 @@
 net_profit = 0
+current_slide = 0
 
 next = $ '.side-btn.next'
 prev = $ '.side-btn.prev'
@@ -45,9 +46,46 @@ get_center = (elem) ->
 		left: (pos.left + (elem.width() / 2)) + 'px'
 	}
 
+distribute_wealth = (from, value=10) ->
+	if $(from).hasClass('self')
+		to = $('#slide_' + current_slide + ' .net-profit')
+		end = true
+	else
+		to = $ from
+			.closest 'ol'
+			.prev('a')[0]
+
+	#console.log from, ' -> ', to
+
+	fadeUp = (elem) ->
+		$(elem).animate({
+			top: ($(elem).offset().top - 40) + 'px',
+			opacity: 0
+		}, 750, () -> $(this).remove())
+
+	$('body').append(
+		$(cash_flow_elem)
+		.text('+' + value)
+		.css(get_center(from))
+		.animate(get_center(to), 1000, ->
+			fadeUp this
+			if end
+				#fadeUp this
+			else
+				$(this).text('+' + (value / 2))
+				distribute_wealth to, value / 2
+	))
+
+add_sub = (elem, to) ->
+	child = $(elem).fadeIn()
+	to = to || $('#slide_' + current_slide + ' .child-container')
+	to.append(child)
+	child.ready -> distribute_wealth(child.find('a')[0])
+
 slides = [
 	->
 	->
+		net_profit = 0
 		elems = [
 			'<li style="display: inline-block">
 				<a>alice<span class="earned-from">5.00</span></a>
@@ -60,89 +98,67 @@ slides = [
 			</li>'
 		]
 
-		user_node = $($('#slide_1 .tree-parent').children()[0])
-		profit_elem = $('#slide_1 .net-profit')
+		user_node = $($('#slide_' + current_slide + ' .tree-parent').children()[0])
+		profit_elem = $('#slide_' + current_slide + ' .net-profit')
 
-		$('#slide_1 .tree-parent')
-		.append(
-			$ '<ol></ol>'
-			.addClass 'child-container'
-			.fadeIn())
+		$('#slide_' + current_slide + ' .tree-parent')
+			.append($('<ol></ol>').addClass('child-container').fadeIn())
 
-		queue = [
+		run_set [
 			->
 				500
 			->
-			->
-				child = $(elems[0]).fadeIn()
-				$('#slide_1 .child-container').append(child)
-				child.ready ->
-					$('body').append(
-						$(cash_flow_elem)
-						.text('+10')
-						.css(get_center(child))
-						.animate(get_center(user_node), 1000, ->
-							$(this).text('+5')
-							$('body').append(
-								$(cash_flow_elem)
-								.text('+5')
-								.css(get_center(user_node))
-								.animate({
-									top: user_node.offset().top - 40 + 'px',
-									opacity: 0
-								}, 1000))
-							)
-						.animate(get_center(profit_elem), 1000)
-						.animate({
-							opacity: 0,
-							top: profit_elem.offset().top
-						}))
+				add_sub(elems[0])
 				1500
 			->
 				profit_change_to 5
 				2000
 			->
-				child = $(elems[1]).fadeIn()
-				$('#slide_1 .child-container').append(child)
-				child.ready ->
-					$('body').append(
-						$(cash_flow_elem)
-						.text('+5')
-						.css(get_center(child))
-						.animate(get_center(user_node), 1000)
-						.animate(get_center(profit_elem), 1000)
-						.animate({
-							opacity: 0,
-							top: profit_elem.offset().top
-						}))
+				add_sub(elems[1])
 				1500
 			->
 				profit_change_to 10
 				2000
 			->
-				child = $(elems[2]).fadeIn()
-				$('#slide_1 .child-container').append(child)
-				child.ready ->
-					$('body').append(
-						$(cash_flow_elem)
-						.text('+5')
-						.css(get_center(child))
-						.animate(get_center(user_node), 1000)
-						.animate(get_center(profit_elem), 1000)
-						.animate({
-							opacity: 0,
-							top: profit_elem.offset().top
-						}))
+				add_sub(elems[2])
 				1500
 			->
 				profit_change_to 15
-
 		]
 
-		run_set queue
-
 	->
-		console.log 'c'
+		net_profit = 15
+		elem = [
+			'<ol class="add-to-next">
+				<li style="display: inline-block">
+					<a>dan<span class="earned-from">2.50</span></a>
+				</li>
+			</ol>',
+			'<li style="display: inline-block">
+				<a>ella<span class="earned-from">2.50</span></a>
+			</li>'
+		]
+
+		to_add_to = $ '#slide_' + current_slide + ' .add-to'
+
+		run_set [
+			->
+				500
+			->
+				console.log(to_add_to)
+				add_sub(elem[0], to_add_to)
+				3000
+			->
+				profit_change_to 17.5
+				1000
+			->
+				to_add_to = $ '#slide_' + current_slide + ' .add-to-next'
+				add_sub(elem[1], to_add_to)
+				3000
+			->
+				profit_change_to 20
+		]
+
 ]
 
 check_slide = (slide) ->
@@ -190,9 +206,9 @@ prev_slide = (slide) ->
 	false
 
 $ ->
-	slide = parseInt(location.pathname.split('/').slice(-1)[0]) || 0
+	current_slide = parseInt(location.pathname.split('/').slice(-1)[0]) || 0
 
-	check_slide(slide)
-	next.on 'click', next_slide.bind(null, slide)
-	prev.on 'click', prev_slide.bind(null, slide)
+	check_slide(current_slide)
+	next.on 'click', next_slide.bind(null, current_slide)
+	prev.on 'click', prev_slide.bind(null, current_slide)
 

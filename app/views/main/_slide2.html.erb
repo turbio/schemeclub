@@ -1,16 +1,16 @@
-<p>you will recieve 50% of their entry fee</p>
-<p>the other 50% goes to the user who recruited you</p>
+<h1>When your subordinates recruit users</h1>
+<p>You will receive <b>half</b> of what your subordinate earned.</p>
 <div class="fig">
 	<div class="tree tree-ttb">
 		<ol>
 			<li class="tree-parent">
-				<a><%= @user.to_s %></a>
+				<a class="self"><%= @user.to_s %></a>
 				<ol>
 					<li>
 						<a>alice<span class="earned-from">5.00</span></a>
 					</li><li>
 						<a>bob<span class="earned-from">5.00</span></a>
-					</li><li>
+					</li><li class="add-to">
 						<a>carol<span class="earned-from">5.00</span></a>
 					</li>
 				</ol>
