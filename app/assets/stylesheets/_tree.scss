@@ -8,6 +8,8 @@ $label-color: #666;
 $label-font-size: .7em;
 
 #tree-ttb:checked ~ .tree, .tree-ttb{
+	text-align: center;
+
 	*{
 		margin: 0;
 		padding: 0;
