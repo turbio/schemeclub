@@ -81,8 +81,8 @@ add_sub = (elem, to) ->
 	child.ready -> distribute_wealth(child.find('a')[0])
 
 slides = [
-	->
-	->
+	-> #slide 0
+	-> #slide 1
 		net_profit = 0
 		elems = [
 			'<li style="display: inline-block">
@@ -113,18 +113,23 @@ slides = [
 				2000
 			->
 				add_sub(elems[1])
+				$('.child-earnings').hide()
+				$('#child-earnings-1').show()
 				1500
 			->
 				profit_change_to 10
 				2000
 			->
 				add_sub(elems[2])
+				$('.child-earnings').hide()
+				$('#child-earnings-2').show()
 				1500
 			->
 				profit_change_to 15
+				$('.replay-button').fadeIn()
 		]
 
-	->
+	-> #slide 2
 		net_profit = 15
 		elem = [
 			'<ol class="add-to-second">
@@ -157,8 +162,10 @@ slides = [
 				3000
 			->
 				profit_change_to 20
+				$('.replay-button').fadeIn()
 		]
-		->
+		-> #slide 3
+		-> #slide 4
 ]
 
 check_slide = (slide) ->
@@ -211,4 +218,8 @@ $ ->
 	check_slide(current_slide)
 	next.on 'click', next_slide.bind(null, current_slide)
 	prev.on 'click', prev_slide.bind(null, current_slide)
+
+	$('.replay-button').on 'click', ->
+		$(this).fadeOut()
+		location.reload()
 

@@ -131,10 +131,69 @@ $dialog-width: 600px;
 	}
 
 	#point-to-earnings{
-		top: 7em;
+		top: 6.5em;
 		right: 25%;
 		display: block;
 	}
 }
 
-#slide_1{ }
+#slide_1{
+	.child-earnings{
+		bottom: 3.5em;
+		left: 0;
+	}
+	#child-earnings-1{
+		display: none;
+	}
+	#child-earnings-2{
+		display: none;
+	}
+}
+
+#slide_3{
+	.part{
+		width: 49%;
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	#skeem-to-btc{
+		top: 2em;
+		left: 45%;
+	}
+	#bitcoin-logo{
+		top: .5em;
+		right: 10%;
+	}
+}
+
+#slide_4{
+	.foot-message{
+		position: relative;
+		margin: 0;
+		bottom: 2em;
+		font-size: 2em;
+	}
+}
+
+.replay-button{
+	position: absolute;
+	bottom: 1em;
+	right: 1em;
+
+	background: asset-url("refresh.svg");
+	width: 24px;
+	height: 24px;
+
+	cursor: pointer;
+	display: none;
+}
+
+.replay-button:hover{
+	animation: spin 1s;
+}
+
+@keyframes spin{
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}

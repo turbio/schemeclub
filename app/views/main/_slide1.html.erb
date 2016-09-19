@@ -1,7 +1,16 @@
-<h1>When you recruit users</h1>
-<p>You will receive <b>half</b> of their entry fee.</p>
-<p>The other <b>half</b> goes to the user who recruited you.</p>
+<h1>When you recruit a user</h1>
+<p>You will earn <b>half</b> of their registration fee.</p>
+<p>The <b>other half</b> goes to the user who recruited you.</p>
 <div class="fig">
+	<%= image_tag 'point_to_child_earnings0.svg',
+		class: 'child-earnings',
+		id: 'child-earnings-0' %>
+	<%= image_tag 'point_to_child_earnings1.svg',
+		class: 'child-earnings',
+		id: 'child-earnings-1' %>
+	<%= image_tag 'point_to_child_earnings2.svg',
+		class: 'child-earnings',
+		id: 'child-earnings-2' %>
 	<div class="tree tree-ttb">
 		<ol>
 			<li class="tree-parent">
@@ -13,3 +22,4 @@
 		<%= as_currency 0, true %>
 	</div>
 </div>
+<div class="replay-button" title="replay"></div>
