@@ -12,5 +12,8 @@
 
 <%= yield %>
 
+<% if Rails.configuration.analytics['key'] %>
+	<%= render "analytics" %>
+<% end %>
 </body>
 </html>
