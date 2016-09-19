@@ -43,6 +43,7 @@ RSpec.describe User, type: :model do
 
 	it 'should show amount earned from user' do
 		dog = User.create!(name: 'dog', password: 'password123')
+
 		fred = User.create!(
 			name: 'fred',
 			password: 'password123',
@@ -59,6 +60,7 @@ RSpec.describe User, type: :model do
 			password: 'imawizard',
 			parent_id: gary.id)
 
-		expect(fred.earned_from gary).to eq(15)
+		expect(fred.earned_from gary).to eq(7.5)
+		expect(fred.earned_from harry).to eq(2.5)
 	end
 end
