@@ -51,7 +51,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="233.45816"
+     inkscape:cx="163.85825"
      inkscape:cy="102.24799"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -59,8 +59,8 @@
      units="px"
      inkscape:window-width="1209"
      inkscape:window-height="685"
-     inkscape:window-x="65"
-     inkscape:window-y="37"
+     inkscape:window-x="175"
+     inkscape:window-y="-34"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata8374">
@@ -70,7 +70,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -81,7 +81,7 @@
      transform="translate(0,-927.36223)">
     <path
        style="fill:#1a1a1a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 13.533556,1005.3926 c -6.8224169,-43.02803 53.239423,-25.83382 111.625674,-25.83382 37.89808,0 80.9507,-4.75465 118.64772,-4.06115 35.4572,0.65229 45.00854,1.9682 77.81042,1.9682 25.81482,0 44.16879,6.0805 43.61314,28.73687 -0.36931,15.0593 3.70184,29.3622 -5.8139,37.9293 -8.36889,7.5346 -236.00131,12.152 -333.396055,4.5509 -26.186783,-2.0437 -16.063709,-30.5766 -12.486999,-43.2903 z"
+       d="m 30.231555,1005.3926 c -6.166413,-43.02803 48.120236,-25.83382 100.892415,-25.83382 34.25402,0 73.16696,-4.75465 107.23925,-4.06115 32.04785,0.65229 40.68079,1.9682 70.32864,1.9682 23.33262,0 39.92178,6.0805 39.41956,28.73687 -0.3338,15.0593 3.34589,29.3622 -5.25487,37.9293 -7.56419,7.5346 -213.30883,12.152 -301.338671,4.5509 -23.668818,-2.0437 -14.519118,-30.5766 -11.286324,-43.2903 z"
        id="path12935"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cssssssc" />
@@ -108,12 +108,12 @@
          x="189.41925"
          y="1003.6478"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:Cantarell;-inkscape-font-specification:Cantarell;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
-         id="tspan3384">This shows how much you've</tspan><tspan
+         id="tspan3388">This shows how much</tspan><tspan
          sodipodi:role="line"
          x="189.41925"
          y="1034.8978"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:Cantarell;-inkscape-font-specification:Cantarell;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
-         id="tspan3388">earned from recruiting this user</tspan></text>
+         id="tspan5269">you've earned from recruits</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#1a1a1a;stroke-width:2.45600009;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 102.99611,983.51825 c -5.54822,-8.3223 -6.6889,-25.71498 -6.6889,-30.20938"

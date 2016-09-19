@@ -70,7 +70,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -81,7 +81,7 @@
      transform="translate(0,-927.36223)">
     <path
        style="fill:#1a1a1a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 13.533556,1005.3926 c -6.8224169,-43.02803 53.239423,-25.83382 111.625674,-25.83382 37.89808,0 80.9507,-4.75465 118.64772,-4.06115 35.4572,0.65229 45.00854,1.9682 77.81042,1.9682 25.81482,0 44.16879,6.0805 43.61314,28.73687 -0.36931,15.0593 3.70184,29.3622 -5.8139,37.9293 -8.36889,7.5346 -236.00131,12.152 -333.396055,4.5509 -26.186783,-2.0437 -16.063709,-30.5766 -12.486999,-43.2903 z"
+       d="m 30.722673,1005.3926 c -6.147119,-43.02803 47.969671,-25.83382 100.576727,-25.83382 34.14685,0 72.93803,-4.75465 106.90372,-4.06115 31.94757,0.65229 40.55349,1.9682 70.10857,1.9682 23.25962,0 39.79687,6.0805 39.29622,28.73687 -0.33275,15.0593 3.33543,29.3622 -5.23843,37.9293 -7.54051,7.5346 -212.64139,12.152 -300.395798,4.5509 -23.594759,-2.0437 -14.473689,-30.5766 -11.251009,-43.2903 z"
        id="path12935"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cssssssc" />
@@ -108,12 +108,12 @@
          x="189.41925"
          y="1003.6478"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:Cantarell;-inkscape-font-specification:Cantarell;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
-         id="tspan3384">This shows how much you've</tspan><tspan
+         id="tspan3388">This shows how much</tspan><tspan
          sodipodi:role="line"
          x="189.41925"
          y="1034.8978"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:Cantarell;-inkscape-font-specification:Cantarell;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
-         id="tspan3388">earned from recruiting this user</tspan></text>
+         id="tspan5277">you've earned from recruits</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#1a1a1a;stroke-width:2.45600009;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 142.99611,983.51825 c -5.54822,-8.3223 -6.6889,-25.71498 -6.6889,-30.20938"

@@ -107,6 +107,7 @@ slides = [
 				500
 			->
 				add_sub(elems[0])
+				$('#child-earnings-0').fadeIn()
 				1500
 			->
 				profit_change_to 5
