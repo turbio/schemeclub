@@ -1,13 +1,41 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-	it 'authenticate a user with valid credentials' do
+	it 'should create user with valid information' do
+		first = User.create!(name: 'first', password: 'password')
+		second = User.create!(
+			name: 'second',
+			password: 'password',
+			parent_id: first.id)
+	end
+
+	it 'should reject signup with invalid information' do
+		expect do
+			User.create!(name: 't', password: 'password')
+		end.to raise_error(
+			ActiveRecord::RecordInvalid,
+			/Name is too short \(minimum is 3 characters\)/)
+
+		expect do
+			User.create!(name: 'no spaces', password: 'password')
+		end.to raise_error(
+			ActiveRecord::RecordInvalid,
+			/Validation failed: Name must be alphanumeric/)
+
+		expect do
+			User.create!(name: 'nameisok', password: '')
+		end.to raise_error(
+			ActiveRecord::RecordInvalid,
+			/Validation failed: Password can't be blank/)
+	end
+
+	it 'should authenticate a user with valid credentials' do
 		alice = User.create!(name: 'alice', password: 'password')
 
 		expect(User.authenticate 'alice', 'password').to eq(alice)
 	end
 
-	it 'rejects a user with invalid credentials' do
+	it 'should reject a user with invalid credentials' do
 		bob = User.create!(name: 'bob', password: 'letmein')
 
 		expect(User.authenticate 'bob', 'password').not_to eq(bob)
@@ -65,29 +93,25 @@ RSpec.describe User, type: :model do
 	end
 
 	it 'should show total amount earned' do
-		dog = User.create!(name: 'dog', password: 'password123')
+		top = User.create!(name: 'top', password: 'password123')
 
-		fred = User.create!(
-			name: 'fred',
+		ian = User.create!(
+			name: 'ian',
 			password: 'password123',
-			parent_id: dog.id)
+			parent_id: top.id)
 
-		expect(fred.earned).to eq(0)
-
-		gary = User.create!(
-			name: 'gary',
+		jack = User.create!(
+			name: 'jack',
 			password: 'incorrecthorse',
-			parent_id: fred.id)
+			parent_id: ian.id)
 
-		#expect(fred.earned).to eq(5)
-		expect(gary.earned).to eq(0)
-
-		harry = User.create!(
-			name: 'harry',
+		kathrin = User.create!(
+			name: 'kathrin',
 			password: 'imawizard',
-			parent_id: gary.id)
+			parent_id: jack.id)
 
-		expect(fred.earned).to eq(7.5)
-		expect(gary.earned).to eq(5)
+		expect(ian.earned).to eq(7.5)
+		expect(jack.earned).to eq(5)
+		expect(kathrin.earned).to eq(0)
 	end
 end
