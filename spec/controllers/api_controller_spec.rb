@@ -7,15 +7,15 @@ RSpec.describe ApiController, type: :controller do
 			post :valid_name, name: 'test'
 
 			expect(response).to be_success
-			expect(response.content_type).to eq("application/json")
-			expect(response.body).to eq('true')
+			expect(response.content_type).to eq 'application/json'
+			expect(response.body).to eq 'true'
 		end
 		it 'should return false for invalid username' do
 			post :valid_name, name: 'not a user'
 
 			expect(response).to be_success
-			expect(response.content_type).to eq("application/json")
-			expect(response.body).to eq('false')
+			expect(response.content_type).to eq 'application/json'
+			expect(response.body).to eq 'false'
 		end
 		it 'should return error for invalid request' do
 			post :valid_name
@@ -32,24 +32,24 @@ RSpec.describe ApiController, type: :controller do
 			post :valid_credentials, name: 'test', password: 'test'
 
 			expect(response).to be_success
-			expect(response.content_type).to eq("application/json")
-			expect(response.body).to eq('true')
+			expect(response.content_type).to eq 'application/json'
+			expect(response.body).to eq 'true'
 		end
 		it 'should return false for invalid username' do
 			User.create!(name: 'test', password: 'test')
 			post :valid_credentials, name: 'nottest', password: 'test'
 
 			expect(response).to be_success
-			expect(response.content_type).to eq("application/json")
-			expect(response.body).to eq('false')
+			expect(response.content_type).to eq 'application/json'
+			expect(response.body).to eq 'false'
 		end
 		it 'should return false for invalid password' do
 			User.create!(name: 'test', password: 'test')
 			post :valid_credentials, name: 'test', password: 'nottest'
 
 			expect(response).to be_success
-			expect(response.content_type).to eq("application/json")
-			expect(response.body).to eq('false')
+			expect(response.content_type).to eq 'application/json'
+			expect(response.body).to eq 'false'
 		end
 		it 'should return error for invalid request' do
 			post :valid_credentials

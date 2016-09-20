@@ -8,11 +8,11 @@ class DashController < ApplicationController
 	end
 
 	def new_code
+		return redirect_to root_path if session[:user_id].nil?
 		@user = User.find(session[:user_id])
-		redirect_to root_path if @user.nil?
 
 		if RecruitCode.owned_by(@user).length >= 3
-			render plain: 'maximum of 3 recruit codes'
+			render plain: 'maximum of 3 recruit codes', status: 400
 			return
 		end
 

@@ -23,8 +23,8 @@ RSpec.describe RecruitCode, type: :model do
 			second = RecruitCode.generate_new_code owner
 			third = RecruitCode.generate_new_code owner
 
-			expect(first.code).not_to eq(second.code)
-			expect(second.code).not_to eq(third.code)
+			expect(first.code).not_to eq second.code
+			expect(second.code).not_to eq third.code
 		end
 	end
 
@@ -35,8 +35,8 @@ RSpec.describe RecruitCode, type: :model do
 		second = RecruitCode.generate_new_code owner
 		third = RecruitCode.generate_new_code owner
 
-		expect(RecruitCode.owned_by(owner).length).to eq(3)
-		expect(RecruitCode.owned_by(owner).first).to eq(first)
+		expect(RecruitCode.owned_by(owner).length).to eq 3
+		expect(RecruitCode.owned_by(owner).first).to eq first
 	end
 
 	describe 'availability' do
@@ -44,7 +44,7 @@ RSpec.describe RecruitCode, type: :model do
 			owner = User.create!(name: 'owner', password: 'password')
 			code = RecruitCode.generate_new_code owner
 
-			expect(code.remaining_seconds).to be_a(Float)
+			expect(code.remaining_seconds).to be_a Float
 			expect(code.remaining_seconds).to be > 0
 		end
 
@@ -52,31 +52,31 @@ RSpec.describe RecruitCode, type: :model do
 			owner = User.create!(name: 'owner', password: 'password')
 			code = RecruitCode.generate_new_code owner
 
-			expect(code.expired?).to eq(false)
-			expect(code.available?).to eq(true)
-			expect(code.availability).to eq(nil)
+			expect(code.expired?).to eq false
+			expect(code.available?).to eq true
+			expect(code.availability).to eq nil
 
 			code.claimed = true
 			code.save
 
-			expect(code.available?).to eq(false)
-			expect(code.availability).to eq('recruit code claimed')
+			expect(code.available?).to eq false
+			expect(code.availability).to eq 'recruit code claimed'
 		end
 
 		it 'should not be available after expired' do
 			owner = User.create!(name: 'owner', password: 'password')
 			code = RecruitCode.generate_new_code owner
 
-			expect(code.expired?).to eq(false)
-			expect(code.available?).to eq(true)
-			expect(code.availability).to eq(nil)
+			expect(code.expired?).to eq false
+			expect(code.available?).to eq true
+			expect(code.availability).to eq nil
 
 			#a while ago... Probably
 			code.created_at = Time.parse '1900-1-1'
 			code.save
 
-			expect(code.available?).to eq(false)
-			expect(code.availability).to eq('recruit code expired')
+			expect(code.available?).to eq false
+			expect(code.availability).to eq 'recruit code expired'
 		end
 	end
 end

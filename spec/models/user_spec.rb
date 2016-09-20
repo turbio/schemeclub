@@ -32,19 +32,19 @@ RSpec.describe User, type: :model do
 	it 'should authenticate a user with valid credentials' do
 		alice = User.create!(name: 'alice', password: 'password')
 
-		expect(User.authenticate 'alice', 'password').to eq(alice)
+		expect(User.authenticate 'alice', 'password').to eq alice
 	end
 
 	it 'should reject a user with invalid credentials' do
 		bob = User.create!(name: 'bob', password: 'letmein')
 
-		expect(User.authenticate 'bob', 'password').not_to eq(bob)
+		expect(User.authenticate 'bob', 'password').not_to eq bob
 	end
 
 	it 'should stringify a User to their name' do
 		charley = User.create!(name: 'charley', password: 'letmein')
 
-		expect("#{charley}").to eq('charley')
+		expect("#{charley}").to eq 'charley'
 	end
 
 	it 'should show transactions to a user' do
@@ -54,19 +54,19 @@ RSpec.describe User, type: :model do
 			password: 'correcthorse',
 			parent_id: dan.id)
 
-		expect(dan.transactions.length).to eq(1)
-		expect(ellen.transactions.length).to eq(0)
+		expect(dan.transactions.length).to eq 1
+		expect(ellen.transactions.length).to eq 0
 
-		expect(dan.transactions.first.from_id).to eq(ellen.id)
+		expect(dan.transactions.first.from_id).to eq ellen.id
 
 		erin = User.create!(
 			name: 'erin',
 			password: 'whoami',
 			parent_id: dan.id)
 
-		expect(dan.transactions.length).to eq(2)
-		expect(ellen.transactions.length).to eq(0)
-		expect(erin.transactions.length).to eq(0)
+		expect(dan.transactions.length).to eq 2
+		expect(ellen.transactions.length).to eq 0
+		expect(erin.transactions.length).to eq 0
 	end
 
 	it 'should show amount earned from user' do
@@ -81,15 +81,15 @@ RSpec.describe User, type: :model do
 			password: 'incorrecthorse',
 			parent_id: fred.id)
 
-		expect(fred.earned_from gary).to eq(5)
+		expect(fred.earned_from gary).to eq 5
 
 		harry = User.create!(
 			name: 'harry',
 			password: 'imawizard',
 			parent_id: gary.id)
 
-		expect(fred.earned_from gary).to eq(7.5)
-		expect(fred.earned_from harry).to eq(2.5)
+		expect(fred.earned_from gary).to eq 7.5
+		expect(fred.earned_from harry).to eq 2.5
 	end
 
 	it 'should show total amount earned' do
@@ -110,8 +110,8 @@ RSpec.describe User, type: :model do
 			password: 'imawizard',
 			parent_id: jack.id)
 
-		expect(ian.earned).to eq(7.5)
-		expect(jack.earned).to eq(5)
-		expect(kathrin.earned).to eq(0)
+		expect(ian.earned).to eq 7.5
+		expect(jack.earned).to eq 5
+		expect(kathrin.earned).to eq 0
 	end
 end

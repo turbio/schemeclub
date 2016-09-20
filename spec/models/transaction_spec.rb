@@ -23,7 +23,7 @@ RSpec.describe Transaction, type: :model do
 			amount: 1234.56,
 			reason: :user_joined)
 
-		expect("#{transaction}").to eq('bob -> alice, chris 1234.56')
+		expect("#{transaction}").to eq 'bob -> alice, chris 1234.56'
 	end
 
 	it 'should get users in transaction up to' do
