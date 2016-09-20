@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 	post 'api/valid_credentials'
 
 	constraints(AuthConstraint.new) do
-		root to: 'dash#index', to: 'authenticated_root'
+		root to: 'dash#index', as: 'authenticated_root'
 	end
 	root 'main#index'
 
