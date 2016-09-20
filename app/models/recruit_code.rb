@@ -42,7 +42,10 @@ class RecruitCode < ActiveRecord::Base
 			@allowed_chars.sample
 		end.join
 
-		RecruitCode.create(code: @generated_code, owner_id: user.id, claimed: false)
+		RecruitCode.create(
+			code: @generated_code,
+			owner_id: user.id,
+			claimed: false)
 	end
 
 	def self.owned_by(user)
