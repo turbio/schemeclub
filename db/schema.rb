@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160505155622) do
+ActiveRecord::Schema.define(version: 20161030002557) do
+
+  create_table "payments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.decimal  "amount"
+    t.integer  "direction"
+    t.string   "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "payments", ["user_id"], name: "index_payments_on_user_id"
 
   create_table "recruit_codes", force: :cascade do |t|
     t.integer  "owner_id",   null: false
@@ -36,12 +47,10 @@ ActiveRecord::Schema.define(version: 20160505155622) do
   create_table "users", force: :cascade do |t|
     t.string   "name",       null: false
     t.string   "password",   null: false
+    t.string   "ancestry"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "ancestry"
   end
-
-  add_index "users", ["ancestry"], name: "index_users_on_ancestry"
 
   create_table "users_transactions", id: false, force: :cascade do |t|
     t.integer "user_id"
