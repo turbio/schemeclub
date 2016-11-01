@@ -2,6 +2,10 @@ require 'rqrcode'
 
 class QrcodeController < ApplicationController
 	def index
+		if params[:data].nil?
+			return render plain: 'must include data', status: 400
+		end
+
 		@data = RQRCode::QRCode.new params[:data]
 
 		@width = params[:width] || 200
