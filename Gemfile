@@ -35,6 +35,8 @@ gem 'rails-assets-clipboard', source: 'https://rails-assets.org'
 # Use Unicorn as the app server
 gem 'unicorn'
 
+gem 'rqrcode'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

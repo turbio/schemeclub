@@ -5,10 +5,15 @@ class AuthConstraint
 end
 
 Rails.application.routes.draw do
-  get 'welcome/index'
+	get 'welcome/index'
 
-	post 'api/valid_name'
-	post 'api/valid_credentials'
+	namespace 'api' do
+		post 'valid_name'
+		post 'valid_credentials'
+	end
+
+	get '/payment' => 'payment#index', as: 'payment'
+	get '/qr' => 'qrcode#index', as: 'qrcode'
 
 	constraints(AuthConstraint.new) do
 		root to: 'dash#index', as: 'authenticated_root'

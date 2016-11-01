@@ -1,0 +1,24 @@
+<%= javascript_include_tag "dash", :async => true %>
+<h1>Registration Fee</h1>
+<div class="centered-payment-form">
+	<img class="bitcoin-qr" src="<%= @qr_url %>" />
+	<%= label_tag :address, 'address' %>
+	<%= text_field_tag :remaining,
+		@remaining,
+		readonly: true,
+		class: 'remaining' %>
+
+	<%= label_tag :address, 'address' %>
+	<%= text_field_tag :address,
+		@address,
+		readonly: true,
+		class: 'bitcoin-address' %>
+
+	<%= button_tag :copy,
+		class: 'copy-button',
+		'data-clipboard-target': '.bitcoin-address' %>
+
+	<%= link_to 'reload',
+		{ controller: :payment },
+		class: 'reload-button replay-button' %>
+</div>

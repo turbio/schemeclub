@@ -1,3 +1,61 @@
-// Place all the styles related to the payment controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+$bitcoin-adress-length: 25;
+
+.centered-payment-form{
+	max-width: $bitcoin-adress-length * 1em;
+	width: 98%;
+	margin: 0 auto;
+
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+
+	label{
+		width: 100%;
+		font-size: 1.25em;
+		padding: 0 .5em;
+	}
+
+	.remaining, .total{
+		font-size: 1.25em;
+		padding: .5em;
+		margin-bottom: .5em;
+		width: 40%;
+	}
+	
+	.bitcoin-address {
+		padding: 1em 0;
+		text-align: center;
+		width: 88%;
+
+		font-size: 1.15em;
+		font-family: monospace;
+	}
+
+	.copy-button{
+		padding: 1em 0;
+		width: 12%;
+		border: none;
+	}
+
+	.reload-button{
+		position: static;
+		display: block;
+
+		width: 24px;
+		height: 24px;
+
+		background-repeat: no-repeat;
+		background-position: center;
+
+		margin-top: .5em;
+		margin-left: auto;
+
+		line-height: 100em;
+		overflow: hidden;
+	}
+}
+
+input.bitcoin-address{
+	font-size: .90em;
+	//width: $max-btc-address;
+}

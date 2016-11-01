@@ -1,0 +1,21 @@
+<svg
+	fill="#000000"
+	shape-rendering="crispEdges"
+	width="<%= @width %>"
+	height="<%= @height %>"
+ viewBox="0 0 <%= @blocks_wide %> <%= @blocks_high %>"
+	xmlns="http://www.w3.org/2000/svg">
+
+	<% @data.modules.each_index do |x| %>
+		<% @data.modules.each_index do |y| %>
+			<% if @data.dark?(x,y) %>
+				<rect
+					x="<%= x * @block_width %>"
+					y="<%= y * @block_height %>"
+					width="<%= @block_width %>"
+					height="<%= @block_height %>"
+					style="fill: #000000"/>
+			<% end %>
+		<% end %>
+	<% end %>
+</svg>
