@@ -51,11 +51,4 @@ class MainController < ApplicationController
 		@code_string = params[:id] || params[:signup][:code]
 		@code = RecruitCode.find_by(code: @code_string) || RecruitCode.new()
 	end
-
-	def welcome
-		return render 'index' if session[:user_id].nil?
-		@user = User.find(session[:user_id])
-		@slides = 5
-		@slide = params[:id] ? params[:id].to_i : nil
-	end
 end

@@ -5,6 +5,8 @@ class AuthConstraint
 end
 
 Rails.application.routes.draw do
+  get 'welcome/index'
+
 	post 'api/valid_name'
 	post 'api/valid_credentials'
 
@@ -16,7 +18,7 @@ Rails.application.routes.draw do
 	post '/login' => 'main#login'
 	post '/signup' => 'main#signup'
 	get '/logout' => 'main#logout'
-	get '/welcome(/:id)' => 'main#welcome', as: 'welcome'
+	get '/welcome(/:id)' => 'welcome#index', as: 'welcome'
 	post '/new_code' => 'dash#new_code'
 
 	get '/:id' => 'main#join'
