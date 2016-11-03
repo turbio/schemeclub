@@ -6,7 +6,7 @@ class QrcodeController < ApplicationController
 			return render plain: 'must include data', status: 400
 		end
 
-		@data = RQRCode::QRCode.new params[:data]
+		@data = RQRCode::QRCode.new params[:data], level: :l
 
 		@width = params[:width] || 200
 		@height = params[:height] || 200

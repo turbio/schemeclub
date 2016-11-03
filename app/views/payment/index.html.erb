@@ -1,14 +1,22 @@
-<%= javascript_include_tag "dash", :async => true %>
+<%= javascript_include_tag 'dash', :async => true %>
+<%= javascript_include_tag 'payment', :async => true %>
 <h1>Registration Fee</h1>
 <div class="centered-payment-form">
-	<img class="bitcoin-qr" src="<%= @qr_url %>" />
-	<%= label_tag :address, 'address' %>
-	<%= text_field_tag :remaining,
-		@remaining,
-		readonly: true,
-		class: 'remaining' %>
 
-	<%= label_tag :address, 'address' %>
+	<div class="bitcoin-remaining">
+		<span>send</span>
+		<div class="bitcoin-amount">
+			<%= text_field_tag :remaining,
+				@remaining,
+				readonly: true,
+				class: 'remaining' %>
+			<%= label_tag :remaining, 'BTC' %>
+		</div>
+		<span>to the address:</span>
+	</div>
+
+	<img class="bitcoin-qr" src="<%= @qr_url %>" />
+
 	<%= text_field_tag :address,
 		@address,
 		readonly: true,
@@ -22,3 +30,4 @@
 		{ controller: :payment },
 		class: 'reload-button replay-button' %>
 </div>
+<%= @other %>

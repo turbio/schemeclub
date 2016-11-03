@@ -1,0 +1,16 @@
+default: &default
+  entry_fee: '0.015'
+  server:
+    host: 'localhost'
+    port: 8332
+    user: 'u'
+    password: 'p'
+
+production:
+  <<: *default
+
+development:
+  <<: *default
+
+test:
+  <<: *default
