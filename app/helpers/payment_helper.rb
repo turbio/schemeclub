@@ -20,4 +20,23 @@ module PaymentHelper
 
 		JSON.parse(res.body)['result']
 	end
+
+	def get_balance(user_id)
+
+		res = query({
+			id: 0,
+			method: 'getbalance',
+			params: [user_id.to_s] })
+
+		JSON.parse(res.body)['result']
+	end
+
+	def get_transactions(user_id)
+		res = query({
+			id: 0,
+			method: 'listtransactions',
+			params: [user_id.to_s] })
+
+		JSON.parse(res.body)['result']
+	end
 end

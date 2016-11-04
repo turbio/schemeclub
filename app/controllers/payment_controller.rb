@@ -13,15 +13,16 @@ class PaymentController < ApplicationController
 
 		@total = BigDecimal.new Rails.configuration.payment['entry_fee']
 
-		@remaining = @total - (@total * (rand * 100).floor / 100)
+		@remaining = @total - get_balance(session['user_id'])
 
 		@qr_url = "#{qrcode_path}" +
 			"?width=100" +
 			"&height=100" +
 			"&data=bitcoin:#{@address}?amount=#{@remaining}"
 
-		#@other = session['user_id'], JSON.parse(res.body)['result']
-		#@other = get_address session['user_id']
+		@other = get_transactions(session[:user_id]).map do |t|
+			"#{t['address']} -[#{t['amount']}]-> #{t['account']} c:#{t['confirmations']}"
+		end.join('<br>').html_safe
 	end
 
 	def status
