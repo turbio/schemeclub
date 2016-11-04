@@ -5,3 +5,4 @@ cache: bundler
 before_install:
   - sudo apt-add-repository ppa:bitcoin/bitcoin -y
   - sudo apt-get -qq update
+  - sudo apt-get install bitcoind -y
