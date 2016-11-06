@@ -2,7 +2,6 @@
 <%= javascript_include_tag 'payment', :async => true %>
 <h1>Registration Fee</h1>
 <div class="centered-payment-form">
-
 	<div class="bitcoin-remaining">
 		<span>send</span>
 		<div class="bitcoin-amount">
@@ -29,8 +28,9 @@
 	<% if @transactions.length > 0 %>
 		<div class="pending-transaction">pending transaction:</div>
 	<% end %>
-	<% @transactions.each do |transaction| %>
-		<div class="transaction-record<%= ' pending' %>">
+
+	<% @transactions.reverse.each do |transaction| %>
+		<div class="transaction-record">
 			<span class="confirmations">
 				<%= transaction[:confirmations] %>
 				/
@@ -41,12 +41,12 @@
 		</div>
 	<% end %>
 
-	<% if @complete %>
-		<a class="button" href="/payment/confirm">continue &rarr;</a>
-	<% end %>
+	
+	<a
+		class="button <%= 'hidden' if !@complete%>"
+		href="/payment/confirm">continue &rarr;</a>
 
 	<%= link_to 'reload',
 		{ controller: :payment },
 		class: 'reload-button replay-button' %>
 </div>
-<%= @other %>
