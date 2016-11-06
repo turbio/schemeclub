@@ -31,10 +31,9 @@ update =
 
 	complete: (val) ->
 		if val
+			clearInterval interval
 			$('.complete-dialog').removeClass('hidden')
 			$('.reload-button').remove()
-		else
-			$('.complete-dialog').addClass('hidden')
 
 update_info = (info) ->
 	for key in Object.keys(info)
@@ -48,6 +47,7 @@ $ ->
 		.text ''
 		.attr 'href', null
 
-	interval = setInterval ->
-		$.get '/payment/status', (result) -> update_info result
-	, 1000
+	if $('.complete-dialog').hasClass('hidden')
+		interval = setInterval ->
+			$.get '/payment/status', (result) -> update_info result
+		, 1000

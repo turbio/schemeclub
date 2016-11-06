@@ -18,7 +18,7 @@ class PaymentController < ApplicationController
 			qr_url: "#{qrcode_path}" +
 				"?width=100" +
 				"&height=100" +
-				"&data=bitcoin:#{@address}?amount=#{@remaining}"
+				"&data=bitcoin:#{@address}?amount=#{TOTAL}"
 		}
 	end
 
