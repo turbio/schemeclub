@@ -2,36 +2,40 @@ require 'net/http'
 require 'bigdecimal'
 
 class PaymentController < ApplicationController
+	TOTAL = BigDecimal.new Rails.configuration.payment['entry_fee']
 	include PaymentHelper
+
+	def get_info
+		@address = get_address(session[:user_id])
+		@remaining = TOTAL - get_balance(session['user_id'])
+
+		{
+			address: @address,
+			remaining: @remaining,
+			transactions: get_transactions(session[:user_id]),
+			complete: @remaining <= 0,
+			qr_url: "#{qrcode_path}" +
+				"?width=100" +
+				"&height=100" +
+				"&data=bitcoin:#{@address}?amount=#{@remaining}"
+		}
+	end
 
 	def index
 		if session[:user_id].nil?
 			redirect_to root_path and return
 		end
 
-		@address = get_address session[:user_id]
-
-		@total = BigDecimal.new Rails.configuration.payment['entry_fee']
-
-		@remaining = @total - get_balance(session['user_id'])
-
-		@qr_url = "#{qrcode_path}" +
-			"?width=100" +
-			"&height=100" +
-			"&data=bitcoin:#{@address}?amount=#{@remaining}"
-
-		@other = get_transactions(session[:user_id]).map do |t|
-			"#{t['address']} -[#{t['amount']}]-> #{t['account']} c:#{t['confirmations']}"
-		end.join('<br>').html_safe
+		get_info.each do |key, value|
+			instance_variable_set("@#{key}", value)
+		end
 	end
 
 	def status
-		@total = BigDecimal.new Rails.configuration.payment['entry_fee']
+		if session[:user_id].nil?
+			redirect_to root_path and return
+		end
 
-		render json: {
-			remaining: @total - (@total * (rand * 100).floor / 100),
-			confirmations: 0,
-			complete: [true, false].sample
-		}
+		render json: get_info
 	end
 end

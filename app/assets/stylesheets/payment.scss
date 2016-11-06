@@ -88,6 +88,17 @@ $bitcoin-adress-length: 25;
 		line-height: 100em;
 		overflow: hidden;
 	}
+
+	.pending-transaction{
+		margin-top: .5em;
+	}
+
+	.transaction-record{
+		width: 100%;
+		padding: 1em;
+		margin: 0;
+		margin-bottom: .5em;
+	}
 }
 
 .bitcoin-qr{

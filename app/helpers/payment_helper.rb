@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 module PaymentHelper
 	@@server_config = Rails.configuration.payment['server']
 
@@ -14,9 +16,9 @@ module PaymentHelper
 		res = query({
 			id: 0,
 			method: 'getbalance',
-			params: [user_id.to_s] })
+			params: [user_id.to_s, Rails.configuration.payment['confirmations']] })
 
-		JSON.parse(res.body)['result']
+		BigDecimal.new JSON.parse(res.body)['result'].to_s
 	end
 
 	def get_transactions(user_id)
@@ -25,7 +27,13 @@ module PaymentHelper
 			method: 'listtransactions',
 			params: [user_id.to_s] })
 
-		JSON.parse(res.body)['result']
+		JSON.parse(res.body)['result'].map do |t|
+			{
+				from: t['address'],
+				amount: BigDecimal.new(t['amount'].to_s),
+				confirmations: t['confirmations']
+			}
+		end
 	end
 
 	protected

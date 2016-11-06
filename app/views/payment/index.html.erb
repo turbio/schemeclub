@@ -26,6 +26,25 @@
 		class: 'copy-button',
 		'data-clipboard-target': '.bitcoin-address' %>
 
+	<% if @transactions.length > 0 %>
+		<div class="pending-transaction">pending transaction:</div>
+	<% end %>
+	<% @transactions.each do |transaction| %>
+		<div class="transaction-record<%= ' pending' %>">
+			<span class="confirmations">
+				<%= transaction[:confirmations] %>
+				/
+				<%= Rails.configuration.payment['confirmations'] %>
+				confirmations
+			</span>
+			<span class="currency">+<%= transaction[:amount] %> BTC</span>
+		</div>
+	<% end %>
+
+	<% if @complete %>
+		<a class="button" href="/payment/confirm">continue &rarr;</a>
+	<% end %>
+
 	<%= link_to 'reload',
 		{ controller: :payment },
 		class: 'reload-button replay-button' %>

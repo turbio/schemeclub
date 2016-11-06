@@ -1,87 +1,46 @@
 require 'rails_helper'
 
-def stop_bitcoind
-	bitcoind_pid = `pidof bitcoind`
+Bitcoind_config = Rails.configuration.payment['server']
+Bitcoind_opts = [
+	"-rpcport=#{Bitcoind_config['port']}",
+	"-rpcuser=#{Bitcoind_config['user']}",
+	"-rpcpassword=#{Bitcoind_config['password']}"
+]
 
-	if bitcoind_pid != ''
-		`kill #{bitcoind_pid}`
+def give_bitcoins(amount, address, confirm=false)
+	opts = Bitcoind_opts + [ 'sendtoaddress', address, amount ]
 
-		#give it a second to die
-		sleep 1
+	`bitcoin-cli #{opts.join ' '}`
 
-		stop_bitcoind
+	if confirm
+		gen_blocks 101
 	end
 end
 
-def start_bitcoind
-	bitcoind_pid = `pidof bitcoind`
+def gen_blocks(number)
+	opts = Bitcoind_opts + [ 'generate', number ]
+	`bitcoin-cli #{opts.join ' '}`
+end
 
-	bitcoind_config = Rails.configuration.payment['server']
-	opts = [
-		"-rpcport=#{bitcoind_config['port']}",
-		"-rpcuser=#{bitcoind_config['user']}",
-		"-rpcpassword=#{bitcoind_config['password']}",
-		"-regtest"
-	].join ' '
-
-	if bitcoind_pid == ''
-		pid = spawn("bitcoind #{opts}")
-
-		#give it a second to initialize
-		sleep 1
-	end
+def new_user
+	(rand * 10000).floor
 end
 
 RSpec.describe PaymentHelper, type: :helper do
-	#just to make sure we're starting with a fresh bitcoind server
-	stop_bitcoind
-
-	describe 'without bitcoind running' do
-		it 'should throw error on get_address' do
-			stop_bitcoind
-
-			expect do
-				get_address 0
-			end.to raise_error Errno::ECONNREFUSED
-		end
-
-		it 'should throw error on get_balance' do
-			stop_bitcoind
-
-			expect do
-				get_balance 0
-			end.to raise_error Errno::ECONNREFUSED
-		end
-
-		it 'should throw error on get_transactions' do
-			stop_bitcoind
-
-			expect do
-				get_transactions 0
-			end.to raise_error Errno::ECONNREFUSED
-		end
-	end
-
 	describe 'with bitcoind running' do
 		it 'should not throw error on get_address' do
-			start_bitcoind
-
 			expect do
 				get_address 0
 			end.not_to raise_error
 		end
 
 		it 'should not throw error on get_balance' do
-			start_bitcoind
-
 			expect do
 				get_balance 0
 			end.not_to raise_error
 		end
 
 		it 'should not throw error on get_transactions' do
-			start_bitcoind
-
 			expect do
 				get_transactions 0
 			end.not_to raise_error
@@ -90,9 +49,7 @@ RSpec.describe PaymentHelper, type: :helper do
 
 	describe '#get_address' do
 		it 'should return the address of any user' do
-			start_bitcoind
-
-			address = get_address (rand * 10000).floor
+			address = get_address new_user
 
 			expect(address).to be_a String
 			expect(address.length).to be >= 24
@@ -100,9 +57,7 @@ RSpec.describe PaymentHelper, type: :helper do
 		end
 
 		it 'should return not the same address for multiple users' do
-			start_bitcoind
-
-			startUser = (rand * 10000).floor
+			startUser = new_user
 
 			addresses = 10.times.map do |i|
 				get_address startUser + i
@@ -112,15 +67,100 @@ RSpec.describe PaymentHelper, type: :helper do
 		end
 
 		it 'should return the same address for the same user' do
-			start_bitcoind
-
-			user = (rand * 10000).floor
+			user = new_user
 
 			addresses = 10.times.map do
 				get_address user
 			end
 
 			expect(addresses.uniq.length).to eq 1
+		end
+	end
+
+	describe '#get_balance' do
+		it 'should return a number' do
+			user = new_user
+
+			expect(get_balance user).to be_a BigDecimal
+		end
+
+		it 'should start users with no balance' do
+			user = new_user
+
+			expect(get_balance(user).to_s).to eq '0.0'
+		end
+
+		it 'should have balance when given bitcoins' do
+			user = new_user
+			address = get_address user
+
+			expect(get_balance(user).to_s).to eq '0.0'
+
+			give_bitcoins '1.2345678', address, true
+
+			expect(get_balance(user).to_s).to eq '1.2345678'
+		end
+
+		it 'should keep bitcoin amount accurately' do
+			user = new_user
+			address = get_address user
+
+			expect(address).to be_a String
+			expect(address.length).to be >= 24
+			expect(address.length).to be <= 34
+
+			expect(get_balance(user).to_s).to eq '0.0'
+
+			12.times do
+				give_bitcoins('0.00001', address)
+			end
+
+			gen_blocks 101
+
+			expect(get_balance(user).to_s).to eq '0.00012'
+		end
+
+		it 'should require three confirmations' do
+			user = new_user
+			address = get_address user
+
+			expect(get_balance(user).to_s).to eq '0.0'
+
+			give_bitcoins '0.00001', address
+			expect(get_balance(user).to_s).to eq '0.0'
+
+			gen_blocks 1
+			expect(get_balance(user).to_s).to eq '0.0'
+
+			gen_blocks 1
+			expect(get_balance(user).to_s).to eq '0.0'
+
+			gen_blocks 1
+			expect(get_balance(user).to_s).to eq '0.00001'
+		end
+	end
+
+	describe '#get_transactions' do
+		it 'should return an array' do
+			user = new_user
+
+			expect(get_transactions user).to be_a Array
+		end
+
+		it 'user should start with no transactions' do
+			user = new_user
+
+			expect(get_transactions(user).length).to eq 0
+		end
+
+		it 'should show new transactions' do
+			user = new_user
+
+			expect(get_transactions(user).length).to eq 0
+
+			give_bitcoins '0.00001', get_address(user)
+
+			expect(get_transactions(user).length).to eq 1
 		end
 	end
 end
