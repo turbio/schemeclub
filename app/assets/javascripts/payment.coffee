@@ -1,11 +1,6 @@
 interval = null
 
-cached =
-	qr_url: $('.bitcoin-qr').attr('src')
-	remaining: $('.remaining').val()
-	address: $('.bitcoin-address').val()
-	complete: !$('.button').hasClass('hidden')
-	transaction: []
+cached = {}
 
 build_transaction = (transaction) ->
 	$('<div class="transaction-record"/>')
@@ -20,7 +15,7 @@ update =
 	qr_url: (val) ->
 		$('.bitcoin-qr').attr('src', val)
 
-	remaining: (val) ->
+	total: (val) ->
 		$('.remaining').val(val)
 
 	address: (val) ->
@@ -36,9 +31,10 @@ update =
 
 	complete: (val) ->
 		if val
-			$('.button').removeClass('hidden')
+			$('.complete-dialog').removeClass('hidden')
+			$('.reload-button').remove()
 		else
-			$('.button').addClass('hidden')
+			$('.complete-dialog').addClass('hidden')
 
 update_info = (info) ->
 	for key in Object.keys(info)

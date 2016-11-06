@@ -6,7 +6,7 @@
 		<span>send</span>
 		<div class="bitcoin-amount">
 			<%= text_field_tag :remaining,
-				@remaining,
+				@total,
 				readonly: true,
 				class: 'remaining' %>
 			<%= label_tag :remaining, 'BTC' %>
@@ -41,12 +41,13 @@
 		</div>
 	<% end %>
 
-	
-	<a
-		class="button <%= 'hidden' if !@complete%>"
-		href="/payment/confirm">continue &rarr;</a>
+	<% if !@complete %>
+		<%= link_to 'reload',
+			{ controller: :payment },
+			class: 'reload-button replay-button' %>
+	<% end %>
 
-	<%= link_to 'reload',
-		{ controller: :payment },
-		class: 'reload-button replay-button' %>
+	<div class="complete-dialog <%= 'hidden' if !@complete%>">
+		<a class="button " href="/payment/confirm">continue &rarr;</a>
+	</div>
 </div>

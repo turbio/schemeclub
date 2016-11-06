@@ -12,6 +12,7 @@ class PaymentController < ApplicationController
 		{
 			address: @address,
 			remaining: @remaining,
+			total: TOTAL,
 			transactions: get_transactions(session[:user_id]),
 			complete: @remaining <= 0,
 			qr_url: "#{qrcode_path}" +

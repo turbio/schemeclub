@@ -99,6 +99,14 @@ $bitcoin-adress-length: 25;
 		margin: 0;
 		margin-bottom: .5em;
 	}
+
+	.complete-dialog{
+		margin-left: auto;
+
+		>a{
+			display: block;
+		}
+	}
 }
 
 .bitcoin-qr{
