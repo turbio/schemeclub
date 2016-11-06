@@ -16,7 +16,7 @@ class PaymentController < ApplicationController
 			payment = Payment.create(
 				user_id: session[:user_id],
 				amount: TOTAL,
-				direction: 0,
+				direction: :in,
 				address: get_address(session[:user_id]))
 		end
 
