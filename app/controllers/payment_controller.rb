@@ -6,37 +6,43 @@ class PaymentController < ApplicationController
 	include PaymentHelper
 
 	def get_info
-		@address = get_address(session[:user_id])
-		@remaining = TOTAL - get_balance(session['user_id'])
+		if session[:user_id].nil?
+			redirect_to root_path and return { error: 'not logged in' }
+		end
+
+		payment = Payment.where(user_id: session[:user_id]).first
+
+		if payment.nil?
+			payment = Payment.create(
+				user_id: session[:user_id],
+				amount: TOTAL,
+				direction: 0,
+				address: get_address(session[:user_id]))
+		end
+
+		if get_balance(session[:user_id]) >= TOTAL
+			payment.update(confirmed: true)
+		end
 
 		{
-			address: @address,
-			remaining: @remaining,
+			address: payment.address,
 			total: TOTAL,
 			transactions: get_transactions(session[:user_id]),
-			complete: @remaining <= 0,
+			complete: payment.confirmed,
 			qr_url: "#{qrcode_path}" +
 				"?width=100" +
 				"&height=100" +
-				"&data=bitcoin:#{@address}?amount=#{TOTAL}"
+				"&data=bitcoin:#{payment.address}?amount=#{TOTAL}"
 		}
 	end
 
 	def index
-		if session[:user_id].nil?
-			redirect_to root_path and return
-		end
-
 		get_info.each do |key, value|
 			instance_variable_set("@#{key}", value)
 		end
 	end
 
 	def status
-		if session[:user_id].nil?
-			redirect_to root_path and return
-		end
-
 		render json: get_info
 	end
 end

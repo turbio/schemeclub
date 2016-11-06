@@ -15,11 +15,12 @@ ActiveRecord::Schema.define(version: 20161030002557) do
 
   create_table "payments", force: :cascade do |t|
     t.integer  "user_id"
-    t.decimal  "amount"
-    t.integer  "direction"
-    t.string   "address"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.decimal  "amount",                     null: false
+    t.integer  "direction",                  null: false
+    t.string   "address",                    null: false
+    t.boolean  "confirmed",  default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "payments", ["user_id"], name: "index_payments_on_user_id"
