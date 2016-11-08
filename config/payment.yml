@@ -4,8 +4,8 @@ default: &default
   server:
     host: 'localhost'
     port: 8332
-    user: 'u'
-    password: 'p'
+    user: 'user'
+    password: 'password'
 
 production:
   <<: *default
