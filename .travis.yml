@@ -4,3 +4,4 @@ script: bundle exec rspec --format doc
 cache: bundler
 before_install:
   - ./.travis/setup_bitcoind
+  - export PATH=$PATH:"/tmp/bin/"

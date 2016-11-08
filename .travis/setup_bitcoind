@@ -5,6 +5,9 @@ FILENAME="bitcoin-${VERSION}-x86_64-linux-gnu.tar.gz"
 wget "https://bitcoin.org/bin/bitcoin-core-0.13.1/$FILENAME" -O "/tmp/$FILENAME"
 tar -xvf "/tmp/$FILENAME" -C "/tmp"
 
+mkdir -p /tmp/bin
+ln -s "/tmp/bitcoin-${VERSION}/bin/bitcoin-cli" /tmp/bin/
+
 export PATH=$PATH:"/tmp/bitcoin-${VERSION}/bin/"
 
 echo starting bitcoind
