@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 VERSION="0.13.1"
 FILENAME="bitcoin-${VERSION}-x86_64-linux-gnu.tar.gz"
+USER="user"
+PASSWORD="password"
 
 wget "https://bitcoin.org/bin/bitcoin-core-0.13.1/$FILENAME" -O "/tmp/$FILENAME"
 tar -xvf "/tmp/$FILENAME" -C "/tmp"
@@ -11,9 +13,14 @@ ln -s "/tmp/bitcoin-${VERSION}/bin/bitcoin-cli" /tmp/bin/
 export PATH=$PATH:"/tmp/bitcoin-${VERSION}/bin/"
 
 echo starting bitcoind
-bitcoind -rpcport=8332 -rpcuser=user -rpcpassword=password -regtest -daemon
+bitcoind -rpcport=8332 -rpcuser=$USER -rpcpassword=$PASSWORD -regtest -daemon
 
-sleep 3
+BITCOIND_STARTED=0
+
+until bitcoin-cli -rpcuser=$USER -rpcpassword=$PASSWORD getinfo
+do
+	sleep 1
+done
 
 echo generating initial blocks
-bitcoin-cli -rpcuser=user -rpcpassword=password generate 101
+bitcoin-cli -rpcuser=$USER -rpcpassword=$PASSWORD generate 101
