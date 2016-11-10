@@ -3,7 +3,7 @@ require 'bigdecimal'
 
 class PaymentController < ApplicationController
 	TOTAL = BigDecimal.new Rails.configuration.payment['entry_fee']
-	include PaymentHelper
+	include BitcoindHelper
 
 	def get_info
 		if session[:user_id].nil?

@@ -46,11 +46,12 @@ ActiveRecord::Schema.define(version: 20161030002557) do
   add_index "transactions", ["from_id"], name: "index_transactions_on_from_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.string   "password",   null: false
+    t.string   "name",                       null: false
+    t.string   "password",                   null: false
     t.string   "ancestry"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "state",      default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "users_transactions", id: false, force: :cascade do |t|

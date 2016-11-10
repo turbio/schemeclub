@@ -53,8 +53,7 @@ class User < ActiveRecord::Base
 	end
 
 	def self.authenticate(name, password)
-		@user = User.where("lower(name) = ?",
-			name.downcase).first
+		@user = User.where("lower(name) = ?", name.downcase).first
 
 		return if @user.nil?
 

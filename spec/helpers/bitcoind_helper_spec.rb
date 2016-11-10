@@ -26,7 +26,7 @@ def new_user
 	(rand * 10000).floor
 end
 
-RSpec.describe PaymentHelper, type: :helper do
+RSpec.describe BitcoindHelper, type: :helper do
 	describe 'with bitcoind running' do
 		it 'should not throw error on get_address' do
 			expect do

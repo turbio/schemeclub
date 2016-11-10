@@ -1,6 +1,6 @@
 require 'bigdecimal'
 
-module PaymentHelper
+module BitcoindHelper
 	@@server_config = Rails.configuration.payment['server']
 
 	def get_address(user_id)
