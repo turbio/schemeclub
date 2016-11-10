@@ -17,17 +17,17 @@ class PaymentController < ApplicationController
 				user_id: session[:user_id],
 				amount: TOTAL,
 				direction: :in,
-				address: get_address(session[:user_id]))
+				address: new_address)
 		end
 
-		if get_balance(session[:user_id]) >= TOTAL
+		if get_balance(payment.address) >= TOTAL
 			payment.update(confirmed: true)
 		end
 
 		{
 			address: payment.address,
 			total: TOTAL,
-			transactions: get_transactions(session[:user_id]),
+			transactions: get_transactions(payment.address),
 			complete: payment.confirmed,
 			qr_url: "#{qrcode_path}" +
 				"?width=100" +
