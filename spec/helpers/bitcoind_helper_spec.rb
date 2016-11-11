@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-Bitcoind_config = Rails.configuration.payment['server']
+Bitcoind_config = Rails.configuration.payment['bitcoind']
 Bitcoind_opts = [
 	"-rpcport=#{Bitcoind_config['port']}",
 	"-rpcuser=#{Bitcoind_config['user']}",

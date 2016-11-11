@@ -1,7 +1,7 @@
 require 'bigdecimal'
 
 module BitcoindHelper
-	@@server_config = Rails.configuration.payment['server']
+	@@server_config = Rails.configuration.payment['bitcoind']
 
 	def new_address
 		res = query('getnewaddress', 'payments')

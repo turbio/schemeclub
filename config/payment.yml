@@ -1,11 +1,18 @@
 default: &default
   entry_fee: '0.015'
   confirmations: 3
-  server:
+  server: 'bitcoind'
+
+  bitcoind:
     host: 'localhost'
     port: 8332
     user: 'user'
     password: 'password'
+    payment_account: 'payment'
+
+  electrum:
+    host: 'localhost'
+    port: 7777
 
 production:
   <<: *default
