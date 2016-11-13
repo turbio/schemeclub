@@ -1,0 +1,20 @@
+backend: 'mock'
+sync_frequency: 10
+
+bitcoind:
+  host: 'localhost'
+  port: 8332
+  user: 'user'
+  password: 'password'
+  account: 'payments'
+
+electrum:
+  host: 'localhost'
+  port: 7777
+
+mock:
+  host: 'localhost'
+  port: 8332
+  user: 'user'
+  password: 'password'
+  account: 'payments'
