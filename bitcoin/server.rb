@@ -54,7 +54,17 @@ Thread.new do
 end
 
 post '/new' do
-  json $backend.new_address
+  address = $backend.new_address
+  sync_store
+  json address
+end
+
+get '/all' do
+  json $store.all
+end
+
+get '/info' do
+  json $stats
 end
 
 get '/:address' do
@@ -65,14 +75,6 @@ get '/:address' do
   end
 
   json result
-end
-
-get '/all' do
-  json $store.all
-end
-
-get '/info' do
-  json $stats
 end
 
 not_found do

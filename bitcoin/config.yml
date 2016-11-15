@@ -1,4 +1,4 @@
-backend: 'mock'
+backend: 'electrum'
 sync_frequency: 10
 
 bitcoind:

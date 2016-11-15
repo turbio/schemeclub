@@ -7,24 +7,32 @@ AddressPrefix = 'address:'
 class Store
   def initialize
     @@redis = Redis.new
+    @@redis.flushall
   end
 
-  def put(address, data)
-    @@redis.set "#{AddressPrefix}#{address}", JSON.dump(data)
+  def put(address, transactions)
+    @@redis.set("#{AddressPrefix}#{address}", JSON.dump({
+      transactions: transactions
+    }))
   end
 
   def get(address, confirmations=0)
     result = @@redis.get "#{AddressPrefix}#{address}"
 
-    return nil if result.nil?
+    if result.nil?
+      result = {
+        transactions: [],
+        balance: '0.0'
+      }
+    else
+      result = JSON.parse(result)
 
-    result = JSON.parse(result)
-
-    result['balance'] = result['transactions'].select do |t|
-      t['confirmations'] >= confirmations
-    end.map do |t|
-      BigDecimal.new(t['amount'])
-    end.reduce(BigDecimal.new(0), :+).to_s('f')
+      result['balance'] = result['transactions'].select do |t|
+        t['confirmations'] >= confirmations
+      end.map do |t|
+        BigDecimal.new(t['amount'])
+      end.reduce(BigDecimal.new(0), :+).to_s('f')
+    end
 
     result['confirmations'] = confirmations
 
