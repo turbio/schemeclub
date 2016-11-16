@@ -17,18 +17,28 @@ def get_backend(name)
   end
 end
 
+def load_config
+  file_config = YAML.load_file('config.yml')
+  file_config.each do |k,v|
+    if !settings.respond_to? k
+      set k, v
+    end
+  end
+end
+
+load_config
+
 $stats = {
   last_ms: [],
-  average_ms: 0
+  average_ms: 0,
+  start_time: Time.now.to_i,
+  backend: settings.backend
 }
 
-config = YAML.load_file('config.yml')
-
-$backend = get_backend(config['backend']).new config[config['backend']]
+$backend = get_backend(settings.backend).new settings.send(settings.backend)
 $store = Store.new
 
 $syncing = true
-
 
 def sync_store
   start_time = Time.now
@@ -37,7 +47,6 @@ def sync_store
 
   sync_time = ((end_time - start_time) * 1000).round 3
 
-  $stats[:last_ms].pop if $stats[:last_ms].length > 100
   $stats[:last_ms].push sync_time
   $stats[:average_ms] =
     ($stats[:last_ms].reduce(:+) / $stats[:last_ms].length).round 3
@@ -49,8 +58,12 @@ end
 Thread.new do
   while $syncing
     sync_store
-    sleep config['sync_frequency']
+    sleep settings.sync_frequency
   end
+end
+
+use Rack::Auth::Basic, 'auth required' do |user, password|
+  user == settings.user and password == settings.password
 end
 
 post '/new' do
@@ -68,13 +81,7 @@ get '/info' do
 end
 
 get '/:address' do
-  result = $store.get(params[:address], (params[:confirmations] || 0).to_i)
-
-  if result.nil?
-    status 404
-  end
-
-  json result
+  json $store.get(params[:address], (params[:confirmations] || 0).to_i)
 end
 
 not_found do
