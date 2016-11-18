@@ -1,20 +1,25 @@
 require 'net/http'
 require 'bigdecimal'
-require_relative '../backend'
 
-class Mock < Backend
-  @@addresses = {}
+class Mock
+  def initialize(config)
+    @config = config
+  end
+
+  def start
+    @addresses = {}
+  end
 
   def new_address
     new_address = gen_address
 
-    @@addresses[new_address] = []
+    @addresses[new_address] = []
 
     new_address
   end
 
   def sync(store)
-    @@addresses.each do |addr,info|
+    @addresses.each do |addr,info|
       store.put(addr, info)
     end
   end

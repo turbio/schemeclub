@@ -1,7 +1,10 @@
-backend: 'electrum'
+driver: 'electrum'
 sync_frequency: 10
 user: 'user'
 password: 'password'
+
+redis:
+  port: 10101
 
 bitcoind:
   host: 'localhost'
@@ -9,6 +12,7 @@ bitcoind:
   user: 'user'
   password: 'password'
   account: 'payments'
+  params: '-regtest'
 
 electrum:
   host: 'localhost'

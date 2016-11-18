@@ -16,7 +16,7 @@ class Store
     }))
   end
 
-  def get(address, confirmations=0)
+  def get(address, confirmations)
     result = @@redis.get "#{AddressPrefix}#{address}"
 
     if result.nil?

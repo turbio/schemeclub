@@ -1,41 +1,23 @@
 require_relative 'helpers'
 
-set :backend, 'mock'
+set :backend, 'bitcoind'
 set :user, 'user'
 set :password, 'password'
 
 load 'server.rb'
 
-describe 'server' do
+describe "#{settings.backend} backend" do
   include SinatraTest
 
-  it 'should require authentication for all routes' do
+  before do basic_auth 'user', 'password' end
+
+  it 'should be using bitcoind' do
     get '/info'
 
-    expect(last_response).not_to be_ok
-    expect(last_response.status).to eq 401
-
-    get '/all'
-    expect(last_response.status).to eq 401
-
-    post '/new'
-    expect(last_response.status).to eq 401
-
-    post '/address_route_test'
-    expect(last_response.status).to eq 401
-  end
-
-  it 'should GET basic information from /info' do
-    basic_auth 'user', 'password'
-    get '/info'
-
-    expect(last_response).to be_ok
-    expect(last_response.body).to include '"backend":"mock"'
-    expect(last_response.content_type).to eq 'application/json'
+    expect(JSON.parse(last_response.body)['backend']).to eq 'bitcoind'
   end
 
   it 'should create a new address from POSTing to /new' do
-    basic_auth 'user', 'password'
     post '/new'
 
     expect(last_response).to be_ok
@@ -44,7 +26,6 @@ describe 'server' do
   end
 
   it 'should GET a list of all addresses from /all' do
-    basic_auth 'user', 'password'
     get '/all'
 
     expect(last_response).to be_ok
@@ -63,7 +44,6 @@ describe 'server' do
   end
 
   it 'should GET information about address from /:address' do
-    basic_auth 'user', 'password'
     post '/new'
     new_address = last_response.body[1...-1]
 
@@ -78,7 +58,6 @@ describe 'server' do
   end
 
   it 'should always GET information from /:address' do
-    basic_auth 'user', 'password'
     get '/not_a_real_address'
 
     expect(last_response).to be_ok
