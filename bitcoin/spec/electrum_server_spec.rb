@@ -1,38 +1,19 @@
 require_relative 'helpers'
 require_relative '../server'
 
-describe 'server' do
+describe "electrum driver" do
   include SinatraTest
 
-  before do set_driver 'mock' end
+  before do basic_auth 'user', 'password' end
+  before(:all) do set_driver 'electrum' end
 
-  it 'should require authentication for all routes' do
+  it 'should be using electrum' do
     get '/info'
 
-    expect(last_response).not_to be_ok
-    expect(last_response.status).to eq 401
-
-    get '/all'
-    expect(last_response.status).to eq 401
-
-    post '/new'
-    expect(last_response.status).to eq 401
-
-    post '/address_route_test'
-    expect(last_response.status).to eq 401
-  end
-
-  it 'should GET basic information from /info' do
-    basic_auth 'user', 'password'
-    get '/info'
-
-    expect(last_response).to be_ok
-    expect(last_response.body).to include '"driver":"mock"'
-    expect(last_response.content_type).to eq 'application/json'
+    expect(JSON.parse(last_response.body)['driver']).to eq 'electrum'
   end
 
   it 'should create a new address from POSTing to /new' do
-    basic_auth 'user', 'password'
     post '/new'
 
     expect(last_response).to be_ok
@@ -41,7 +22,6 @@ describe 'server' do
   end
 
   it 'should GET a list of all addresses from /all' do
-    basic_auth 'user', 'password'
     get '/all'
 
     expect(last_response).to be_ok
@@ -60,7 +40,6 @@ describe 'server' do
   end
 
   it 'should GET information about address from /:address' do
-    basic_auth 'user', 'password'
     post '/new'
     new_address = last_response.body[1...-1]
 
@@ -75,7 +54,6 @@ describe 'server' do
   end
 
   it 'should always GET information from /:address' do
-    basic_auth 'user', 'password'
     get '/not_a_real_address'
 
     expect(last_response).to be_ok

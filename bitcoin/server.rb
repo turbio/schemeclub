@@ -2,23 +2,26 @@ require 'sinatra'
 require 'sinatra/json'
 require 'yaml'
 require 'rack'
+require 'ostruct'
 
 require_relative 'backend'
 
-file_config = YAML.load_file('config.yml')
-file_config.each do |k,v|
-  if !settings.respond_to? k
-    set k, v
-  end
+def load_config
+  $config = OpenStruct.new YAML.load_file('config.yml')
 end
 
-$backend = Backend.new(
-  settings.driver,
-  settings.send(settings.driver),
-  settings.redis)
+def setup_backend
+  $backend = Backend.new(
+    $config.driver,
+    $config.send($config.driver),
+    $config.redis)
+end
+
+load_config
+setup_backend
 
 use Rack::Auth::Basic, 'auth required' do |user, password|
-  user == settings.user and password == settings.password
+  user == $config.user and password == $config.password
 end
 
 post '/new' do
@@ -31,7 +34,7 @@ end
 
 get '/info' do
   json({
-    driver: settings.driver
+    driver: $config.driver
   })
 end
 

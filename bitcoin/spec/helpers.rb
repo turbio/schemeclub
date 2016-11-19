@@ -10,6 +10,11 @@ def basic_auth(user, pass)
   header 'Authorization', "Basic #{Base64.encode64(cred)}"
 end
 
+def set_driver(driver)
+  $config.driver = driver
+  setup_backend
+end
+
 module SinatraTest
   include Rack::Test::Methods
 

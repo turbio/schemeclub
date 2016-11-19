@@ -22,7 +22,6 @@ class Backend
 
   def start_syncing
     @syncing = true
-    @driver.start
 
     while @syncing
       sync_store

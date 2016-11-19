@@ -1,20 +1,16 @@
 require_relative 'helpers'
+require_relative '../server'
 
-set :backend, 'bitcoind'
-set :user, 'user'
-set :password, 'password'
-
-load 'server.rb'
-
-describe "#{settings.backend} backend" do
+describe "bitcoind driver" do
   include SinatraTest
 
   before do basic_auth 'user', 'password' end
+  before(:all) do set_driver 'bitcoind' end
 
   it 'should be using bitcoind' do
     get '/info'
 
-    expect(JSON.parse(last_response.body)['backend']).to eq 'bitcoind'
+    expect(JSON.parse(last_response.body)['driver']).to eq 'bitcoind'
   end
 
   it 'should create a new address from POSTing to /new' do
