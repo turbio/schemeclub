@@ -24,8 +24,9 @@ echo generating initial blocks
 bitcoin-cli -rpcuser=$USER -rpcpassword=$PASSWORD generate 101
 
 cd bitcoin
+pwd
 bundle show sinatra
-bundle install --deployment
+bundle install --gemfile=./Gemfile
 bundle show sinatra
 ruby server.rb &
 
