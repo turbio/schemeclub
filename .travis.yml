@@ -8,4 +8,6 @@ before_install:
   - ./.travis/setup_bitcoind
   - export PATH=$PATH:"/tmp/bin/"
 before_script:
-  - (cd bitcoin && ruby server.rb &) && sleep 3
+  - (cd bitcoin && bundle install && ruby server.rb &) && sleep 3
+after_script:
+  - killall ruby
