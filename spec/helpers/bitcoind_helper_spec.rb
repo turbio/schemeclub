@@ -2,9 +2,9 @@ require 'rails_helper'
 
 Bitcoind_config = Rails.configuration.payment['bitcoind']
 Bitcoind_opts = [
-	"-rpcport=#{Bitcoind_config['port']}",
-	"-rpcuser=#{Bitcoind_config['user']}",
-	"-rpcpassword=#{Bitcoind_config['password']}"
+	'-rpcport=8332',
+	'-rpcuser=user',
+	'-rpcpassword=password'
 ]
 
 def give_bitcoins(amount, address, confirm=false)

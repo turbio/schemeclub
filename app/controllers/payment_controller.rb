@@ -2,8 +2,8 @@ require 'net/http'
 require 'bigdecimal'
 
 class PaymentController < ApplicationController
-	TOTAL = BigDecimal.new Rails.configuration.payment['entry_fee']
-	include BitcoindHelper
+	Total = BigDecimal.new Rails.configuration.payment['entry_fee']
+	include BitcoinHelper
 
 	def get_info
 		if session[:user_id].nil?
@@ -15,24 +15,26 @@ class PaymentController < ApplicationController
 		if payment.nil?
 			payment = Payment.create(
 				user_id: session[:user_id],
-				amount: TOTAL,
+				amount: Total,
 				direction: :in,
 				address: new_address)
 		end
 
-		if get_balance(payment.address) >= TOTAL
+		info = address_info payment.address
+
+		if info[:balance] >= Total
 			payment.update(confirmed: true)
 		end
 
 		{
 			address: payment.address,
-			total: TOTAL,
-			transactions: get_transactions(payment.address),
+			total: Total,
+			transactions: info[:transactions],
 			complete: payment.confirmed,
 			qr_url: "#{qrcode_path}" +
 				"?width=100" +
 				"&height=100" +
-				"&data=bitcoin:#{payment.address}?amount=#{TOTAL}"
+				"&data=bitcoin:#{payment.address}?amount=#{Total}"
 		}
 	end
 
