@@ -1,5 +1,5 @@
-driver: 'electrum'
-sync_frequency: 10
+driver: 'bitcoind'
+sync_frequency: 1
 user: 'user'
 password: 'password'
 

@@ -18,7 +18,10 @@ def setup_backend
 end
 
 load_config
-setup_backend
+
+if __FILE__ == $0
+  setup_backend
+end
 
 use Rack::Auth::Basic, 'auth required' do |user, password|
   user == $config.user and password == $config.password

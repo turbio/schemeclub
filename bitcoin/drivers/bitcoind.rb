@@ -60,7 +60,6 @@ class Bitcoind
     query('getaddressesbyaccount', @config['account']).each do |address|
       store.put(address, transactions[address])
     end
-
   end
 
   private

@@ -25,7 +25,7 @@ class Backend
 
     while @syncing
       sync_store
-      sleep settings.sync_frequency
+      sleep $config.sync_frequency
     end
   end
 
