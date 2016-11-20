@@ -24,11 +24,12 @@ echo generating initial blocks
 bitcoin-cli -rpcuser=$USER -rpcpassword=$PASSWORD generate 101
 
 cd bitcoin
-bundle install
+bundle show sinatra
+bundle install --deployment
+bundle show sinatra
 ruby server.rb &
 
 until curl user:password@localhost:4567/info
 do
 	sleep 1
-done
 done
