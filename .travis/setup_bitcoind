@@ -15,8 +15,6 @@ export PATH=$PATH:"/tmp/bitcoin-${VERSION}/bin/"
 echo starting bitcoind
 bitcoind -rpcport=8332 -rpcuser=$USER -rpcpassword=$PASSWORD -regtest -daemon
 
-BITCOIND_STARTED=0
-
 until bitcoin-cli -rpcuser=$USER -rpcpassword=$PASSWORD getinfo
 do
 	sleep 1
@@ -24,3 +22,13 @@ done
 
 echo generating initial blocks
 bitcoin-cli -rpcuser=$USER -rpcpassword=$PASSWORD generate 101
+
+cd bitcoin
+bundle install
+ruby server.rb &
+
+until curl user:password@localhost:4567/info
+do
+	sleep 1
+done
+done
