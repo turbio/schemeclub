@@ -31,6 +31,11 @@ post '/new' do
   json $backend.new_address
 end
 
+post '/sync' do
+  $backend.sync_store
+  'success'
+end
+
 get '/all' do
   json $backend.get_all
 end

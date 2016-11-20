@@ -5,7 +5,7 @@ def bitcoind_query(params)
   `bitcoin-cli -rpcuser=user -rpcpassword=password #{params}`
 
   #give it a second to sync
-  sleep 1
+  post '/sync'
 end
 
 describe "bitcoind driver" do

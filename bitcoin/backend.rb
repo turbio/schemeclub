@@ -18,6 +18,17 @@ class Backend
   def get_all() @store.all end
   def get(addr, conf=0) @store.get(addr, conf.to_i) end
 
+  def sync_store
+    start_time = Time.now
+    @driver.sync @store
+    end_time = Time.now
+
+    ((end_time - start_time) * 1000).round 3
+  rescue Exception => error
+    puts "error occured while syncing: #{error}"
+  end
+
+
   private
 
   def start_syncing
@@ -27,16 +38,8 @@ class Backend
       sync_store
       sleep $config.sync_frequency
     end
-  end
-
-  def sync_store
-    start_time = Time.now
-    @driver.sync @store
-    end_time = Time.now
-
-    ((end_time - start_time) * 1000).round 3
-  rescue Exception => error
-    puts "error occured while syncing: #{error}"
+  rescue Error => e
+    abort "catastrophic sync error #{e}"
   end
 
   def get_driver(name)

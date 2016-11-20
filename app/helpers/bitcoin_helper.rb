@@ -16,11 +16,12 @@ module BitcoinHelper
 		req.basic_auth Config['user'], Config['password']
 
 		res = JSON.parse(@@http.request(req).body)
-		puts res
 
 		{
 			balance: BigDecimal.new(res['balance']),
-			transactions: res['transactions']
+			transactions: res['transactions'].map do |t|
+				{ amount: t['amount'], confirmations: t['confirmations'] }
+			end
 		}
 	end
 end

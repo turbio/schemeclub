@@ -1,6 +1,8 @@
 require 'net/http'
 
 class Bitcoind
+  HistoryDepth = 1000
+
   def initialize(config)
     @config = config
   end
@@ -48,7 +50,7 @@ class Bitcoind
   def sync(store)
     transactions = Hash.new do |h,k| h[k] = [] end
 
-    query('listtransactions', @config['account']).each do |t|
+    query('listtransactions', @config['account'], HistoryDepth).each do |t|
       transactions[t['address']].push({
         amount: BigDecimal.new(t['amount'].to_s).to_s('f'),
         confirmations: t['confirmations']
