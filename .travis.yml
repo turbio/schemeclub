@@ -2,6 +2,10 @@ language: ruby
 rvm: 2.3.1
 script: bundle exec rspec --format doc
 cache: bundler
+services:
+  - redis-server
 before_install:
   - ./.travis/setup_bitcoind
   - export PATH=$PATH:"/tmp/bin/"
+before_script:
+  - cd bitcoin && ruby server.rb &
