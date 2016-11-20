@@ -12,23 +12,16 @@ ln -s "/tmp/bitcoin-${VERSION}/bin/bitcoin-cli" /tmp/bin/
 
 export PATH=$PATH:"/tmp/bitcoin-${VERSION}/bin/"
 
-echo starting bitcoind
-bitcoind -rpcport=8332 -rpcuser=$USER -rpcpassword=$PASSWORD -regtest -daemon
+#echo generating initial blocks
+#bitcoin-cli -rpcuser=$USER -rpcpassword=$PASSWORD generate 101
 
-until bitcoin-cli -rpcuser=$USER -rpcpassword=$PASSWORD getinfo
-do
-	sleep 1
-done
-
-echo generating initial blocks
-bitcoin-cli -rpcuser=$USER -rpcpassword=$PASSWORD generate 101
-
+echo starting bitcoin adapter server
 cd bitcoin
 pwd
 bundle show sinatra
 bundle install --gemfile=./Gemfile
 bundle show sinatra
-ruby server.rb &
+ruby server.rb
 
 until curl user:password@localhost:4567/info
 do
