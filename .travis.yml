@@ -1,3 +1,5 @@
+env:
+  - DOCKER_COMPOSE_VERSION: 1.9.0
 sudo: required
 services: docker
 before_install: docker-compose start
