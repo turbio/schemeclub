@@ -41,6 +41,3 @@ DEPENDENCIES
   rspec
   sinatra
   sinatra-json
-
-BUNDLED WITH
-   1.12.5

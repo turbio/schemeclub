@@ -9,33 +9,6 @@ class Electrum
     @cached_addresses = Hash.new do |h,k| h[k] = [] end
   end
 
-  def stop
-    pid = `pidof electrum`
-
-    if pid != ''
-      `kill #{pid}`
-      sleep 0.5
-      stop
-    end
-  end
-
-  def is_up
-    `electrum daemon status` != 'Daemon not running'
-  end
-
-  def start
-    stop
-
-    `electrum daemon stop`
-    spawn('electrum daemon start')
-
-    while !is_up
-      sleep 0.5
-    end
-
-    `electrum setconfig rpcport #{@config['port']}`
-  end
-
   def new_address
     query('addrequest', 0, '', false, true)['address']
   end

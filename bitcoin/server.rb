@@ -7,6 +7,9 @@ require 'ostruct'
 
 require_relative 'backend'
 
+puts ''
+STDOUT.flush
+
 def load_config
   $config = OpenStruct.new YAML.load_file('config.yml')
 end
@@ -49,6 +52,15 @@ end
 
 get '/:address' do
   json $backend.get(params[:address], params[:confirmations])
+end
+
+# routes to use for debug and testing with bitcoind
+post '/debug/gen/:number' do
+  $backend._gen(params[:number])
+end
+
+post '/debug/give/:amount/:address' do
+  $backend._give(params[:address], params[:amount])
 end
 
 not_found do

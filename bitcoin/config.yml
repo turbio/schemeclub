@@ -1,21 +1,19 @@
 driver: 'bitcoind'
-sync_frequency: 1
+sync_frequency: 10
 user: 'user'
 password: 'password'
 
 redis:
-  port: 10101
+  port: 6379
+  host: 'redis'
 
 bitcoind:
-  host: 'localhost'
+  host: 'bitcoind'
   port: 8332
   user: 'user'
   password: 'password'
   account: 'payments'
-  params: '-regtest'
 
 electrum:
-  host: 'localhost'
+  host: 'electrum'
   port: 7777
-
-mock:

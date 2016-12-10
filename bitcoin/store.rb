@@ -6,18 +6,26 @@ AddressPrefix = 'address:'
 
 class Store
   def initialize
-    @@redis = Redis.new
-    @@redis.flushall
+    @config = $config['redis']
+
+    @redis = Redis.new(host: @config['host'],
+                        port: @config['port'])
+    @redis.flushall
+  rescue Redis::CannotConnectError
+    puts "error connecting to redis at #{@config['host']}:#{@config['port']}, retrying..."
+    sleep 1
+
+    retry
   end
 
   def put(address, transactions)
-    @@redis.set("#{AddressPrefix}#{address}", JSON.dump({
+    @redis.set("#{AddressPrefix}#{address}", JSON.dump({
       transactions: transactions
     }))
   end
 
   def get(address, confirmations)
-    result = @@redis.get "#{AddressPrefix}#{address}"
+    result = @redis.get "#{AddressPrefix}#{address}"
 
     if result.nil?
       result = {

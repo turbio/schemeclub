@@ -2,16 +2,13 @@ require 'rails_helper'
 
 BitcoinConf = Rails.configuration.payment
 
-Bitcoind_opts = [
-	'-rpcport=8332',
-	'-rpcuser=user',
-	'-rpcpassword=password'
-]
-
 def give_bitcoins(amount, address, confirm=false)
-	opts = Bitcoind_opts + [ 'sendtoaddress', address, amount ]
+	http = Net::HTTP.start(BitcoinConf['host'], BitcoinConf['port'])
 
-	`bitcoin-cli #{opts.join ' '}`
+	req = Net::HTTP::Post.new("/debug/give/#{amount}/#{address}")
+	req.basic_auth BitcoinConf['user'], BitcoinConf['password']
+
+	http.request(req)
 
 	if confirm
 		gen_blocks 3
@@ -19,14 +16,18 @@ def give_bitcoins(amount, address, confirm=false)
 end
 
 def gen_blocks(number)
-	opts = Bitcoind_opts + [ 'generate', number ]
-	`bitcoin-cli #{opts.join ' '}`
+	http = Net::HTTP.start(BitcoinConf['host'], BitcoinConf['port'])
+
+	req = Net::HTTP::Post.new("/debug/gen/#{number}")
+	req.basic_auth BitcoinConf['user'], BitcoinConf['password']
+
+	http.request(req)
 end
 
 def sync
 	http = Net::HTTP.start(BitcoinConf['host'], BitcoinConf['port'])
 
-	req = Net::HTTP::Post.new('/new')
+	req = Net::HTTP::Post.new('/sync')
 	req.basic_auth BitcoinConf['user'], BitcoinConf['password']
 
 	http.request(req)
@@ -64,6 +65,8 @@ RSpec.describe BitcoinHelper, type: :helper do
 	end
 
 	describe '#address_info' do
+		before do gen_blocks 101 end # ensure we have enough (fake) bitcoins
+
 		it 'should return a hash' do
 			address = new_address
 

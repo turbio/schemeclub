@@ -10,7 +10,6 @@ class Backend
     driver_class = get_driver driver
     @driver = driver_class.new driver_config
 
-    @driver.start
     Thread.new do start_syncing end
   end
 
@@ -18,12 +17,19 @@ class Backend
   def get_all() @store.all end
   def get(addr, conf=0) @store.get(addr, conf.to_i) end
 
+  # debug methods
+  def _gen(number) @driver._gen(number) end
+  def _give(address, amount) @driver._give(address, amount) end
+
   def sync_store
     start_time = Time.now
     @driver.sync @store
     end_time = Time.now
 
-    ((end_time - start_time) * 1000).round 3
+    sync_time = ((end_time - start_time) * 1000).round 3
+    puts "synced bitcoin client to store in #{sync_time}ms"
+    STDOUT.flush
+
   rescue Exception => error
     puts "error occured while syncing: #{error}"
   end

@@ -1,7 +1,7 @@
 default: &default
   entry_fee: '0.015'
   confirmations: 3
-  host: 'localhost'
+  host: 'bitcoin-adapter'
   port: '4567'
   user: 'user'
   password: 'password'
