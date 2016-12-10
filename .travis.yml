@@ -1,11 +1,4 @@
-language: ruby
-rvm: 2.3.1
-script: bundle exec rspec --format doc
-cache: bundler
-services:
-  - redis-server
-before_install:
-  - ./.travis/setup_bitcoind
-  - export PATH=$PATH:"/tmp/bin/"
-after_script:
-  - killall ruby
+sudo: required
+services: docker
+before_install: docker-compose start
+script: docker-compose exec web rspec --format doc --fail-fast
