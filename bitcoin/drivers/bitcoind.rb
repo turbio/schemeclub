@@ -34,7 +34,6 @@ class Bitcoind
 
   private
     def query(method, *params)
-      puts "#{method}: #{params}"
       req = Net::HTTP::Post.new('/')
       req.add_field('Content-Type', 'application/json')
       req.basic_auth @config['user'], @config['password']

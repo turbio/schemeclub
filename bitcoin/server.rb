@@ -7,8 +7,7 @@ require 'ostruct'
 
 require_relative 'backend'
 
-puts ''
-STDOUT.flush
+set :environment, :production
 
 def load_config
   $config = OpenStruct.new YAML.load_file('config.yml')

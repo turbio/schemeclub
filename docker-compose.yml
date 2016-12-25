@@ -10,12 +10,16 @@ services:
     image: kylemanna/bitcoind
     command: bitcoind -rpcallowip=::/0 -rpcport=8332 -rpcuser=user -rpcpassword=password -regtest -printtoconsole
 
+  electrum:
+    build: ./electrum
+
   bitcoin-adapter:
     build: ./bitcoin
     command: ruby server.rb -p 4567 -o '0.0.0.0'
     volumes:
       - ./bitcoin:/bitcoin
     depends_on:
+      - electrum
       - bitcoind
       - redis
 
