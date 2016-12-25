@@ -48,7 +48,7 @@ class Store
   end
 
   def all
-    @@redis.keys("#{AddressPrefix}*").map do |a|
+    @redis.keys("#{AddressPrefix}*").map do |a|
       a[AddressPrefix.length..-1]
     end
   end

@@ -22,3 +22,14 @@ module SinatraTest
     Sinatra::Application
   end
 end
+
+def mock_gen(number)
+  post "/debug/gen/#{number}"
+  post '/sync'
+end
+
+def mock_give(amount, address)
+  post "/debug/give/#{amount}/#{address}"
+  post '/sync'
+end
+

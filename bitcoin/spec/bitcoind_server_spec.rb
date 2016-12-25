@@ -1,13 +1,6 @@
 require_relative 'helpers'
 require_relative '../server'
 
-def bitcoind_query(params)
-  `bitcoin-cli -rpcuser=user -rpcpassword=password #{params}`
-
-  #give it a second to sync
-  post '/sync'
-end
-
 describe "bitcoind driver" do
   include SinatraTest
 
@@ -78,14 +71,14 @@ describe "bitcoind driver" do
     expect(res).to include 'transactions'
     expect(res['transactions'].length).to eq 0
 
-    bitcoind_query "sendtoaddress #{address} 1.2345678"
+    mock_give '1.2345678', address
 
     get "/#{address}"
     res = JSON.parse(last_response.body)
     expect(res).to include 'transactions'
     expect(res['transactions'].length).to eq 1
 
-    bitcoind_query "sendtoaddress #{address} 1.2345678"
+    mock_give '1.2345678', address
 
     get "/#{address}"
     res = JSON.parse(last_response.body)
@@ -97,7 +90,7 @@ describe "bitcoind driver" do
     post '/new'
     address = last_response.body[1...-1]
 
-    bitcoind_query "sendtoaddress #{address} 1.2345678"
+    mock_give '1.2345678', address
 
     get "/#{address}"
     expect(JSON.parse(last_response.body)['balance']).to eq '1.2345678'
@@ -107,7 +100,7 @@ describe "bitcoind driver" do
     expect(JSON.parse(last_response.body)['balance']).to eq '0.0'
     expect(JSON.parse(last_response.body)['confirmations']).to eq 1
 
-    bitcoind_query 'generate 1'
+    mock_gen 1
 
     get "/#{address}?confirmations=1"
     expect(JSON.parse(last_response.body)['balance']).to eq '1.2345678'
@@ -117,7 +110,7 @@ describe "bitcoind driver" do
     expect(JSON.parse(last_response.body)['balance']).to eq '0.0'
     expect(JSON.parse(last_response.body)['confirmations']).to eq 2
 
-    bitcoind_query "sendtoaddress #{address} 2"
+    mock_give '2', address
 
     get "/#{address}"
     expect(JSON.parse(last_response.body)['balance']).to eq '3.2345678'
