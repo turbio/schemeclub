@@ -1,0 +1,43 @@
+{
+    "keystore": {
+        "seed": "prepare case describe field vault green potato address gossip quote whisper mountain", 
+        "type": "bip32", 
+        "xprv": "xprv9s21ZrQH143K3Jp1NkL9PZ9RRMSgoceBvgDTZ5DGK5WaYRayWykGkGhUAb8r6C8SAweYy5mLeA3Vr4MrUebWBY4CCUrNcRB9a3CpNi65Waj", 
+        "xpub": "xpub661MyMwAqRbcFntUUms9kh69yPHBD5N3Hu94MTcssR3ZRDv84X4XJ51x1sDESrfAKZ8MFojSxmEvYJhzPKiPJX8qTb4CL5jM4z7YDBVF7jq"
+    }, 
+    "pubkeys": {
+        "change": [
+            "029633c4d92cb44c1258426c8079480141737ed471ef4a74235cf53bfd874757f1", 
+            "0255eb621a6d442c5fb67a3bae0b68624923baba62ad86280f2c1a0f99d8b05429", 
+            "032a133fef85e2d1b548311cc6a03eeae531e95ba33e6318ec845afb7398b74998", 
+            "03ca71fedef1a278ac90369806aac412ae7ae93dd992aa4407de3abf29efa30ddb", 
+            "0343f31971b12be8bd5a50b390455a7010fe44b4e0829b2e3b6cab2933f86026d4", 
+            "02fc87b0bed6f34fdf2b502f3ad40b1a9a7b1e2d7c8164b7cc522f2594a68410f0"
+        ], 
+        "receiving": [
+            "03c07419b86d9b94fb992e2438ce6682394f0770771d4532e4c42ea653b124383e", 
+            "0328a20fbeb43fd7bfd67d1e864490cfda6114ce9dc44f75c20558c9b4290d2a45", 
+            "02d339a798cbb61c6477724b6de1f89cca0f58e5170c06c8b644da1464eb3f666c", 
+            "023c8b285a6ac7f74993927526fc99cae365806f42e438a00fbc4d33f0a2b14b56", 
+            "03b127ae36fceff1d86968bc574f18f3542dedecaf652fe6f7fd2650086f7c83e4", 
+            "033b05251914609bcee8f235c6441e04bc422f6f569282d4a0bef0ca848e93d45d", 
+            "03bf2cd691011416e034225fc4207eec7acd1868029b6233e754a46a83e31030aa", 
+            "03c50939f7ebc0ade627af2498f0472bb4b2d6d3fcb78e166aec347cb2f9a6618d", 
+            "03ea9b5fa90b187624e3efd8ba1e16b8713344db92a0b5fb92a7411c8ee62d30ac", 
+            "02a641b9d65cbe3c7b465859faa0c88212c5eda806b84c7cf48bf17e517fd6b3a7", 
+            "02bb3a65ea4e6c6baa69cf146e5b22d2ececcc09712e3b8242d834e7ac89606bfd", 
+            "020f34036094063f63349b0e8e0f97f21e13b668e0c5714dd5c7fe541dbef8fa2c", 
+            "02b3ddd46c912377ef0539c385f5b4de210342e99bb1791bb99c092fe6d44878b2", 
+            "020791fe99713b2d9e3d81d4ba1ff0031e7ed24314faa150925d3440387dac725c", 
+            "02687d76faa974a551ecc69724897f8098a1951f0d10ee4194a3dcc5714b62f697", 
+            "0312225f0b491885db0dc8b061d340016fd4fa2bfcf6f69559c36b279c3a52004a", 
+            "02131305a184c8c363dd489a90e580e6a2ba8d64f252def36fdf21637335fd05f1", 
+            "02a6ebdcf894af2c28a42010a08f5c193304fb9568a5191240fd7380441badafc4", 
+            "03036b3af41ea32e97a4a1fcf7726bde204ff44bbeaf5e73210985cc20d504da7d", 
+            "02f99cf0248f4625abff790f2341ebe63981e231ecb2f56003aa39e246ffd936d0"
+        ]
+    }, 
+    "seed_version": 13, 
+    "use_encryption": false, 
+    "wallet_type": "standard"
+}

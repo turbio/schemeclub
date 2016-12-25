@@ -6,6 +6,7 @@ describe "bitcoind driver" do
 
   before do basic_auth 'user', 'password' end
   before(:all) do set_driver 'bitcoind' end
+  before do mock_gen 101 end
 
   it 'should be using bitcoind' do
     get '/info'
