@@ -1,0 +1,34 @@
+<div class="dash-section">
+	<h1>Recruit codes</h1>
+	<ul class="recruit-codes">
+		<% @codes.each do |code| %>
+			<% if @user.children.length == 0%>
+				<div class="instruction-dialog">now share this code with someone you want to recruit</div>
+			<% end %>
+			<li>
+				<input id="code-<%= code.code.to_s%>" type="text" class="recruit-code" value="<%= (root_url + code.code).to_s %>" readonly>
+				<input type="button" class="copy-button" data-clipboard-target="#code-<%= code.code.to_s%>" value="copy">
+				<div
+					class="code-expire-time"
+					data-hours="<%= code.time_until_expire.strftime "%H" %>"
+					data-minutes="<%= code.time_until_expire.strftime "%M" %>" >expires in
+					<%= code.time_until_expire.strftime "%H hours %M minutes" %></div>
+			</li>
+		<% end %>
+	</ul>
+	<% if @allowed_to_create_codes %>
+		<%= form_for :new_code, url: {action: "new_code"} do |f| %>
+			<% if @codes.size == 0 && @user.children.length == 0%>
+				<div class="instruction-dialog">create a code to start recruiting people into your pyramid</div>
+			<% end %>
+			<%= f.submit 'new recruit code', :class => 'submit-button' %>
+		<% end %>
+	<% else %>
+		<div class="error-message">
+			<ol>
+				<li>you've hit your limit for recruit code creation</li>
+				<li>your existing codes must expire or be claimed before you can create more</li>
+			</ol>
+		</div>
+	<% end %>
+</div>
