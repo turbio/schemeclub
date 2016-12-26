@@ -1,10 +1,5 @@
 class MainController < ApplicationController
 	def logout
-		#this is used to "TRY" and prevent users from creating many alt accounts as subordinates
-		#once is logged in, it should no longer be possible to create a new account
-		#this is incredibly easy to circumvent, but might make it just a little bit harder
-		session[:last_user_id] = session[:user_id]
-
 		session.delete(:user_id)
 		redirect_to root_path
 	end
@@ -22,8 +17,6 @@ class MainController < ApplicationController
 	end
 
 	def signup
-		redirect_to join_path and return if session[:last_user_id].present?
-
 		@code = RecruitCode.find_by(code: params[:signup][:code]) || RecruitCode.new()
 		return render 'join' if !@code.available?
 
@@ -45,9 +38,6 @@ class MainController < ApplicationController
 	end
 
 	def join
-		@error = 'woops, you are already a member' and return if session[:user_id].present?
-		@error = 'nice try, but you already have an account' and return if session[:last_user_id].present?
-
 		@code_string = params[:id] || params[:signup][:code]
 		@code = RecruitCode.find_by(code: @code_string) || RecruitCode.new()
 	end

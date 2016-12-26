@@ -5,6 +5,18 @@ class PaymentController < ApplicationController
 	Total = BigDecimal.new Rails.configuration.payment['entry_fee']
 	include BitcoinHelper
 
+	def index
+		get_info.each do |key, value|
+			instance_variable_set("@#{key}", value)
+		end
+	end
+
+	def status
+		render json: get_info
+	end
+
+	private
+
 	def get_info
 		if session[:user_id].nil?
 			redirect_to root_path and return { error: 'not logged in' }
@@ -36,15 +48,5 @@ class PaymentController < ApplicationController
 				"&height=100" +
 				"&data=bitcoin:#{payment.address}?amount=#{Total}"
 		}
-	end
-
-	def index
-		get_info.each do |key, value|
-			instance_variable_set("@#{key}", value)
-		end
-	end
-
-	def status
-		render json: get_info
 	end
 end

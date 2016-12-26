@@ -50,4 +50,4 @@ $ ->
 	if $('.complete-dialog').hasClass('hidden')
 		interval = setInterval ->
 			$.get '/payment/status', (result) -> update_info result
-		, 1000
+		, 30000

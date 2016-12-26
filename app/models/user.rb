@@ -29,7 +29,6 @@ class User < ActiveRecord::Base
 	validates :password, presence: true
 
 	before_save :hash_password_hook
-	after_save :initial_funds
 
 	def earned
 		transactions_to.map do |t|
