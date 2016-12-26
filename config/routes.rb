@@ -21,10 +21,11 @@ Rails.application.routes.draw do
 	root 'main#index'
 
 	post '/login' => 'main#login'
-	post '/signup' => 'main#signup'
+	post '/join' => 'main#signup'
 	get '/logout' => 'main#logout'
 	get '/welcome(/:id)' => 'welcome#index', as: 'welcome'
 	post '/new_code' => 'dash#new_code'
 
-	get '/:id' => 'main#join'
+	get '/join' => 'main#join'
+	get '/:id' => 'main#join_with_code', id: /[0-9].+/
 end

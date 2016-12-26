@@ -63,3 +63,33 @@ ul, ol{
 
 .valid-input{
 }
+
+.footer-link{
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 1em;
+	color: #888;
+	font-size: .85em;
+	text-decoration: none;
+}
+
+.full-page-error{
+	background: #fff;
+	margin: 10vh 10vw 0 10vw;
+	padding: 3em;
+	span{
+		color: #aaa;
+	}
+	a{
+		color: #888;
+	}
+	h1{
+		font-size: 6vw;
+	}
+	span,h1{
+		text-align: left;
+		display: block;
+	}
+}

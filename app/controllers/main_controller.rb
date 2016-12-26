@@ -17,12 +17,15 @@ class MainController < ApplicationController
 	end
 
 	def signup
-		@code = RecruitCode.find_by(code: params[:signup][:code]) || RecruitCode.new()
+		if !params[:join].include? :code
+		end
+
+		@code = RecruitCode.find_by(code: params[:join][:code]) || RecruitCode.new()
 		return render 'join' if !@code.available?
 
 		@user = User.new(
-			name: params[:signup][:name],
-			password: params[:signup][:password],
+			name: params[:join][:name],
+			password: params[:join][:password],
 			parent_id: @code.owner_id)
 
 		if !@user.save
@@ -37,8 +40,12 @@ class MainController < ApplicationController
 		redirect_to welcome_path
 	end
 
-	def join
-		@code_string = params[:id] || params[:signup][:code]
-		@code = RecruitCode.find_by(code: @code_string) || RecruitCode.new()
+	def join_with_code
+		@code_string = params[:id] || params[:join][:code]
+		@code = RecruitCode.find_by(code: @code_string)
+
+		return render 'error', locals: { error: 'code not found'} if @code.nil?
+
+		render 'join'
 	end
 end

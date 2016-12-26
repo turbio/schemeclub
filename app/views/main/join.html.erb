@@ -1,7 +1,3 @@
-<% if @error || !@code.available? %>
-	<h1><%= @error || @code.availability %></h1>
-	<a href="<%= root_url %>">back</b>
-<% else %>
 <h1>Join the club</h1>
 <div class="centered-form-container">
 	<% if @user and @user.errors.any? %>
@@ -13,11 +9,13 @@
 			<% end %>
 		</ul>
 	<% end %>
-	<%= form_for :signup, url: {action: "signup"} do |f| %>
-		<%= f.hidden_field :code, :value => @code.code %>
+	<%= form_for :join, url: {action: "join"} do |f| %>
+		<% if @code %>
+			<%= f.hidden_field :code, :value => @code.code %>
+		<% end %>
 		<%= f.text_field :name, :placeholder => 'name', :class => 'name-field' %>
 		<%= f.password_field :password, :placeholder => 'password', :class => 'password-field' %>
-		<%= f.submit :signup, :class => 'submit-button' %>
+		<%= f.submit :join, :class => 'submit-button' %>
 	<% end %>
 </div>
-<% end %>
+<%= link_to 'signin', root_url, class: 'footer-link' %>
