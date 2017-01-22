@@ -1,0 +1,21 @@
+<h1>Join the club</h1>
+<div class="centered-form-container">
+	<% if @user and @user.errors.any? %>
+		<ul>
+			<% @user.errors.full_messages.each do |msg| %>
+			<li>
+				<%= msg.to_s %>
+			</li>
+			<% end %>
+		</ul>
+	<% end %>
+	<%= form_for :join, url: {action: "join"} do |f| %>
+		<% if @code %>
+			<%= f.hidden_field :code, :value => @code.code %>
+		<% end %>
+		<%= f.text_field :name, :placeholder => 'name', :class => 'name-field' %>
+		<%= f.password_field :password, :placeholder => 'password', :class => 'password-field' %>
+		<%= f.submit :join, :class => 'submit-button' %>
+	<% end %>
+</div>
+<%= link_to 'sign in', root_url, class: 'footer-link' %>

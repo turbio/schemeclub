@@ -22,13 +22,15 @@ class AuthController < ApplicationController
 
 		return render 'error', locals: { error: 'code not found'} if @code.nil?
 
+		session[:recruit_code] = @code
+
 		render 'join'
 	end
 
 	def signup_with_code
 		@code = RecruitCode.find_by(code: params[:join][:code])
 
-		return render 'join' if !@code.available?
+		return render 'join' if @code.claimed
 
 		@user = User.new(
 			name: params[:join][:name],

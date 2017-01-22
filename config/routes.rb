@@ -4,6 +4,12 @@ class AuthConstraint
 	end
 end
 
+class HasRecruitCode
+	def matches?(request)
+		request.session[:recruit_code].present?
+	end
+end
+
 Rails.application.routes.draw do
 	scope 'api' do
 		post 'valid_name' => 'auth#valid_name'
@@ -17,13 +23,19 @@ Rails.application.routes.draw do
 		post '/new_code' => 'dash#new_code'
 	end
 
+	constraints(HasRecruitCode.new) do
+		get '/join' => 'auth#join_with_code'
+		post '/join' => 'auth#signup_with_code'
+	end
+
 	root 'main#index'
 
 	post '/login' => 'auth#login'
-	post '/join' => 'auth#signup'
 	get '/logout' => 'auth#logout'
 	get '/welcome(/:id)' => 'welcome#index', as: 'welcome'
 
 	get '/join' => 'auth#join'
-	get '/:id' => 'auth#join_with_code', id: /[0-9].+/
+	post '/join' => 'auth#signup'
+
+	get '/:id' => 'auth#join_with_code', id: /[0-9]\w{3}/
 end
