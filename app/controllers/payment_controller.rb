@@ -6,22 +6,16 @@ class PaymentController < ApplicationController
 	include BitcoinHelper
 
 	def index
+		return render json: get_info if params[:format] === 'json'
+
 		get_info.each do |key, value|
 			instance_variable_set("@#{key}", value)
 		end
 	end
 
-	def status
-		render json: get_info
-	end
-
 	private
 
 	def get_info
-		if session[:user_id].nil?
-			redirect_to root_path and return { error: 'not logged in' }
-		end
-
 		payment = Payment.where(user_id: session[:user_id]).first
 
 		if payment.nil?

@@ -8,7 +8,6 @@ class DashController < ApplicationController
 	end
 
 	def new_code
-		return redirect_to root_path if session[:user_id].nil?
 		@user = User.find(session[:user_id])
 
 		if RecruitCode.owned_by(@user).length >= 3

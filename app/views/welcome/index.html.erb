@@ -14,7 +14,7 @@
 		<%= link_to 'prev', {}, class: 'prev side-btn hide'  %>
 	<% end %>
 
-	<%= link_to 'skip', authenticated_root_path, id: 'skip-slides' %>
+	<%= link_to 'skip', dashboard_path, id: 'skip-slides' %>
 
 	<% if !@slide || @slide < @slides - 1 %>
 		<%= link_to 'next', { id: @slide.to_i + 1 }, class: 'next side-btn'%>

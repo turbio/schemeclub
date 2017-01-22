@@ -5,27 +5,25 @@ class AuthConstraint
 end
 
 Rails.application.routes.draw do
-	namespace 'api' do
-		post 'valid_name'
-		post 'valid_credentials'
+	scope 'api' do
+		post 'valid_name' => 'auth#valid_name'
+		post 'valid_credentials' => 'auth#valid_credentials'
 	end
-
-	get '/payment' => 'payment#index'
-	get '/payment/status' => 'payment#status'
-
-	get '/qr' => 'qrcode#index', as: 'qrcode'
 
 	constraints(AuthConstraint.new) do
-		root to: 'dash#index', as: 'authenticated_root'
+		root to: 'dash#index', as: 'dashboard'
+		get '/payment' => 'payment#index'
+		get '/qr' => 'qrcode#index', as: 'qrcode'
+		post '/new_code' => 'dash#new_code'
 	end
+
 	root 'main#index'
 
-	post '/login' => 'main#login'
-	post '/join' => 'main#signup'
-	get '/logout' => 'main#logout'
+	post '/login' => 'auth#login'
+	post '/join' => 'auth#signup'
+	get '/logout' => 'auth#logout'
 	get '/welcome(/:id)' => 'welcome#index', as: 'welcome'
-	post '/new_code' => 'dash#new_code'
 
-	get '/join' => 'main#join'
-	get '/:id' => 'main#join_with_code', id: /[0-9].+/
+	get '/join' => 'auth#join'
+	get '/:id' => 'auth#join_with_code', id: /[0-9].+/
 end
