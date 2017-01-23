@@ -30,6 +30,10 @@ class PaymentController < ApplicationController
 
 		if info[:balance] >= Total
 			payment.update(confirmed: true)
+			Transaction.give(
+				User.find(session[:user_id]),
+				Total
+			)
 		end
 
 		{
@@ -37,9 +41,10 @@ class PaymentController < ApplicationController
 			total: Total,
 			transactions: info[:transactions],
 			complete: payment.confirmed,
-			qr_url: "#{qrcode_path}" +
-				"?width=100" +
-				"&height=100" +
+			qr_url:
+				qrcode_path +
+				'?width=100' +
+				'&height=100' +
 				"&data=bitcoin:#{payment.address}?amount=#{Total}"
 		}
 	end

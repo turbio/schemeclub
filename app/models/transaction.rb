@@ -30,4 +30,21 @@ class Transaction < ActiveRecord::Base
 		" -> #{if to.nil? then 'nil' else to.all.join(', ') end}" \
 		" #{amount}"
 	end
+
+	def self.give(user, amount)
+		create(
+			to: [user],
+			from_id: nil,
+			amount: amount,
+			reason: :user_joined
+		)
+
+		# distribute user's wealth to superiors
+		create(
+			to: user.path[0..-2].reverse,
+			from_id: user.id,
+			amount: amount,
+			reason: :user_joined
+		)
+	end
 end

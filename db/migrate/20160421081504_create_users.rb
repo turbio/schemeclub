@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
 			t.string :name, null: false
 			t.string :password, null: false
 			t.string :ancestry
-			t.integer :state, null: false, default: 0
+			t.references(:recruit_code, index: true, null: true);
 
 			t.timestamps null: false
 		end

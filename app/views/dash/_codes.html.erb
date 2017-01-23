@@ -8,7 +8,9 @@
 			<li>
 				<input id="code-<%= code.code.to_s %>" type="text" class="recruit-code" value="<%= (root_url + code.code).to_s %>" readonly>
 				<input type="button" class="copy-button" data-clipboard-target="#code-<%= code.code.to_s%>" value="copy">
-				<div class="code-expire-time">N recruited</div>
+				<div class="code-expire-time">
+					<%= code.users.length %> recruited
+				</div>
 			</li>
 		<% end %>
 	</ul>
@@ -21,10 +23,7 @@
 		<% end %>
 	<% else %>
 		<div class="error-message">
-			<ol>
-				<li>you've hit your limit for recruit code creation</li>
-				<li>your existing codes must expire or be claimed before you can create more</li>
-			</ol>
+			you can't create any more recruit codes at the moment
 		</div>
 	<% end %>
 </div>

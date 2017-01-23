@@ -1,18 +1,14 @@
 class RecruitCode < ActiveRecord::Base
-	EXPIRE_AFTER = 24 * 60 * 60 - 1
-
+	has_many :users
 	belongs_to :owner
 
 	validates :code, presence: true,
 		uniqueness: { case_sensitive: true }
 	validates :owner_id, presence: true
-	validates :claimed, :inclusion => {:in => [true, false]}
 
 	def availability
 		if !id
 			'no recruit code'
-		elsif claimed
-			'recruit code claimed'
 		end
 	end
 
@@ -29,11 +25,10 @@ class RecruitCode < ActiveRecord::Base
 		RecruitCode.create(
 			code: generated_code,
 			owner_id: user.id,
-			claimed: false
 		)
 	end
 
 	def self.owned_by(user)
-		where(owner: user.id, claimed: false)
+		where(owner: user.id)
 	end
 end

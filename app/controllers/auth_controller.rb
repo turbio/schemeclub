@@ -30,12 +30,11 @@ class AuthController < ApplicationController
 	def signup_with_code
 		@code = RecruitCode.find_by(code: params[:join][:code])
 
-		return render 'join' if @code.claimed
-
 		@user = User.new(
 			name: params[:join][:name],
 			password: params[:join][:password],
-			parent_id: @code.owner_id
+			parent_id: @code.owner_id,
+			recruit_code: @code
 		)
 
 		if !@user.save
@@ -43,7 +42,6 @@ class AuthController < ApplicationController
 			return
 		end
 
-		@code.claimed = true
 		@code.save
 		session[:user_id] = @user.id
 

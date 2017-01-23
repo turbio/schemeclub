@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 20161030002557) do
   create_table "recruit_codes", force: :cascade do |t|
     t.integer  "owner_id",   null: false
     t.string   "code",       null: false
-    t.boolean  "claimed",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -49,13 +48,15 @@ ActiveRecord::Schema.define(version: 20161030002557) do
   add_index "transactions", ["from_id"], name: "index_transactions_on_from_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",                   null: false
-    t.string   "password",               null: false
+    t.string   "name",            null: false
+    t.string   "password",        null: false
     t.string   "ancestry"
-    t.integer  "state",      default: 0, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "recruit_code_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
+
+  add_index "users", ["recruit_code_id"], name: "index_users_on_recruit_code_id", using: :btree
 
   create_table "users_transactions", id: false, force: :cascade do |t|
     t.integer "user_id"

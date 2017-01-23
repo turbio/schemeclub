@@ -9,10 +9,10 @@ class CreateRecruitCodes < ActiveRecord::Migration
       );
 
       t.string :code, null: false
-      t.boolean :claimed, null: false
 
       t.timestamps null: false
     end
+
     add_foreign_key :recruit_codes, :users, column: :owner_id
   end
 end
