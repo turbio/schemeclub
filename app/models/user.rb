@@ -32,9 +32,8 @@ class User < ActiveRecord::Base
 
 	def earned
 		transactions_to
-		.map do |t| t.amount self end
-		.reduce(0, :+)
-		- transactions_from.sum(:amount)
+			.map do |t| t.amount self end
+			.reduce(0, :+) - transactions_from.sum(:amount)
 	end
 
 	def earned_from(user)

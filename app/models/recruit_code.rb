@@ -1,6 +1,6 @@
 class RecruitCode < ActiveRecord::Base
 	has_many :users
-	belongs_to :owner
+	belongs_to :owner, class_name: 'User'
 
 	validates :code, presence: true,
 		uniqueness: { case_sensitive: true }

@@ -1,6 +1,6 @@
 class AuthConstraint
 	def matches?(request)
-		request.session[:user_id].present?
+		request.session[:user].present?
 	end
 end
 
@@ -24,11 +24,13 @@ Rails.application.routes.draw do
 	end
 
 	constraints(HasRecruitCode.new) do
+		root to: 'auth#join_with_code', as: 'recruit_root'
 		get '/join' => 'auth#join_with_code'
 		post '/join' => 'auth#signup_with_code'
 	end
 
 	root 'main#index'
+	get '/signin' => 'main#index', as: 'signin'
 
 	post '/login' => 'auth#login'
 	get '/logout' => 'auth#logout'

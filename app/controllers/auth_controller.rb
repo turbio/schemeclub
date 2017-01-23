@@ -1,14 +1,18 @@
 class AuthController < ApplicationController
 	def logout
-		session.delete(:user_id)
+		session.delete :user
 		redirect_to root_path
 	end
 
 	def login
-		@user = User.authenticate(params[:login][:name], params[:login][:password])
+		@user = User.authenticate(
+			params[:login][:name],
+			params[:login][:password]
+		)
 
 		if @user
-			session[:user_id] = @user.id
+			session[:user] = @user
+			session.delete :recruit_code
 			redirect_to root_path
 		else
 			@user = { :errors => ['incorrect name or password'] }
@@ -17,18 +21,26 @@ class AuthController < ApplicationController
 	end
 
 	def join_with_code
-		@code_string = params[:id] || params[:join][:code]
-		@code = RecruitCode.find_by(code: @code_string)
+		@code =
+			if params.include? :id
+				code = RecruitCode
+					.includes(:owner)
+					.find_by(code: params[:id])
+				
+				if code
+					session[:recruit_code] = code.serializable_hash(include: :owner)
+				end
+			else
+				session[:recruit_code]
+			end
 
 		return render 'error', locals: { error: 'code not found'} if @code.nil?
-
-		session[:recruit_code] = @code
 
 		render 'join'
 	end
 
 	def signup_with_code
-		@code = RecruitCode.find_by(code: params[:join][:code])
+		@code = RecruitCode.find_by(code: session[:recruit_code]['code'])
 
 		@user = User.new(
 			name: params[:join][:name],
@@ -43,7 +55,8 @@ class AuthController < ApplicationController
 		end
 
 		@code.save
-		session[:user_id] = @user.id
+		session[:user] = @user
+		session.delete :recruit_code
 
 		redirect_to welcome_path
 	end
@@ -57,7 +70,9 @@ class AuthController < ApplicationController
 
 		render 'join' and return if !@user.save
 
-		session[:user_id] = @user.id
+		session[:user] = @user
+		session.delete :recruit_code
+
 		redirect_to welcome_path
 	end
 

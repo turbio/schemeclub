@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
 	def index
-		@user = User.find(session[:user_id])
+		@user = User.find(session[:user]['id'])
 		@slides = 5
 		@slide = params[:id].to_i
 
