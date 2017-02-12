@@ -1,18 +1,21 @@
 <h1>Join the club</h1>
 <div class="centered-form-container">
 	<% if @code %>
-		Recruited by <%= @code['owner']['name'] %>
+		<span class="recruit-by">
+			Recruited by <%= @code['owner']['name'] %>
+		</span>
 	<% else %>
 		<div class="no-recruit-code">
-			There is an extra 0.005 BTC registration fee
-			when signing up without a recruit code
+			There is an extra
+			<%= Rails.configuration.payment['nocode_fee'] %> BTC
+			registration fee when signing up without a recruit code
 		</div>
 	<% end %>
 	<% if @user and @user.errors.any? %>
 		<ul>
 			<% @user.errors.full_messages.each do |msg| %>
 			<li>
-				<%= msg.to_s %>
+				<%= msg.to_s.downcase %>
 			</li>
 			<% end %>
 		</ul>

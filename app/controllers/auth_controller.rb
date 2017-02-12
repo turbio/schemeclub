@@ -23,16 +23,14 @@ class AuthController < ApplicationController
 	def join_with_code
 		@code =
 			if params.include? :id
-				code = RecruitCode
+				session[:recruit_code] = RecruitCode
 					.includes(:owner)
 					.find_by(code: params[:id])
-				
-				if code
-					session[:recruit_code] = code.serializable_hash(include: :owner)
-				end
+					&.serializable_hash(include: :owner)
 			else
 				session[:recruit_code]
 			end
+
 
 		return render 'error', locals: { error: 'code not found'} if @code.nil?
 
@@ -40,21 +38,22 @@ class AuthController < ApplicationController
 	end
 
 	def signup_with_code
-		@code = RecruitCode.find_by(code: session[:recruit_code]['code'])
+		code = RecruitCode.find_by(code: session[:recruit_code]['code'])
 
 		@user = User.new(
 			name: params[:join][:name],
 			password: params[:join][:password],
-			parent_id: @code.owner_id,
-			recruit_code: @code
+			parent_id: code.owner_id,
+			recruit_code: code
 		)
 
 		if !@user.save
+			@code = session[:recruit_code]
 			render 'join'
 			return
 		end
 
-		@code.save
+		code.save
 		session[:user] = @user
 		session.delete :recruit_code
 

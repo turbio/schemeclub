@@ -182,3 +182,25 @@
 		margin-left: -10px;
 	}
 }
+
+.notification {
+	background: #fff;
+	max-width: 600px;
+	overflow: hidden;
+	margin: 1em auto;
+	padding: 1em 2em;
+	position: relative;
+
+	color: #222;
+	color: rgba(0, 0, 0, .7);
+
+	a {
+		color: #222;
+		color: rgba(0, 0, 0, .75);
+		font-weight: bold;
+	}
+
+	&.warn {
+		background: #ffc04b;
+	}
+}

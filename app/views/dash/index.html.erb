@@ -4,6 +4,22 @@
 	<a href="<%= logout_url.to_s %>">logout</a>
 </div>
 
-<%= render "codes" %>
-<%= render "earnings" %>
-<%= render "tree" %> 
+<% @notifications&.each do |notification| %>
+	<%= render 'notification', **notification %>
+<% end %>
+
+<% if !@fee_payed %>
+	<%= render 'notification', {
+			text: '
+				You haven\'t finished paying the registration fee yet.<br/>
+				click <a href="/payment">here</a> to proceed so you can start
+				recruiting right away!
+			'.html_safe,
+			type: :warn,
+		}
+	%>
+<% end %>
+
+<%= render 'codes' %>
+<%= render 'earnings' %>
+<%= render 'tree' %> 

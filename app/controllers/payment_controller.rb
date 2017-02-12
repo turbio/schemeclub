@@ -2,8 +2,10 @@ require 'net/http'
 require 'bigdecimal'
 
 class PaymentController < ApplicationController
-	Total = BigDecimal.new Rails.configuration.payment['entry_fee']
 	include BitcoinHelper
+
+	EntryFee = BigDecimal.new Rails.configuration.payment['entry_fee']
+	NoCodeFee = BigDecimal.new Rails.configuration.payment['nocode_fee']
 
 	def index
 		return render json: get_info if params[:format] === 'json'
@@ -16,36 +18,44 @@ class PaymentController < ApplicationController
 	private
 
 	def get_info
-		payment = Payment.where(user_id: session[:user_id]).first
+		user = session[:user]
+
+		payment = Payment.find_by user_id: user['id']
 
 		if payment.nil?
+			amount_due = EntryFee
+
+			if user['recruit_code_id'].nil?
+				amount_due += NoCodeFee
+			end
+
 			payment = Payment.create(
-				user_id: session[:user_id],
-				amount: Total,
+				user_id: user['id'],
+				amount: amount_due,
 				direction: :in,
 				address: new_address)
 		end
 
 		info = address_info payment.address
 
-		if info[:balance] >= Total
+		if info[:balance] >= payment.amount
 			payment.update(confirmed: true)
 			Transaction.give(
-				User.find(session[:user_id]),
-				Total
+				User.find(user['id']),
+				payment.amount
 			)
 		end
 
 		{
 			address: payment.address,
-			total: Total,
+			total: payment.amount,
 			transactions: info[:transactions],
 			complete: payment.confirmed,
 			qr_url:
 				qrcode_path +
 				'?width=100' +
 				'&height=100' +
-				"&data=bitcoin:#{payment.address}?amount=#{Total}"
+				"&data=bitcoin:#{payment.address}?amount=#{payment.amount}"
 		}
 	end
 end
