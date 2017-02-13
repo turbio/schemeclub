@@ -41,6 +41,7 @@
 		</div>
 	<% end %>
 
+	<%= link_to 'skip for now', dash_url, class: 'small-link' %>
 	<% if !@complete %>
 		<%= link_to 'reload',
 			{ controller: :payment },
@@ -52,3 +53,4 @@
 		<a class="button " href="/">continue &rarr;</a>
 	</div>
 </div>
+<%= link_to 'confused? let us explain', welcome_url, class: 'welcome-link' %>

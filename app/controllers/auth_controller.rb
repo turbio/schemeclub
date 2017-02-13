@@ -62,7 +62,7 @@ class AuthController < ApplicationController
 		session[:user] = @user
 		session.delete :recruit_code
 
-		redirect_to welcome_path
+		redirect_to payment_path
 	end
 
 	def signup
@@ -77,7 +77,7 @@ class AuthController < ApplicationController
 		session[:user] = @user
 		session.delete :recruit_code
 
-		redirect_to welcome_path
+		redirect_to payment_path
 	end
 
 	def valid_name

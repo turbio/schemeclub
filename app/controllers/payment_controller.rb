@@ -41,7 +41,7 @@ class PaymentController < ApplicationController
 				payment.update(confirmed: true)
 				Transaction.give(
 					User.find(user['id']),
-					payment.amount
+					16
 				)
 			end
 		else
