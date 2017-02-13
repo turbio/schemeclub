@@ -20,7 +20,13 @@ class AuthController < ApplicationController
 		end
 	end
 
+	def join
+		return redirect_to dash_path unless session[:user].nil?
+	end
+
 	def join_with_code
+		return redirect_to dash_path unless session[:user].nil?
+
 		@code =
 			if params.include? :id
 				session[:recruit_code] = RecruitCode

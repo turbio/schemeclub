@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 	end
 
 	constraints(AuthConstraint.new) do
-		root to: 'dash#index', as: 'dashboard'
+		root to: 'dash#index', as: 'dash'
 		get '/payment' => 'payment#index'
 		get '/qr' => 'qrcode#index', as: 'qrcode'
 		post '/new_code' => 'dash#new_code'
