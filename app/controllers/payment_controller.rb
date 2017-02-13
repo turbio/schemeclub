@@ -24,26 +24,30 @@ class PaymentController < ApplicationController
 
 		if payment.nil?
 			amount_due = EntryFee
-
-			if user['recruit_code_id'].nil?
-				amount_due += NoCodeFee
-			end
+			amount_due += NoCodeFee if user['recruit_code_id'].nil?
 
 			payment = Payment.create(
 				user_id: user['id'],
 				amount: amount_due,
 				direction: :in,
-				address: new_address)
+				address: new_address
+			)
 		end
 
-		info = address_info payment.address
+		if !payment.confirmed
+			info = address_info payment.address
 
-		if info[:balance] >= payment.amount
-			payment.update(confirmed: true)
-			Transaction.give(
-				User.find(user['id']),
-				payment.amount
-			)
+			if info[:balance] >= payment.amount
+				payment.update(confirmed: true)
+				Transaction.give(
+					User.find(user['id']),
+					payment.amount
+				)
+			end
+		else
+			info = {
+				transactions: []
+			}
 		end
 
 		{

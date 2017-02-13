@@ -31,7 +31,6 @@ class AuthController < ApplicationController
 				session[:recruit_code]
 			end
 
-
 		return render 'error', locals: { error: 'code not found'} if @code.nil?
 
 		render 'join'
@@ -76,14 +75,15 @@ class AuthController < ApplicationController
 	end
 
 	def valid_name
-		render status: 400, nothing: true unless params[:name]
+		return render status: 400, nothing: true unless params[:name]
 
 		user = User.where('lower(name) = ?', params[:name].downcase).first
 		render json: !user.nil?
 	end
 
 	def valid_credentials
-		render status: 400, nothing: true unless params[:name] && params[:password]
+		name, password = params.values_at :name, :password
+		return render status: 400, nothing: true unless name && password
 
 		user = User.authenticate(params[:name], params[:password])
 		render json: !user.nil?

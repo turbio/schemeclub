@@ -11,12 +11,15 @@ class DashController < ApplicationController
 		@user = User.find session[:user]['id']
 
 		if !@user.fee_payed
-			return render 'error', locals: { error: I18n.t('no_fee') }
+			return render 'error',
+				status: 400,
+				locals: { error: I18n.t('no_fee') }
 		end
 
 		if RecruitCode.owned_by(@user).length >= 3
-			render plain: I18n.t('max_codes'), status: 400
-			return
+			return render 'error',
+				locals: { error: I18n.t('max_codes') },
+				status: 400
 		end
 
 		@code = RecruitCode.generate_new_code @user

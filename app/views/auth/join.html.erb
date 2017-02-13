@@ -15,7 +15,7 @@
 		<ul>
 			<% @user.errors.full_messages.each do |msg| %>
 			<li>
-				<%= msg.to_s.downcase %>
+				<%= msg.to_s %>
 			</li>
 			<% end %>
 		</ul>

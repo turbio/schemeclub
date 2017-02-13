@@ -1,4 +1,8 @@
-<h1>Hey, <%= @user.name.capitalize %></h1>
+<% if @logged_in %>
+	<h1>Hey, <%= @user.name.capitalize %></h1>
+<% else %>
+	<h1>Hey!</h1>
+<% end %>
 <p>Welcome to skeem club.</p>
 <p>Lets go over the basics.</p>
 <div class="fig">

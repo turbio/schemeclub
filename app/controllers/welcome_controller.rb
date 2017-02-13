@@ -1,6 +1,11 @@
 class WelcomeController < ApplicationController
 	def index
-		@user = User.find(session[:user]['id'])
+		if (@logged_in = !session[:user].nil?)
+			@user = User.find(session[:user]['id'])
+		else
+			@user = 'you'
+		end
+
 		@slides = 5
 		@slide = params[:id].to_i
 
