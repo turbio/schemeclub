@@ -10,11 +10,7 @@
 
 <% if !@user.fee_payed %>
 	<%= render 'notification', {
-			text: '
-				You haven\'t finished paying the registration fee yet.<br/>
-				click <a href="/payment">here</a> to proceed so you can start
-				recruiting right away!
-			'.html_safe,
+			text: t('no_fee_notification_html'),
 			type: :warn,
 		}
 	%>

@@ -1,6 +1,6 @@
 <% error ||= @error %>
 <div class="full-page-error">
-	<span>oops, somethig went wrong...</span>
+	<span><%= t('err_500') %></span>
 	<h1><%= error %></h1>
-	←<%= link_to 'back', root_url %>
+	←<%= link_to t('back'), root_url %>
 </div>

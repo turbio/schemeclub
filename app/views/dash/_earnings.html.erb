@@ -1,12 +1,12 @@
 <div class="dash-section">
-	<h1>Earnings <%= as_currency @user.earned, true %></h1>
+  <h1><%= t('earnings_sect') %> <%= as_currency @user.earned, true %></h1>
 	<ol>
 		<% @user.transactions.each do |t| %>
 			<%= render "transaction", transaction: t %>
 		<% end %>
 	</ol>
 	<% if @user.children.length == 0 %>
-		<p>you haven't recruited any subordinates yet</p>
+    <p><%= t('no_recruits') %></p>
 	<% end %>
 </div>
 
