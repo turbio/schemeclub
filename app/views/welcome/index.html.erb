@@ -23,8 +23,8 @@
 	<% if !@slide || @slide < @slides - 1 %>
 		<%= link_to 'next', { id: @slide.to_i + 1 }, class: 'next side-btn'%>
 	<% elsif @looged_in %>
-		<%= link_to 'done', { controller: :dash }, class: 'done side-btn' %>
+		<%= link_to 'done', { controller: :dash }, class: 'done next side-btn' %>
 	<% else %>
-		<%= link_to 'done', join_path, class: 'done side-btn' %>
+		<%= link_to 'done', join_path, class: 'done next side-btn' %>
 	<% end %>
 </div>

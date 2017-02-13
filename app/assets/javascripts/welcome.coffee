@@ -210,7 +210,7 @@ set_stage = ->
 
 goto_slide = (direction) ->
 	if current_slide == max_slide && direction == 1
-		window.location = '/'
+		window.location = '/join'
 
 	if current_slide + direction > max_slide || current_slide + direction < 0
 		return current_slide = 0
