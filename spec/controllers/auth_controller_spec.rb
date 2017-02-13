@@ -77,7 +77,7 @@ RSpec.describe AuthController, type: :controller do
 			expect(user.name).to eq 'child'
 			expect(user.parent.name).to eq 'root'
 
-			expect(response).to redirect_to '/welcome'
+			expect(response).to redirect_to '/payment'
 		end
 
 		it 'should reject signup and show error with invalid data' do
@@ -119,7 +119,7 @@ RSpec.describe AuthController, type: :controller do
 			expect(user.name).to eq 'child'
 			expect(user.parent.name).to eq 'parent'
 
-			expect(response).to redirect_to '/welcome'
+			expect(response).to redirect_to '/payment'
 		end
 	end
 
