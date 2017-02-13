@@ -5,8 +5,6 @@ class DashController < ApplicationController
 		@codes = RecruitCode.owned_by @user
 
 		@allowed_to_create_codes = @codes.length < 3
-
-		@fee_payed = false
 	end
 
 	def new_code

@@ -55,6 +55,10 @@ class User < ActiveRecord::Base
 			.order(created_at: :desc)
 	end
 
+	def fee_payed
+		Payment.find_by(user_id: id)&.confirmed
+	end
+
 	def self.authenticate(name, password)
 		@user = User.where("lower(name) = ?", name.downcase).first
 

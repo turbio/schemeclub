@@ -2,7 +2,9 @@
 	<h1>Recruit codes</h1>
 	<ul class="recruit-codes">
 		<% if @user.children.length == 0 && @codes.size != 0 %>
-			<div class="instruction-dialog">now share this code with someone you want to recruit</div>
+			<div class="instruction-dialog">
+				now share this code with someone you want to recruit
+			</div>
 		<% end %>
 		<% @codes.each do |code| %>
 			<li>
@@ -14,16 +16,22 @@
 			</li>
 		<% end %>
 	</ul>
-	<% if @allowed_to_create_codes %>
-		<%= form_for :new_code, url: {action: "new_code"} do |f| %>
-			<% if @codes.size == 0 && @user.children.length == 0 %>
-				<div class="instruction-dialog">create a code to start recruiting people into your pyramid</div>
-			<% end %>
-			<%= f.submit 'new recruit code', :class => 'submit-button' %>
-		<% end %>
-	<% else %>
+	<% if !@user.fee_payed %>
+		<div class="error-message">
+			you need to pay the registration fee before you can recruit anyone.
+		</div>
+	<% elsif !@allowed_to_create_codes %>
 		<div class="error-message">
 			you can't create any more recruit codes at the moment
 		</div>
+	<% else %>
+		<%= form_for :new_code, url: {action: "new_code"} do |f| %>
+			<% if @codes.size == 0 && @user.children.length == 0 %>
+				<div class="instruction-dialog">
+					create a code to start recruiting people into your pyramid
+				</div>
+			<% end %>
+			<%= f.submit 'new recruit code', :class => 'submit-button' %>
+		<% end %>
 	<% end %>
 </div>
