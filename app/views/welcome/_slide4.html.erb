@@ -1,4 +1,12 @@
-<h1>That's about it.</h1>
-<p>The more you recruit, the more you earn.</p>
-<%= image_tag 'triangle_logo.svg' %>
-<h1 class="foot-message">Have fun!</h1>
+<h1>You can cash out at any time.</h1>
+<p>This will transfer your earnings out of Skeem Club.</p>
+<p>But keep in mind, this will also close your account.</p>
+<div class="fig">
+	<%= image_tag 'skeem_to_btc.svg', id: 'skeem-to-btc' %>
+	<div class="net-profit currency">
+		<%= as_currency 32, true %>
+	</div>
+	<div class="part">
+		<%= image_tag 'bitcoin_logo.svg', id: 'bitcoin-logo' %>
+	</div>
+</div>

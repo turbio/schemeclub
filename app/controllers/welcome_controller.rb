@@ -6,11 +6,15 @@ class WelcomeController < ApplicationController
 			@user = 'you'
 		end
 
-		@slides = 5
+		@slides = 6
 		@slide = params[:id].to_i
 
 		if !(0...@slides).include? @slide
 			@slide = 0
 		end
+	end
+
+	def about
+		@user = 'You'
 	end
 end

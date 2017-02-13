@@ -1,0 +1,10 @@
+<h1>That's about it.</h1>
+<p>The more you recruit, the more you earn.</p>
+<%= image_tag 'triangle_logo.svg' %>
+<% if @logged_in %>
+	<h1 class="foot-message">Have fun!</h1>
+<% else %>
+	<h1 class="foot-message">
+		<%= link_to 'Join now and start recruiting!', join_url %>
+	</h1>
+<% end %>

@@ -137,7 +137,7 @@ $dialog-width: 600px;
 	}
 }
 
-#slide_1{
+#slide_2{
 	.child-earnings{
 		bottom: 3.5em;
 		left: 0;
@@ -145,7 +145,7 @@ $dialog-width: 600px;
 	}
 }
 
-#slide_3{
+#slide_4{
 	.part{
 		width: 49%;
 		display: inline-block;
@@ -162,7 +162,7 @@ $dialog-width: 600px;
 	}
 }
 
-#slide_4{
+#slide_5{
 	.foot-message{
 		position: relative;
 		margin: 0;
@@ -191,4 +191,26 @@ $dialog-width: 600px;
 @keyframes spin{
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
+}
+
+#about-dialog-container{
+	text-align: center;
+	width: $dialog-width;
+	height: $dialog-height;
+	margin:auto;
+
+	.slide{
+		position: relative;
+
+		max-width: $dialog-width;
+		height: $dialog-height;
+		margin: 1em;
+
+		overflow: hidden;
+
+		height: $dialog-height;
+		width: 100%;
+
+		background: #fff;
+	}
 }

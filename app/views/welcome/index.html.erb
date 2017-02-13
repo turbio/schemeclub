@@ -14,11 +14,17 @@
 		<%= link_to 'prev', {}, class: 'prev side-btn hide'  %>
 	<% end %>
 
-	<%= link_to 'skip', dashboard_path, id: 'skip-slides' %>
+	<% if @looged_in %>
+		<%= link_to 'skip', dashboard_path, id: 'skip-slides' %>
+	<% else %>
+		<%= link_to 'skip', join_path, id: 'skip-slides' %>
+	<% end %>
 
 	<% if !@slide || @slide < @slides - 1 %>
 		<%= link_to 'next', { id: @slide.to_i + 1 }, class: 'next side-btn'%>
-	<% else %>
+	<% elsif @looged_in %>
 		<%= link_to 'done', { controller: :dash }, class: 'done side-btn' %>
+	<% else %>
+		<%= link_to 'done', join_path, class: 'done side-btn' %>
 	<% end %>
 </div>

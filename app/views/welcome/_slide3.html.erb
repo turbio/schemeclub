@@ -1,12 +1,24 @@
-<h1>You can cash out at any time.</h1>
-<p>This will transfer your earnings out of Skeem Club.</p>
-<p>But keep in mind, this will also close your account.</p>
+<h1>When your subordinates recruit users</h1>
+<p>You will receive <b>half</b> of what they earned.</p>
 <div class="fig">
-	<%= image_tag 'skeem_to_btc.svg', id: 'skeem-to-btc' %>
-	<div class="net-profit currency">
-		<%= as_currency 20, true %>
+	<div class="tree tree-ttb">
+		<ol>
+			<li class="tree-parent">
+				<a class="self"><%= @user.to_s %></a>
+				<ol>
+					<li class="add-to-third">
+						<a>alice<span class="earned-from">8.00</span></a>
+					</li><li>
+						<a>bob<span class="earned-from">8.00</span></a>
+					</li><li class="add-to-first">
+						<a>carol<span class="earned-from">8.00</span></a>
+					</li>
+				</ol>
+			</li>
+		</ol>
 	</div>
-	<div class="part">
-		<%= image_tag 'bitcoin_logo.svg', id: 'bitcoin-logo' %>
+	<div class="net-profit currency negative">
+		<%= as_currency 24, true %>
 	</div>
 </div>
+<div class="replay-button" title="replay"></div>
