@@ -1,0 +1,30 @@
+<%= javascript_include_tag 'welcome', :async => true %>
+<div id="welcome-dialog-container">
+	<div id="slide-container">
+		<% @slides.times do |n| %>
+			<div class="slide<%= ' show' if n == @slide.to_i %>" id="slide_<%= n.to_s %>">
+				<%= render "slide#{n}" %>
+			</div>
+		<% end %>
+	</div>
+
+	<% if @slide && @slide > 0 %>
+		<%= link_to 'prev', ({ id: @slide - 1 }), class: 'prev side-btn'  %>
+	<% else %>
+		<%= link_to 'prev', {}, class: 'prev side-btn hide'  %>
+	<% end %>
+
+	<% if @looged_in %>
+		<%= link_to 'skip', dashboard_path, id: 'skip-slides' %>
+	<% else %>
+		<%= link_to 'skip', join_path, id: 'skip-slides' %>
+	<% end %>
+
+	<% if !@slide || @slide < @slides - 1 %>
+		<%= link_to 'next', { id: @slide.to_i + 1 }, class: 'next side-btn'%>
+	<% elsif @looged_in %>
+		<%= link_to 'done', { controller: :dash }, class: 'done next side-btn' %>
+	<% else %>
+		<%= link_to 'done', join_path, class: 'done next side-btn' %>
+	<% end %>
+</div>

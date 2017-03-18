@@ -1,0 +1,6 @@
+<% error ||= @error %>
+<div class="full-page-error">
+	<span><%= t('err_500') %></span>
+	<h1><%= error %></h1>
+	←<%= link_to t('back'), root_url %>
+</div>

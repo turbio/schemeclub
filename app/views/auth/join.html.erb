@@ -1,0 +1,42 @@
+<h1>Join the club</h1>
+<div class="centered-form-container">
+	<% if @code %>
+		<span class="recruit-by">
+			Recruited by <%= @code['owner']['name'] %>
+		</span>
+	<% else %>
+		<div class="no-recruit-code">
+			There is an extra
+			<%= Rails.configuration.payment['nocode_fee'] %> BTC
+			registration fee when signing up without a recruit code
+		</div>
+	<% end %>
+	<% if @user and @user.errors.any? %>
+		<ul>
+			<% @user.errors.full_messages.each do |msg| %>
+			<li>
+				<%= msg.to_s %>
+			</li>
+			<% end %>
+		</ul>
+	<% end %>
+	<%= form_for :join, url: {action: "join"} do |f| %>
+		<%=
+			f.text_field(
+				:name,
+				:placeholder => 'name',
+				:class => 'name-field'
+			)
+		%>
+		<%=
+			f.password_field(
+				:password,
+				:placeholder => 'password',
+				:class => 'password-field'
+			)
+		%>
+		<%= f.submit :join, :class => 'submit-button' %>
+	<% end %>
+</div>
+<%= link_to 'confused? let us explain', welcome_url, class: 'welcome-link' %>
+<%= link_to 'sign in', signin_url, class: 'footer-link' %>

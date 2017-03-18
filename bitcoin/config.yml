@@ -1,0 +1,19 @@
+driver: 'bitcoind'
+sync_frequency: 10
+user: 'user'
+password: 'password'
+
+redis:
+  port: 6379
+  host: 'redis'
+
+bitcoind:
+  host: 'bitcoind'
+  port: 8332
+  user: 'user'
+  password: 'password'
+  account: 'payments'
+
+electrum:
+  host: 'electrum'
+  port: 7777

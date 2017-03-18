@@ -16,6 +16,18 @@ input{
 	outline: none;
 }
 
+a.button{
+	color: #000;
+	text-decoration: none;
+	background: #ddd;
+	font-size: .8em;
+	padding: 1em;
+} 
+
+.hidden{
+	display: none;
+}
+
 .centered-form-container input{
 	width: 90%;
 	font-size: 1.25em;
@@ -50,4 +62,49 @@ ul, ol{
 }
 
 .valid-input{
+}
+
+.footer-link{
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 1em;
+	color: #888;
+	font-size: .85em;
+	text-decoration: none;
+}
+
+.full-page-error{
+	background: #fff;
+	margin: 10vh 10vw 0 10vw;
+	padding: 3em;
+
+	span{
+		color: #aaa;
+	}
+	a{
+		color: #888;
+	}
+	h1{
+		font-size: 6vw;
+	}
+	span,h1{
+		text-align: left;
+		display: block;
+	}
+}
+
+.welcome-link{
+	display: block;
+	text-align: center;
+	color: #888;
+}
+
+.small-link{
+	display: block;
+	text-align: center;
+	color: #888;
+	text-decoration: none;
+	font-size: 0.90em;
 }

@@ -1,0 +1,122 @@
+$bitcoin-adress-length: 25;
+$form-width: $bitcoin-adress-length * 1em;
+
+.centered-payment-form{
+	max-width: $form-width;
+	width: 98%;
+	margin: 0 auto;
+
+	display: flex;
+	flex-wrap: wrap;
+	align-items: stretch;
+
+	>*{
+		margin-bottom: .5em;
+	}
+
+	span{
+		font-size: 1.25em;
+		padding: 0 .5em;
+	}
+
+	.bitcoin-remaining{
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+
+		>*{
+			display: inline-block;
+			margin-top: .5em;
+		}
+	}
+
+	.bitcoin-amount{
+		position: relative;
+		width: 10em;
+		height: 2.5em;
+
+		label{
+			position: absolute;
+			right: 0;
+			top: 0;
+			line-height: 2.5em;
+			font-size: 1em;
+			color: #888;
+		}
+
+		.remaining{
+			padding-left: .75em;
+			font-size: 1.25em;
+
+			width: 100%;
+			height: 100%;
+		}
+
+	}
+
+	.bitcoin-qr{
+		margin-left: auto;
+	}
+	
+	.bitcoin-address {
+		text-align: center;
+		width: 88%;
+		padding: 0;
+		font-size: 1.125em;
+
+		@media (max-width: $form-width) {
+			font-size: 3.5vw;
+		}
+
+		font-family: monospace;
+	}
+
+	.copy-button{
+		padding: 1em 0;
+		width: 12%;
+		border: none;
+	}
+
+	.reload-button{
+		position: static;
+		display: block;
+
+		width: 24px;
+		height: 24px;
+
+		background-repeat: no-repeat;
+		background-position: center;
+
+		margin-top: .5em;
+		margin-left: auto;
+
+		line-height: 100em;
+		overflow: hidden;
+	}
+
+	.pending-transaction{
+		margin-top: .5em;
+	}
+
+	.transaction-record{
+		width: 100%;
+		padding: 1em;
+		margin: 0;
+		margin-bottom: .5em;
+	}
+
+	.complete-dialog{
+		margin-left: auto;
+
+		>a{
+			display: inline-block;
+			background: rgb(84,200,152);
+			color: #fff;
+		}
+	}
+}
+
+.bitcoin-qr{
+	background: #ffffff;
+	padding: .75em;
+}

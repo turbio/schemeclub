@@ -1,0 +1,25 @@
+<h1>In order to join</h1>
+<p>You'll have to pay an initial registration fee.</p>
+<p>But don't worry, you'll earn this back pretty quickly.</p>
+<div class="fig">
+	<%= image_tag 'point_to_child_earnings0.svg',
+		class: 'child-earnings',
+		id: 'child-earnings-0' %>
+	<%= image_tag 'point_to_child_earnings1.svg',
+		class: 'child-earnings',
+		id: 'child-earnings-1' %>
+	<%= image_tag 'point_to_child_earnings2.svg',
+		class: 'child-earnings',
+		id: 'child-earnings-2' %>
+	<div class="tree tree-ttb">
+		<ol>
+			<li class="tree-parent">
+				<a class="self"><%= @user.to_s %></a>
+			</li>
+		</ol>
+	</div>
+	<div class="net-profit currency negative">
+		<%= as_currency 0, true %>
+	</div>
+</div>
+<div class="replay-button" title="replay"></div>

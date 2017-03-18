@@ -1,31 +1,39 @@
+max_slide = 5
 net_profit = 0
 current_slide = 0
 
 next = $ '.side-btn.next'
 prev = $ '.side-btn.prev'
 
-profit_change_to = (amount) ->
+profit_change_to = (amount, fix=false) ->
+	if fix
+		net_profit = amount
+
 	cur_profit = net_profit
 	net_profit = amount
 
-	interval = setInterval ->
-		if cur_profit >= net_profit
-			end_increment()
-		cur_profit += ((net_profit - cur_profit) / 10) + 0.0001
-		set_currency cur_profit
-	, 16
+	interval = setInterval(
+		->
+			if cur_profit >= net_profit
+				end_increment()
+			cur_profit += ((net_profit - cur_profit) / 10) + 0.00001
+			set_currency cur_profit,
+		16
+	)
 
 	end_increment = ->
 		clearInterval interval
 		set_currency net_profit
 
-set_currency = (val) ->
-	$ '.net-profit'
-	.text '▲' + val.toFixed(2)
+set_currency = (val) -> $('.net-profit').text '▲' + val.toFixed(4)
 
-run_set = (set) ->
-	if set.length > 0
-		setTimeout run_set.bind(this, set), set.shift()() || 0
+set_time = null
+
+run_set = (set, survive=true) ->
+	set_time = setTimeout(
+		run_set.bind(this, set, false),
+		set.shift()() || 0
+	) if set.length > 0
 
 cash_flow_elem = '<span style="
 color: #4CAF50;
@@ -35,18 +43,20 @@ text-shadow: #fff 0px 0px 4px,   #fff 0px 0px 4px,   #fff 0px 0px 4px,
              #fff 0px 0px 4px,   #fff 0px 0px 4px,   #fff 0px 0px 4px,
              #fff 0px 0px 4px,   #fff 0px 0px 4px,   #fff 0px 0px 4px,
              #fff 0px 0px 4px,   #fff 0px 0px 4px,   #fff 0px 0px 4px;
-"></span>'
+" class="sim-elem"></span>'
 
 get_center = (elem) ->
 	elem = $(elem)
 	pos = elem.offset()
+
+	return {} if !pos
 
 	{
 		top: (pos.top + (elem.height() / 2)) + 'px',
 		left: (pos.left + (elem.width() / 2)) + 'px'
 	}
 
-distribute_wealth = (from, value=10) ->
+distribute_wealth = (from, value=16) ->
 	if $(from).hasClass('self')
 		to = $('#slide_' + current_slide + ' .net-profit')
 		end = true
@@ -76,23 +86,28 @@ distribute_wealth = (from, value=10) ->
 
 add_sub = (elem, to) ->
 	child = $(elem).fadeIn()
+	child.addClass('sim-elem')
 	to = to || $('#slide_' + current_slide + ' .child-container')
 	to.append(child)
 	child.ready -> distribute_wealth(child.find('a')[0])
 
 slides = [
 	-> #slide 0
+		profit_change_to 0, true
 	-> #slide 1
-		net_profit = 0
+		profit_change_to 0, true
+	-> #slide 2
+		profit_change_to 0, true
+
 		elems = [
-			'<li style="display: inline-block">
-				<a>alice<span class="earned-from">5.00</span></a>
+			'<li style="display: inline-block" class="sim-elem">
+				<a>alice<span class="earned-from">8.00</span></a>
 			</li>',
-			'<li style="display: inline-block">
-				<a>bob<span class="earned-from">5.00</span></a>
+			'<li style="display: inline-block" class="sim-elem">
+				<a>bob<span class="earned-from">8.00</span></a>
 			</li>',
-			'<li style="display: inline-block">
-				<a>carol<span class="earned-from">5.00</span></a>
+			'<li style="display: inline-block" class="sim-elem">
+				<a>carol<span class="earned-from">8.00</span></a>
 			</li>'
 		]
 
@@ -100,7 +115,7 @@ slides = [
 		profit_elem = $('#slide_' + current_slide + ' .net-profit')
 
 		$('#slide_' + current_slide + ' .tree-parent')
-			.append($('<ol></ol>').addClass('child-container').fadeIn())
+			.append($('<ol></ol>').addClass('child-container sim-elem').fadeIn())
 
 		run_set [
 			->
@@ -110,7 +125,7 @@ slides = [
 				$('#child-earnings-0').fadeIn()
 				1500
 			->
-				profit_change_to 5
+				profit_change_to 8
 				2000
 			->
 				add_sub(elems[1])
@@ -118,7 +133,7 @@ slides = [
 				$('#child-earnings-1').show()
 				1500
 			->
-				profit_change_to 10
+				profit_change_to 16
 				2000
 			->
 				add_sub(elems[2])
@@ -126,20 +141,21 @@ slides = [
 				$('#child-earnings-2').show()
 				1500
 			->
-				profit_change_to 15
+				profit_change_to 24
 				$('.replay-button').fadeIn()
 		]
 
-	-> #slide 2
-		net_profit = 15
+	-> #slide 3
+		profit_change_to 24, true
+
 		elem = [
-			'<ol class="add-to-second">
-				<li style="display: inline-block">
-					<a>dan<span class="earned-from">2.50</span></a>
+			'<ol class="add-to-second" class="sim-elem">
+				<li style="display: inline-block" class="sim-elem">
+					<a>dan<span class="earned-from">4.00</span></a>
 				</li></ol>',
 
-			'<li style="display: inline-block">
-				<a>erin<span class="earned-from">2.50</span></a>
+			'<li style="display: inline-block" class="sim-elem">
+				<a>erin<span class="earned-from">4.00</span></a>
 			</li>'
 		]
 
@@ -150,77 +166,92 @@ slides = [
 				500
 			->
 				add_sub(elem[0], to_add_to)
-				to_add_to.find('span').first().text '7.50'
+				to_add_to.find('span').first().text '12.00'
 				3000
 			->
-				profit_change_to 17.5
+				profit_change_to 28
 				1000
 			->
-				to_add_to.find('span').first().text '10.00'
+				to_add_to.find('span').first().text '16.00'
 
 				to_add_to = $ '#slide_' + current_slide + ' .add-to-second'
 				add_sub(elem[1], to_add_to)
 				3000
 			->
-				profit_change_to 20
+				profit_change_to 32
 				$('.replay-button').fadeIn()
 		]
-		-> #slide 3
 		-> #slide 4
+			profit_change_to 32, true
+		-> #slide 5
 ]
 
-check_slide = (slide) ->
-	if slides[slide]
-		slides[slide]()
+run_slide = -> slides[current_slide]() if slides[current_slide]
 
-next_slide = (slide) ->
-	if slide == 0
-		prev.animate({
-			opacity: '1'
-		}, 420)
+set_stage = ->
+	if current_slide == 0
+		prev.animate { opacity: '0' }, 420, -> $(prev).css('display', 'none')
+	else
+		$(prev).css('display', 'block')
+		prev.animate { opacity: '1' }, 420
 
-	$('#slide_' + (slide + 1))
-		.css('left', '100%')
+	if current_slide == 5
+		$(next).addClass 'done'
+		$(next).removeClass 'next'
+	else
+		$(next).addClass 'next'
+		$(next).removeClass 'done'
+
+	$('.sim-elem').remove()
+	$('#child-earnings-0').hide()
+	$('#child-earnings-1').hide()
+	$('#child-earnings-2').hide()
+	clearTimeout set_time
+
+goto_slide = (direction) ->
+	if current_slide == max_slide && direction == 1
+		window.location = '/join'
+
+	if current_slide + direction > max_slide || current_slide + direction < 0
+		return current_slide = 0
+
+	next_slide = $('#slide_' + (current_slide + direction))
+	cur_slide = $('#slide_' + current_slide)
+
+	current_slide += direction
+
+	history.pushState({}, '', '/welcome/' + current_slide);
+	set_stage()
+
+	next_slide
+		.css('left', (direction) + '00%')
 		.addClass('show')
-		.animate({
-			left: '0'
-		},
-		420,
-		-> document.location = $(next).attr('href'))
+		.animate(
+			{ left: '0' },
+			420,
+			->
+				run_slide()
+		)
 
-	$('#slide_' + slide).animate({
-			left: '-100%'
-		}, 420)
-	false
-
-prev_slide = (slide) ->
-	if slide == 1
-		prev.animate({
-			opacity: '0'
-		}, 420)
-
-	$('#slide_' + (slide - 1))
-		.css('left', '-100%')
-		.addClass('show')
-		.animate({
-			left: '0'
-		},
-		420,
-		-> document.location = $(prev).attr('href'))
-
-	$('#slide_' + slide).animate({
-			left: '100%'
-		}, 420)
-	false
+	cur_slide.animate { left: (direction * -1) + '00%' }, 420
 
 $ ->
 	current_slide = parseInt(location.pathname.split('/').slice(-1)[0]) || 0
 
-	check_slide(current_slide)
-	next.on 'click', next_slide.bind(null, current_slide)
-	prev.on 'click', prev_slide.bind(null, current_slide)
+	next.on 'click', ->
+		goto_slide 1
+		false
+	prev.on 'click', ->
+		goto_slide -1
+		false
 
-	$('.replay-button').on 'click', ->
-		$(this).fadeOut()
-		location.reload()
+	set_stage()
+	run_slide()
+
+	$('.replay-button').on(
+		'click',
+		->
+			set_stage()
+			run_slide()
+	)
 

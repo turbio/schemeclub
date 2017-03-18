@@ -20,4 +20,24 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  back: back
+  here: here
+  copy: copy
+
+  err_500: oops, something went wrong...
+
+  max_codes: Maximum of 3 recruit codes allowed
+  no_fee_notification_html: >
+    You haven't finished paying the registration fee yet.<br/>
+    click <a href="/payment">here</a> to proceed
+    so you can start recruiting right away!
+
+  recruit_codes_sect: Recruit codes
+  no_fee: You need to pay the registration fee before you can recruit anyone.
+  no_more_codes: You can't create any more recruit codes at the moment.
+  recruit_cta: Now share this code with someone you want to recruit!
+  code_cta: Create a code to start recruiting people into your pyramid
+  num_recruited: recruited
+
+  earnings_sect: Earnings
+  no_recruits: You haven't recruited any subordinates yet

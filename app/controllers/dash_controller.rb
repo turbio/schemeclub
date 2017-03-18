@@ -1,22 +1,28 @@
 class DashController < ApplicationController
 	def index
-		return render 'index' if session[:user_id].nil?
-		@user = User.find(session[:user_id])
-		@codes = RecruitCode.owned_by(@user)
+		return render 'index' if session[:user].nil?
+		@user = User.find session[:user]['id']
+		@codes = RecruitCode.owned_by @user
 
 		@allowed_to_create_codes = @codes.length < 3
 	end
 
 	def new_code
-		return redirect_to root_path if session[:user_id].nil?
-		@user = User.find(session[:user_id])
+		@user = User.find session[:user]['id']
 
-		if RecruitCode.owned_by(@user).length >= 3
-			render plain: 'maximum of 3 recruit codes', status: 400
-			return
+		if !@user.fee_payed
+			return render 'error',
+				status: 400,
+				locals: { error: I18n.t('no_fee') }
 		end
 
-		@code = RecruitCode.generate_new_code(@user)
+		if RecruitCode.owned_by(@user).length >= 3
+			return render 'error',
+				locals: { error: I18n.t('max_codes') },
+				status: 400
+		end
+
+		@code = RecruitCode.generate_new_code @user
 		redirect_to root_path
 	end
 end

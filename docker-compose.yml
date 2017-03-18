@@ -1,0 +1,38 @@
+version: '2'
+services:
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=skeemclub
+
+  redis:
+    image: redis:alpine
+
+  bitcoind:
+    image: kylemanna/bitcoind
+    command: bitcoind -rpcallowip=::/0 -rpcport=8332 -rpcuser=user -rpcpassword=password -regtest -printtoconsole
+
+  electrum:
+    build: ./electrum
+
+  bitcoin-adapter:
+    build: ./bitcoin
+    command: ruby server.rb -p 4567 -o '0.0.0.0'
+    volumes:
+      - ./bitcoin:/bitcoin
+    depends_on:
+      - electrum
+      - bitcoind
+      - redis
+
+  web:
+    build: .
+    command: bundle exec rails server -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/app
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+      - bitcoin-adapter

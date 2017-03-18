@@ -1,0 +1,23 @@
+<% if @logged_in %>
+	<h1>Hi <%= @user.name.capitalize %>, Welcome to skeem club!</h1>
+<% else %>
+	<h1>Hey, Welcome to skeem club!</h1>
+<% end %>
+<p>
+	An easy to use bitcoin-based pyramid scheme simulator.
+</p>
+<p>lets go over the basics.</p>
+<div class="fig">
+	<%= image_tag 'point_to_user.svg', id: 'point-to-user' %>
+	<%= image_tag 'point_to_earnings.svg', id: 'point-to-earnings' %>
+	<div class="tree tree-ttb">
+		<ol>
+			<li>
+				<a><%= @user.to_s %></a>
+			</li>
+		</ol>
+	</div>
+	<div class="net-profit currency negative">
+		<%= as_currency (0), true %>
+	</div>
+</div>

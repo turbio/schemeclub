@@ -1,0 +1,30 @@
+<div class="dash-section">
+	<h1><%= t('recruit_codes_sect') %></h1>
+	<ul class="recruit-codes">
+		<% if @user.children.length == 0 && @codes.size != 0 %>
+			<div class="instruction-dialog"><%= t('recruit_cta') %></div>
+		<% end %>
+		<% @codes.each do |code| %>
+			<li>
+				<input id="code-<%= code.code.to_s %>" type="text" class="recruit-code" value="<%= (root_url + code.code).to_s %>" readonly>
+				<input type="button" class="copy-button" data-clipboard-target="#code-<%= code.code.to_s%>" value="<%= t('copy') %>">
+				<div class="code-expire-time">
+					<%= code.users.length %> <%= t('num_recruited') %>
+				</div>
+			</li>
+		<% end %>
+	</ul>
+
+	<% if !@user.fee_payed %>
+		<div class="error-message"><%= t('no_fee') %></div>
+	<% elsif !@allowed_to_create_codes %>
+		<div class="error-message"><%= t('no_more_codes') %></div>
+	<% else %>
+		<%= form_for :new_code, url: {action: "new_code"} do |f| %>
+			<% if @codes.size == 0 && @user.children.length == 0 %>
+				<div class="instruction-dialog"><%= t('code_cta') %></div>
+			<% end %>
+			<%= f.submit 'new recruit code', :class => 'submit-button' %>
+		<% end %>
+	<% end %>
+</div>
